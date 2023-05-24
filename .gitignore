@@ -125,5 +125,6 @@ Temporary Items
 #Others
 libft/
 bin/
+minishell
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,c,macos,visualstudiocode
