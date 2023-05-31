@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:24 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/24 18:08:44 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:37:50 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	main(void)
 {
-	printf("Hello World!\n");
+	char *str = getenv("PWD");
+
+	printf("%s\n", str);
 }
