@@ -54,5 +54,4 @@
 | tgetnum       	| Retrieves a numeric capability from the terminfo database      								|
 | tgetstr       	| Retrieves a string capability from the terminfo database       								|
 | tgoto         	| Translates a cursor motion to a string                        								|
-| tputs         	| Outputs a string to the terminal                              								|
-| ----------------- | --------------------------------------------------------------------------------------------- |
+| tputs | Outputs a string to the terminal  |
