@@ -2,6 +2,7 @@ NAME		=	minishell
 
 BIN_DIR		=	bin/
 PROMPT_DIR	=	src/prompt/
+PARSING_DIR	=	src/parsing/
 LIBFT_DIR	=	libft/
 
 CC			=	gcc
@@ -10,17 +11,23 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS	=	minishell.c
 
-OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
+PARSING_SRCS	=	parsing.c
+
+PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
+PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${PARSING_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) libft $(NAME)
 	@echo "Minishell compiled!"
 
-$(NAME): $(OBJS)
+$(NAME): $(PROMPT_OBJS) $(PARSING_OBJS)
 	@echo "minishell compiling"
-	@$(CC) -lreadline $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) -lreadline $(PROMPT_OBJS) $(PARSING_OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
