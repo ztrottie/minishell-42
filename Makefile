@@ -1,17 +1,18 @@
-NAME		=	minishell
+NAME			=	minishell
 
-BIN_DIR		=	bin/
-PROMPT_DIR	=	src/prompt/
-PARSING_DIR	=	src/parsing/
-LIBFT_DIR	=	libft/
+BIN_DIR			=	bin/
+PROMPT_DIR		=	src/prompt/
+PARSING_DIR		=	src/parsing/
+LIBFT_DIR		=	libft/
 
-CC			=	gcc
-CFLAGS		=	-Wextra -Wall -Werror
-LIBFT		=	$(LIBFT_DIR)libft.a
+CC				=	gcc
+CFLAGS			=	-Wextra -Wall -Werror
+LIBFT			=	$(LIBFT_DIR)libft.a
 
-PROMPT_SRCS	=	minishell.c
+PROMPT_SRCS		=	minishell.c
 
-PARSING_SRCS	=	parsing.c
+PARSING_SRCS	=	parsing.c \
+					utils.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
@@ -34,8 +35,11 @@ $(BIN_DIR):
 
 libft:
 	@if [ ! -d "$(LIBFT_DIR)" ]; then \
-		echo "libft directory does not exist, cloning..."; \
-		git clone -q git@github.com:ztrottie/libft.git $(LIBFT_DIR); \
+        echo "libft directory does not exist, cloning..."; \
+        git clone -q git@github.com:ztrottie/libft.git $(LIBFT_DIR); \
+    else \
+        echo "libft directory already exists, pulling latest version..."; \
+        cd $(LIBFT_DIR) && git pull; \
 	fi
 	@$(MAKE) -sC $(LIBFT_DIR)
 
