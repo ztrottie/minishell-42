@@ -6,13 +6,14 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 12:40:54 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/06 12:41:59 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:27:18 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_H
-# define PROMPT_h
+# define PROMPT_H
 
-
+# include "minishell.h"
+# include "cmds.h"
 
 #endif

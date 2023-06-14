@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/07 14:05:33 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:51:32 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,36 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <unistd.h>
-# include "parsing.h"
+# include <stdbool.h>
 
-typedef struct	s_commands
+typedef struct	s_files
 {
+	char			*name;
+	int				fd;
+	int				cmd_nb;
+}	t_files;
+
+typedef struct	s_cmds
+{
+	int		nb;
 	char	*name;
 	char	*args;
 	char	*content;
-}	t_commands;
+	int		nb_input;
+	t_files	*input_fds;
+	int		nb_output;
+	t_files	*output_fds;
+}	t_cmds;
 
-typedef	struct	s_pipe
+typedef struct	s_data
 {
-	t_commands	*cmd1;
-	t_commands	*cmd2;
-}	t_pipe;
-
+	t_cmds	*cmds;
+	int		**pipe;
+	int		nb_cmds;
+	t_files	*input_fds;
+	t_files	*output_fds;
+}	t_data;
 
 #endif

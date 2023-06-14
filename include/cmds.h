@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   cmds.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 15:56:18 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/13 16:00:11 by ztrottie         ###   ########.fr       */
+/*   Created: 2023/06/14 16:15:28 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/06/14 16:27:05 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parsing.h"
+#ifndef CMDS_H
+# define CMDS_H
 
-size_t	ft_x2strlen(char **str)
-{
-	int	i;
+# include "minishell.h"
 
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+void	commands_init(t_data *data, char *line);
+
+#endif
