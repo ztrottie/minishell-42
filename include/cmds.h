@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:15:28 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/14 16:27:05 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:55:45 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 # include "minishell.h"
 
 void	commands_init(t_data *data, char *line);
+char 	**split_command(char *line);
+int		is_metachar(int c);
 
 #endif
