@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/16 14:26:21 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/20 01:01:17 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+# define METACHAR "|<>"
+# define SUCCES 0
+# define FAILURE 1
 
 typedef struct	s_files
 {

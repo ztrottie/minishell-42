@@ -6,57 +6,32 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:45:13 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/16 17:08:07 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/20 03:33:24 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cmds.h"
 
-size_t	token_count(char const *s)
+void	parse_command(t_lines *lines)
 {
-	size_t	i;
-	size_t	count;
-	int		trigger;
-
-	i = 0;
-	trigger = 1;
-	count = 0;
-	while (i <= ft_strlen(s))
+	while (lines->line[lines->i_line])
 	{
-		if ((ft_isspace(s[i]) || s[i] == 0) && trigger == 0)
-		{
-			count++;
-			trigger = 1;
-		}
-		else if (is_metachar(s[i]))
-		{
-			if (s[i + 1] && is_metachar(s[i + 1]))
-				i++;
-			count++;
-		}
-		else if (s[i] == '"')
-		{
-			i++;
-			while (s[i] != '"')
-				i++;
-			count++;
-		}
-		else if (s[i] == 39)
-		{
-			i++;
-			while (s[i] != 39)
-				i++;
-			count++;
-		}
-		else if (!ft_isspace(s[i]) && trigger == 1)
-			trigger = 0;
-		i++;
+		lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
+		lines->i_parsed_line++;
+		lines->i_line++;
 	}
-	return (count);
 }
 
-char **split_command(char *line)
+char **split_command(char *line_read)
 {
-	printf("%zu\n", token_count(line));
+	int		len;
+	t_lines	lines;
+	
+	ft_bzero(&lines, sizeof(t_lines));
+	lines.line = line_read;
+	len = ft_strlen(line_read) + nb_metachar(line_read) * 3;
+	lines.parsed_line = ft_calloc(len, sizeof(char *));
+	parse_command(&lines);
+	printf("%s %d\n", lines.parsed_line, len);
 	return (NULL);
 }
