@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:49:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/20 01:45:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:04:42 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,18 @@ size_t	nb_metachar(char *line)
 	return (count);
 }
 
+int	is_quote(int c)
+{
+	if (c == 34)
+		return (DOUBLE_QUOTE);
+	if (c == 39)
+		return (SINGLE_QUOTE);
+	return (0);
+}
+
 int	is_metachar(int c)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (METACHAR[i])

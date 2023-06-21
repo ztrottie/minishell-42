@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:03:24 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/21 15:20:24 by ztrottie         ###   ########.fr       */
+/*   Created: 2023/06/21 13:58:06 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/06/21 16:03:41 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/prompt.h"
+#include "../../include/cmds.h"
 
-int	main(void)
+void	single_quote_control(t_lines *lines)
 {
-	char 	*line;
-	t_data	data;
-	
-	ft_bzero(&data, sizeof(t_data));
-	while (ft_strncmp(line, "exit\0", 5) != 0)
+	lines->i_line++;
+	while (is_quote(lines->line[lines->i_line]) != SINGLE_QUOTE)
 	{
-		line = readline("minishell> ");
-		commands_init(&data, line);
-		add_history(line);
+		lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
+		lines->i_parsed_line++;
+		lines->i_line++;
 	}
-	clear_history();
+	lines->i_line++;
+}
+
+void	double_quote_control(t_lines *lines)
+{
+	
 }

@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/20 01:01:17 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:53:12 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdbool.h>
 
 # define METACHAR "|<>"
+# define SINGLE_QUOTE 1
+# define DOUBLE_QUOTE 2
 # define SUCCES 0
 # define FAILURE 1
 
@@ -39,7 +41,7 @@ typedef struct	s_cmds
 	int		nb;
 	char	*name;
 	char	*args;
-	char	*content;
+	char	**content;
 	int		nb_input;
 	t_files	*input_fds;
 	int		nb_output;
