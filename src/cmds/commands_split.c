@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:45:13 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/21 14:59:43 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:17:13 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	operator_control(t_lines *lines, int operator)
 {
+	if (lines->line[lines->i_line - 1] && lines->parsed_line[lines->i_parsed_line - 1] != 29)
+	{
+		lines->parsed_line[lines->i_parsed_line] = 29;
+		lines->i_parsed_line++;
+	}
 	while (operator > 0)
 	{
 		lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
@@ -35,13 +40,14 @@ void	space_control(t_lines *lines)
 	lines->i_line++;
 }
 
-void	quotes_control(t_lines *lines, int quote)
+void	quotes_control(t_data *data, t_lines *lines, int quote)
 {
+	(void)data;
 	if (quote == SINGLE_QUOTE)
 		single_quote_control(lines);
 }
 
-void	parse_command(t_lines *lines)
+void	parse_command(t_data *data, t_lines *lines)
 {
 	int	operator;
 	int	quote;
@@ -57,7 +63,7 @@ void	parse_command(t_lines *lines)
 		else if (ft_isspace(lines->line[lines->i_line]))
 			space_control(lines);
 		else if (quote > 0)
-			quotes_control(lines, quote);
+			quotes_control(data, lines, quote);
 		else
 		{
 			lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
@@ -67,7 +73,7 @@ void	parse_command(t_lines *lines)
 	}
 }
 
-char **split_command(char *line_read)
+char **split_command(t_data *data, char *line_read)
 {
 	int		len;
 	t_lines	lines;
@@ -78,7 +84,7 @@ char **split_command(char *line_read)
 	lines.line = line_read;
 	len = ft_strlen(line_read) + nb_metachar(line_read) * 2;
 	lines.parsed_line = ft_calloc(len, sizeof(char *));
-	parse_command(&lines);
+	parse_command(data, &lines);
 	ft_printf("%s\n", lines.parsed_line);
 	parse_line = ft_split(lines.parsed_line, 29);
 	word = ft_word_count(lines.parsed_line, 29);

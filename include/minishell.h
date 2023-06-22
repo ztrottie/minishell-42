@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/21 13:53:12 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:02:46 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_data
 	t_cmds	*cmds;
 	int		**pipe;
 	int		nb_cmds;
+	char	**env;
 	t_files	*input_fds;
 	t_files	*output_fds;
 }	t_data;

@@ -14,7 +14,8 @@ PROMPT_SRCS		=	minishell.c
 CMDS_SRCS		=	commands_init.c \
 					commands_split.c \
 					utils.c \
-					quotes.c
+					quotes.c \
+					environment.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 CMDS_OBJS		=	$(addprefix ${BIN_DIR}, ${CMDS_SRCS:.c=.o})
