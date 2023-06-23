@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:45:13 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/22 17:17:13 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:08:52 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,17 @@ void	space_control(t_lines *lines)
 
 void	quotes_control(t_data *data, t_lines *lines, int quote)
 {
-	(void)data;
 	if (quote == SINGLE_QUOTE)
 		single_quote_control(lines);
+	if (quote == DOUBLE_QUOTE)
+		double_quote_control(data, lines);
 }
 
 void	parse_command(t_data *data, t_lines *lines)
 {
 	int	operator;
 	int	quote;
-	size_t	len;
 	
-	len = ft_strlen(lines->line);
 	while (lines->line[lines->i_line])
 	{
 		operator = is_operator(lines->line, lines->i_line);

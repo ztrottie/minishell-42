@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:58:06 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/22 17:16:55 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:12:52 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@ void	single_quote_control(t_lines *lines)
 		lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
 		lines->i_parsed_line++;
 		lines->i_line++;
+	}
+	lines->i_line++;
+}
+
+
+void	double_quote_control(t_data *data, t_lines *lines)
+{
+	lines->i_line++;
+	while (is_quote(lines->line[lines->i_line]) != DOUBLE_QUOTE)
+	{
+		if (lines->line[lines->i_line] == '$')
+		{
+			
+		}
+		else
+		{
+			lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
+			lines->i_parsed_line++;
+			lines->i_line++;
+		}
 	}
 	lines->i_line++;
 }
