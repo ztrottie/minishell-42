@@ -12,7 +12,7 @@ typedef struct s_lines
 	size_t		i_parsed_line;
 }	t_lines;
 
-void	commands_init(t_data *data, char *line);
+int		commands_init(t_data *data, char *line);
 void	split_command(t_data *data, t_lines *lines);
 int		is_metachar(int c);
 int		is_operator(char *line, int index);

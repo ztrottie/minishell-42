@@ -3,6 +3,7 @@
 int	main(int argc, char **argv, char **env)
 {
 	char 	*line;
+	int		i;
 	t_data	data;
 	char	cwd[256];
 
@@ -13,11 +14,15 @@ int	main(int argc, char **argv, char **env)
 	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 	pwd(&data);
 	while (1)
+	i = 0;
+	while (i < 10)
 	{
 		line = readline("minishell> ");
+		parsing(line, &data);
 		commands_init(&data, line);
 		add_history(line);
+		i++;
 	}
-	clear_history();
-	return (0);
+	rl_clear_history();
 }
+
