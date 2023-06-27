@@ -5,6 +5,9 @@
 		"algorithm": "c",
 		"bitset": "c",
 		"chrono": "c",
-		"unordered_map": "c"
+		"unordered_map": "c",
+		"env.h": "c",
+		"error.h": "c",
+		"parsing.h": "c"
 	}
 }
