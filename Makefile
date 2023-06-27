@@ -4,8 +4,11 @@ BIN_DIR			=	bin/
 PROMPT_DIR		=	src/prompt/
 CMDS_DIR		=	src/cmds/
 PARSING_DIR		=	src/parsing/
+ERROR_DIR		=	src/error/
 ENV_DIR			=	src/env/
 LIBFT_DIR		=	libft/
+READLINE		=	readline/libreadline.a
+HISTORY			=	readline/libhistory.a
 
 CC				=	gcc
 CFLAGS			=	-Wextra -Wall -Werror
@@ -18,6 +21,8 @@ CMDS_SRCS		=	commands_init.c \
 					commands_utils.c \
 					quotes.c \
 
+ERROR_SRCS		=	ft_exit.c
+
 ENV_SRCS		=	environment.c \
 					variable.c \
 					env_utils.c
@@ -28,6 +33,7 @@ PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 CMDS_OBJS		=	$(addprefix ${BIN_DIR}, ${CMDS_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
 PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
+ERROR_OBJS		=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
@@ -41,12 +47,15 @@ ${BIN_DIR}%.o: ${ENV_DIR}%.c
 ${BIN_DIR}%.o: ${PARSING_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
+${BIN_DIR}%.o: ${ERROR_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
 all: $(BIN_DIR) libft $(NAME)
 	@echo "Minishell compiled!"
 
-$(NAME): $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS)
+$(NAME): $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS) $(ERROR_OBJS)
 	@echo "minishell compiling"
-	@$(CC) -lreadline $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS) $(ERROR_OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
