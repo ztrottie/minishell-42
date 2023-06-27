@@ -39,10 +39,10 @@ int	echo(char **content)
 	}
 	if (check_if_option(content) == 0)
 		printf("\n");
-	return (1);
+	return (SUCCESS);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	(void) ac;
 	echo(av);
