@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:03:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/22 22:11:31 by ztrottie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -26,21 +14,22 @@
 # define METACHAR "|<>"
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
-# define SUCCES 0
-# define FAILURE 1
+# define VALID 1
+# define INVALID 0
+# define SUCCESS 0
+# define FAILURE -1
 
-typedef struct	s_files
+typedef struct s_files
 {
 	char			*name;
 	int				fd;
 	int				cmd_nb;
 }	t_files;
 
-typedef struct	s_cmds
+typedef struct s_cmds
 {
 	int		nb;
 	char	*name;
-	char	*args;
 	char	**content;
 	int		nb_input;
 	t_files	*input_fds;
@@ -48,7 +37,7 @@ typedef struct	s_cmds
 	t_files	*output_fds;
 }	t_cmds;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	t_cmds	*cmds;
 	int		**pipe;

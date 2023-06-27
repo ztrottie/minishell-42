@@ -1,19 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   commands_init.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:15:07 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/22 22:00:20 by ztrottie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/cmds.h"
 
-void	commands_init(t_data *data, char *line)
+size_t	parsed_line_size(t_data *data, char *line_read)
 {
-	data->nb_cmds = ft_word_count(line, '|');
-	split_command(data, line);
+	size_t	len;
+
+	len = 0;
+	len += ft_strlen(line_read);
+	len += nb_metachar(line_read);
+	len += variable_content_len(data, line_read);
+	return (len);
+}
+
+void	commands_init(t_data *data, char *line_read)
+{
+	int		len;
+	t_lines	lines;
+	char	**parse_line;
+	size_t	word;
+
+	ft_bzero(&lines, sizeof(t_lines));
+	lines.line = line_read;
+	len = parsed_line_size(data, line_read);
+	ft_printf("%d\n", len);
+	lines.parsed_line = ft_calloc(len, sizeof(char *));
+	split_command(data, &lines);
+	ft_printf("%s\n", lines.parsed_line);
+	parse_line = ft_split(lines.parsed_line, 29);
+	word = ft_word_count(lines.parsed_line, 29);
+	for (size_t i = 0; i < word; i++)
+		ft_printf("|%s|\n", parse_line[i]);
 }

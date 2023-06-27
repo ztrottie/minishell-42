@@ -1,29 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   commands_split.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 11:45:13 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/22 22:08:52 by ztrottie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/cmds.h"
 
 void	operator_control(t_lines *lines, int operator)
 {
-	if (lines->line[lines->i_line - 1] && lines->parsed_line[lines->i_parsed_line - 1] != 29)
+	if (lines->line[lines->i_line - 1] && \
+	lines->parsed_line[lines->i_parsed_line - 1] != 29)
 	{
 		lines->parsed_line[lines->i_parsed_line] = 29;
 		lines->i_parsed_line++;
 	}
 	while (operator > 0)
 	{
-		lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
-		lines->i_parsed_line++;
-		lines->i_line++;
+		basic_control(lines);
 		operator--;
 	}
 	lines->parsed_line[lines->i_parsed_line] = 29;
@@ -48,11 +35,36 @@ void	quotes_control(t_data *data, t_lines *lines, int quote)
 		double_quote_control(data, lines);
 }
 
-void	parse_command(t_data *data, t_lines *lines)
+void	variable_control(t_data *data, t_lines *lines)
+{
+	char	*var_name;
+	char	*var_content;
+	size_t	i;
+
+	lines->i_line++;
+	var_name = variable_name(lines->line + lines->i_line);
+	var_content = env_variable(data, var_name);
+	if (!var_content)
+	{
+		ft_free(var_name);
+		lines->i_line += variable_name_len(lines->line + lines->i_line);
+		return ;
+	}
+	i = 0;
+	while (var_content[i])
+	{
+		lines->parsed_line[lines->i_parsed_line] = var_content[i];
+		lines->i_parsed_line++;
+		i++;
+	}
+	lines->i_line += variable_name_len(lines->line + lines->i_line);
+}
+
+void	split_command(t_data *data, t_lines *lines)
 {
 	int	operator;
 	int	quote;
-	
+
 	while (lines->line[lines->i_line])
 	{
 		operator = is_operator(lines->line, lines->i_line);
@@ -63,31 +75,9 @@ void	parse_command(t_data *data, t_lines *lines)
 			space_control(lines);
 		else if (quote > 0)
 			quotes_control(data, lines, quote);
+		else if (lines->line[lines->i_line] == '$')
+			variable_control(data, lines);
 		else
-		{
-			lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
-			lines->i_parsed_line++;
-			lines->i_line++;
-		}
+			basic_control(lines);
 	}
-}
-
-char **split_command(t_data *data, char *line_read)
-{
-	int		len;
-	t_lines	lines;
-	char	**parse_line;
-	size_t	word;
-	
-	ft_bzero(&lines, sizeof(t_lines));
-	lines.line = line_read;
-	len = ft_strlen(line_read) + nb_metachar(line_read) * 2;
-	lines.parsed_line = ft_calloc(len, sizeof(char *));
-	parse_command(data, &lines);
-	ft_printf("%s\n", lines.parsed_line);
-	parse_line = ft_split(lines.parsed_line, 29);
-	word = ft_word_count(lines.parsed_line, 29);
-	for (size_t i = 0; i < word; i++)
-		ft_printf("|%s|\n", parse_line[i]);
-	return (NULL);
 }
