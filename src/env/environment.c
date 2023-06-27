@@ -3,7 +3,7 @@
 int	cpy_env(t_data *data, char **env)
 {
 	int	i;
-	
+
 	i = 0;
 	data->env = ft_calloc(ft_x2strlen((const char **)env) + 1, sizeof(char *));
 	if (!data->env)

@@ -1,1 +1,6 @@
-#include "built_in.h"
+#include "../../include/built_in.h"
+
+int	exit(void)
+{
+	return (SUCCESS);
+}

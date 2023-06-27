@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 12:40:54 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/14 16:27:18 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/27 05:40:10 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 # include "minishell.h"
 # include "cmds.h"
+# include "built_in.h"
 
 #endif
