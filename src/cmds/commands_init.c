@@ -22,10 +22,11 @@ int	commands_init(t_data *data, char *line_read)
 	lines.parsed_line = ft_calloc(len, sizeof(char *));
 	if (!lines.parsed_line)
 		return (FAILURE);
-	split_command(data, &lines);
+	if (split_command(data, &lines) == INVALID)
+		return (ft_free(lines.parsed_line), INVALID);
 	char	**parse_line = ft_split(lines.parsed_line, 29);
 	size_t	word = ft_word_count(lines.parsed_line, 29);
 	for (size_t i = 0; i < word; i++)
 		ft_printf("|%s|\n", parse_line[i]);
-	return (SUCCESS);
+	return (ft_free(lines.parsed_line), SUCCESS);
 }

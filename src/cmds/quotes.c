@@ -25,3 +25,33 @@ void	double_quote_control(t_data *data, t_lines *lines)
 	}
 	lines->i_line++;
 }
+
+int	find_next_quote(t_lines *line, int quote)
+{
+	line->i_line++;
+	while (is_quote(line->line[line->i_line]) != quote && line->line[line->i_line])
+		line->i_line++;
+	if (line->line[line->i_line])
+		return (VALID);
+	return (INVALID);
+}
+
+int	check_quotes(t_lines *lines)
+{
+	t_lines	temp;
+	int		quote;
+
+	temp.line = lines->line;
+	temp.i_line = lines->i_line;
+	while (temp.line[temp.i_line])
+	{
+		quote = is_quote(temp.line[temp.i_line]);
+		if (quote)
+		{
+			if (find_next_quote(&temp, quote) == INVALID)
+				return (ft_putstr_fd("minishell> Invalid quotes\n", 2), INVALID);
+		}
+		temp.i_line++;
+	}
+	return (VALID);
+}

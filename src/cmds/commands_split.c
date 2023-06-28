@@ -27,12 +27,15 @@ void	space_control(t_lines *lines)
 	lines->i_line++;
 }
 
-void	quotes_control(t_data *data, t_lines *lines, int quote)
+int	quotes_control(t_data *data, t_lines *lines, int quote)
 {
+	if (check_quotes(lines) == INVALID)
+		return (INVALID);
 	if (quote == SINGLE_QUOTE)
 		single_quote_control(lines);
 	if (quote == DOUBLE_QUOTE)
 		double_quote_control(data, lines);
+	return (VALID);
 }
 
 void	variable_control(t_data *data, t_lines *lines)
@@ -60,7 +63,7 @@ void	variable_control(t_data *data, t_lines *lines)
 	lines->i_line += variable_name_len(lines->line + lines->i_line);
 }
 
-void	split_command(t_data *data, t_lines *lines)
+int	split_command(t_data *data, t_lines *lines)
 {
 	int	operator;
 	int	quote;
@@ -74,10 +77,14 @@ void	split_command(t_data *data, t_lines *lines)
 		else if (ft_isspace(lines->line[lines->i_line]))
 			space_control(lines);
 		else if (quote > 0)
-			quotes_control(data, lines, quote);
+		{
+			if (quotes_control(data, lines, quote) == INVALID)
+				return (INVALID);
+		}
 		else if (lines->line[lines->i_line] == '$')
 			variable_control(data, lines);
 		else
 			basic_control(lines);
 	}
+	return (VALID);
 }

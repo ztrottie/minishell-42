@@ -1,6 +1,6 @@
 #include "../../include/error.h"
 
-void	ft_exit(t_data *data)
-{
+// void	error(t_data *data)
+// {
 	
-}
+// }
