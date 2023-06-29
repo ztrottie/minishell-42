@@ -28,7 +28,7 @@ size_t	nb_metachar(char *line)
 	size_t	i;
 	size_t	count;
 	int		metachar_index;
-	
+
 	i = 0;
 	count = 0;
 	while (line[i])

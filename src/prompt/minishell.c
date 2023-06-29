@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char 	*line;
+	char	*line;
 	int		i;
 	t_data	data;
 	char	cwd[256];
@@ -23,4 +23,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	rl_clear_history();
 }
-
