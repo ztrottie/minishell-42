@@ -16,7 +16,8 @@ int	is_operator(char *line, int	index)
 	metachar_index = is_metachar(line[index]);
 	if (metachar_index > 0)
 	{
-		if (line[index + 1] && is_metachar(line[index + 1]) == metachar_index)
+		if (metachar_index != PIPE && line[index + 1] && \
+		is_metachar(line[index + 1]) == metachar_index)
 			return (2);
 		return (1);
 	}

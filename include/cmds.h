@@ -16,6 +16,7 @@ int		commands_init(t_data *data, char *line);
 int		split_command(t_data *data, t_lines *lines);
 int		is_metachar(int c);
 int		is_operator(char *line, int index);
+int		is_redirection(int c);
 size_t	nb_metachar(char *line);
 int		is_quote(int c);
 void	single_quote_control(t_lines *lines);

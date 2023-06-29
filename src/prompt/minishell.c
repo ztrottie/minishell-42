@@ -16,7 +16,6 @@ int	main(int argc, char **argv, char **env)
 	while (i < 10)
 	{
 		line = readline("minishell> ");
-		// parsing(line, &data) == FAILURE
 		if (ft_strlen(line) && commands_init(&data, line) == SUCCESS)
 			add_history(line);
 		i++;
