@@ -13,7 +13,7 @@ typedef struct s_lines
 }	t_lines;
 
 int		commands_init(t_data *data, char *line);
-void	split_command(t_data *data, t_lines *lines);
+int		split_command(t_data *data, t_lines *lines);
 int		is_metachar(int c);
 int		is_operator(char *line, int index);
 size_t	nb_metachar(char *line);
@@ -22,5 +22,6 @@ void	single_quote_control(t_lines *lines);
 void	double_quote_control(t_data *data, t_lines *lines);
 void	variable_control(t_data *data, t_lines *lines);
 void	basic_control(t_lines *lines);
+int		check_quotes(t_lines *lines);
 
 #endif
