@@ -1,7 +1,9 @@
 #include "../../include/built_in.h"
 
-int	pwd(t_data *data)
+int	pwd(void)
 {
-	printf("%s\n", env_variable(data, "PWD"));
-	return (SUCCESS);
+	char	*cwd;
+
+	cwd = NULL;
+	return (printf("%s\n", getcwd(cwd, sizeof(cwd))), SUCCESS);
 }
