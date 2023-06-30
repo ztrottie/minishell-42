@@ -1,12 +1,24 @@
 #include "../../include/cmds.h"
 
+void	add_quote_token(t_lines *lines, int c)
+{
+	lines->parsed_line[lines->i_parsed_line] = 29;
+	lines->i_parsed_line++;
+	lines->parsed_line[lines->i_parsed_line] = c;
+	lines->i_parsed_line++;
+	lines->parsed_line[lines->i_parsed_line] = 29;
+	lines->i_parsed_line++;
+}
+
 void	single_quote_control(t_lines *lines)
 {
 	lines->i_line++;
+	add_quote_token(lines, '\'');
 	while (is_quote(lines->line[lines->i_line]) != SINGLE_QUOTE)
 	{
 		basic_control(lines);
 	}
+	add_quote_token(lines, '\'');
 	lines->i_line++;
 }
 
@@ -14,6 +26,7 @@ void	single_quote_control(t_lines *lines)
 void	double_quote_control(t_data *data, t_lines *lines)
 {
 	lines->i_line++;
+	add_quote_token(lines, '\"');
 	while (is_quote(lines->line[lines->i_line]) != DOUBLE_QUOTE)
 	{
 		if (lines->line[lines->i_line] == '$')
@@ -23,6 +36,7 @@ void	double_quote_control(t_data *data, t_lines *lines)
 			basic_control(lines);
 		}
 	}
+	add_quote_token(lines, '\"');
 	lines->i_line++;
 }
 

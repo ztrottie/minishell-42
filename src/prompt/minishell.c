@@ -5,20 +5,22 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	int		i;
 	t_data	data;
-	char	cwd[256];
 
 	(void)argc;
 	(void)argv;
 	ft_bzero(&data, sizeof(t_data));
 	cpy_env(&data, env);
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 	i = 0;
-	while (i < 10)
+	while (1)
 	{
 		line = readline("minishell> ");
-		if (ft_strlen(line) && commands_init(&data, line) == SUCCESS)
+		if (!line)
+			break ;
+		if (ft_strlen(line) && commands_init(&data, line))
 			add_history(line);
+		ft_free(line);
 		i++;
 	}
+	ft_x2free((void **)data.env);
 	rl_clear_history();
 }

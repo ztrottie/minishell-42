@@ -28,10 +28,11 @@ int	commands_init(t_data *data, char *line_read)
 {
 	t_lines		lines;
 
-	if (init_lines(data,  &lines, line_read) == FAILURE)
+	if (!init_lines(data,  &lines, line_read))
 		return (FAILURE);
-	if (split_command(data, &lines) == INVALID)
+	if (!split_command(data, &lines))
 		return (ft_free(lines.parsed_line), FAILURE);
-	create_tokens();
+	if (!tokens_parsing(data, lines.parsed_line))
+		return (FAILURE);
 	return (SUCCESS);
 }

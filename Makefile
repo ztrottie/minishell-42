@@ -11,7 +11,7 @@ READLINE		=	readline/libreadline.a
 HISTORY			=	readline/libhistory.a
 
 CC				=	gcc
-CFLAGS			=	-Wextra -Wall -Werror
+CFLAGS			=	-Wextra -Wall -Werror -g
 LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS		=	minishell.c
@@ -20,6 +20,7 @@ CMDS_SRCS		=	commands_init.c \
 					commands_split.c \
 					commands_utils.c \
 					quotes.c \
+					tokens_split.c
 
 ERROR_SRCS		=	ft_exit.c
 
@@ -82,5 +83,8 @@ fclean: clean
 	@$(MAKE) -sC $(LIBFT_DIR) fclean
 
 re: fclean all
+
+val: all
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.txt ./minishell
 
 .PHONY:	all clean fclean re libft
