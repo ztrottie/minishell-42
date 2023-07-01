@@ -1,6 +1,6 @@
 #include "../../include/cmds.h"
 
-void	add_quote_token(t_lines *lines, int c)
+static void	add_quote_token(t_lines *lines, int c)
 {
 	lines->parsed_line[lines->i_parsed_line] = 29;
 	lines->i_parsed_line++;

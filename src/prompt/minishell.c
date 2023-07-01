@@ -13,7 +13,7 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	while (1)
 	{
-		line = readline("minishell> ");
+		line = "allo";
 		if (!line)
 			break ;
 		if (ft_strlen(line) && commands_init(&data, line))

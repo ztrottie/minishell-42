@@ -24,5 +24,6 @@ void	variable_control(t_data *data, t_lines *lines);
 void	basic_control(t_lines *lines);
 int		check_quotes(t_lines *lines);
 int		tokens_parsing(t_data *data, char *parsed_line);
+int		token_add_end(t_tokens *tokens, int type, char *content);
 
 #endif

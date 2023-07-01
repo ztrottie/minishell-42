@@ -20,7 +20,8 @@ CMDS_SRCS		=	commands_init.c \
 					commands_split.c \
 					commands_utils.c \
 					quotes.c \
-					tokens_split.c
+					tokens_split.c \
+					tokens_list.c
 
 ERROR_SRCS		=	ft_exit.c
 
