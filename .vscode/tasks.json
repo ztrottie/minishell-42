@@ -8,7 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-lreadline",
-                "${workspaceFolder}/src/cmds/*.c",
+                "${workspaceFolder}/src/parsing/*.c",
                 "${workspaceFolder}/src/prompt/*.c",
                 "${workspaceFolder}/src/env/*.c",
                 "${workspaceFolder}/libft/libft.a",

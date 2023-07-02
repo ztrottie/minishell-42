@@ -38,12 +38,6 @@ typedef struct s_files
 	int				cmd_nb;
 }	t_files;
 
-typedef struct s_type_list
-{
-	int					type;
-	struct s_type_list	*next;
-}	t_type_list;
-
 typedef struct s_cmds
 {
 	int		nb;

@@ -14,10 +14,10 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishell> ");
+		parsing(line, &data);
 		if (!line)
 			break ;
-		if (ft_strlen(line) && commands_init(&data, line))
-			add_history(line);
+		add_history(line);
 		i++;
 	}
 	ft_x2free((void **)data.env);

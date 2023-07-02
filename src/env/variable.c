@@ -18,6 +18,8 @@ char	*variable_name(char *line)
 
 	len = variable_name_len(line);
 	name = ft_calloc(len + 1, sizeof(char));
+	if (!name)
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
