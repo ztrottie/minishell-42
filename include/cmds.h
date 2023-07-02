@@ -12,8 +12,16 @@ typedef struct s_lines
 	size_t		i_parsed_line;
 }	t_lines;
 
+typedef struct s_tokens
+{
+	int				type;
+	char			*content;
+	struct s_tokens	*next;
+}	t_tokens;
+
+
 int		commands_init(t_data *data, char *line);
-int		split_command(t_data *data, t_lines *lines);
+int		split_command(t_data *data, t_lines *lines, t_type_list **type);
 int		is_metachar(int c);
 int		is_operator(char *line, int index);
 size_t	nb_metachar(char *line);
@@ -24,6 +32,7 @@ void	variable_control(t_data *data, t_lines *lines);
 void	basic_control(t_lines *lines);
 int		check_quotes(t_lines *lines);
 int		tokens_parsing(t_data *data, char *parsed_line);
-int		token_add_end(t_tokens *tokens, int type, char *content);
+int		token_add_end(t_tokens **tokens, int type, char *content);
+int		type_add_end(t_type_list **l_type, int type);
 
 #endif

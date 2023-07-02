@@ -1,5 +1,6 @@
 #include "../../include/cmds.h"
 
+
 void	operator_control(t_lines *lines, int operator)
 {
 	if (lines->line[lines->i_line - 1] && \
@@ -63,7 +64,7 @@ void	variable_control(t_data *data, t_lines *lines)
 	lines->i_line += variable_name_len(lines->line + lines->i_line);
 }
 
-int	split_command(t_data *data, t_lines *lines)
+int	split_command(t_data *data, t_lines *lines, t_type_list **type)
 {
 	int	operator;
 	int	quote;

@@ -27,12 +27,14 @@ int	init_lines(t_data *data, t_lines *lines, char *line_read)
 int	commands_init(t_data *data, char *line_read)
 {
 	t_lines		lines;
+	t_type_list	*type;
 
+	type = NULL;
 	if (!init_lines(data,  &lines, line_read))
 		return (FAILURE);
-	if (!split_command(data, &lines))
+	if (!split_command(data, &lines, &type))
 		return (ft_free(lines.parsed_line), FAILURE);
-	if (!tokens_parsing(data, lines.parsed_line))
-		return (FAILURE);
+	// if (!tokens_parsing(data, lines.parsed_line))
+	// 	return (FAILURE);
 	return (SUCCESS);
 }

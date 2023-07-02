@@ -38,6 +38,12 @@ typedef struct s_files
 	int				cmd_nb;
 }	t_files;
 
+typedef struct s_type_list
+{
+	int					type;
+	struct s_type_list	*next;
+}	t_type_list;
+
 typedef struct s_cmds
 {
 	int		nb;
@@ -49,17 +55,9 @@ typedef struct s_cmds
 	t_files	*output_fds;
 }	t_cmds;
 
-typedef struct s_tokens
-{
-	int				type;
-	char			*content;
-	struct s_tokens	*next;
-}	t_tokens;
-
 typedef struct s_data
 {
 	t_cmds		*cmds;
-	t_tokens	*tokens;
 	char		**env;
 }	t_data;
 
