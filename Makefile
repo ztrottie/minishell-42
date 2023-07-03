@@ -1,26 +1,22 @@
 NAME			=	minishell
 
 BIN_DIR			=	bin/
+
 PROMPT_DIR		=	src/prompt/
-CMDS_DIR		=	src/cmds/
 BUILT_DIR		=	src/built-in/
-PARSING_DIR		=	src/parsing/
 ERROR_DIR		=	src/error/
 ENV_DIR			=	src/env/
+PARSING_DIR		=	src/parsing/
+
 LIBFT_DIR		=	libft/
 READLINE		=	readline/libreadline.a
 HISTORY			=	readline/libhistory.a
 
 CC				=	gcc
-CFLAGS			=	-Wextra -Wall -Werror
+CFLAGS			=	-Wextra -Wall -Werror -g
 LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS		=	minishell.c
-
-CMDS_SRCS		=	commands_init.c \
-					commands_split.c \
-					commands_utils.c \
-					quotes.c \
 
 ERROR_SRCS		=	ft_exit.c
 
@@ -32,19 +28,23 @@ BUILT_SRCS		=	echo.c\
 					pwd.c\
 					env.c
 
-PARSING_SRCS	=	parsing.c
+PARSING_SRCS	=	parsing_init.c \
+					comparison.c \
+					tokens_split.c \
+					tokens_list.c \
+					line_utils.c \
+					len_control.c \
+					string_control.c \
+					tokens_parsing.c \
+					variable_control.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
-CMDS_OBJS		=	$(addprefix ${BIN_DIR}, ${CMDS_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
 BUILT_OBJS		=	$(addprefix ${BIN_DIR}, ${BUILT_SRCS:.c=.o})
 ERROR_OBJS		=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
-
+PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
-	@${CC} ${CFLAGS} -c $< -o $@
-
-${BIN_DIR}%.o: ${CMDS_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ENV_DIR}%.c
@@ -56,16 +56,15 @@ ${BIN_DIR}%.o: ${BUILT_DIR}%.c
 ${BIN_DIR}%.o: ${ERROR_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
+${BIN_DIR}%.o: ${PARSING_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
 all: $(BIN_DIR) libft $(NAME)
 	@echo "Minishell compiled!"
 
-$(NAME): $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(BUILT_OBJS)
+$(NAME): $(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(PARSING_OBJS)
 	@echo "minishell compiling"
-	@$(CC) -lreadline $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(BUILT_OBJS) $(LIBFT) -o $(NAME)
-
-$(NAME): $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS) $(ERROR_OBJS)
-	@echo "minishell compiling"
-	@$(CC) $(CFLAGS) $(PROMPT_OBJS) $(CMDS_OBJS) $(ENV_OBJS) $(PARSING_OBJS) $(ERROR_OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(PARSING_OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -89,5 +88,8 @@ fclean: clean
 	@$(MAKE) -sC $(LIBFT_DIR) fclean
 
 re: fclean all
+
+val: all
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.txt ./minishell
 
 .PHONY:	all clean fclean re libft

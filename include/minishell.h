@@ -12,18 +12,30 @@
 # include <stdbool.h>
 
 # define METACHAR "|<>"
+
+enum REDIRECION
+{
+	PIPE = 1,
+	RED_IN = 2,
+	RED_OUT = 3,
+	HERE_DOC = 4,
+	RED_OUT_APPEND = 5,
+};
+
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
+
 # define VALID 1
 # define INVALID 0
-# define SUCCESS 0
+
+# define SUCCESS 1
 # define FAILURE -1
 
 typedef struct s_files
 {
 	char			*name;
 	int				fd;
-	int				cmd_nb;
+	int				cmd_index;
 }	t_files;
 
 typedef struct s_cmds
@@ -40,11 +52,9 @@ typedef struct s_cmds
 typedef struct s_data
 {
 	t_cmds	*cmds;
-	int		**pipe;
-	int		nb_cmds;
 	char	**env;
-	t_files	*input_fds;
-	t_files	*output_fds;
+	int		nb_pipe;
+	int		exit_code;
 }	t_data;
 
 #endif

@@ -17,7 +17,11 @@ char	*variable_name(char *line)
 	char	*name;
 
 	len = variable_name_len(line);
+	if (!len)
+		return (NULL);
 	name = ft_calloc(len + 1, sizeof(char));
+	if (!name)
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
@@ -49,20 +53,22 @@ size_t	variable_content_len(t_data *data, char *line_read)
 }
 
 
-char *env_variable(t_data *data, char *variable)
+char *env_variable(t_data *data, char *name)
 {
 	size_t	i;
-	size_t	len;
+	char	*variable;
 
 	if (!data->env)
 		return (NULL);
+	variable = ft_strjoin(name, "=");
+	if (!variable)
+		return (NULL);
 	i = 0;
-	len = ft_x2strlen((const char **)data->env);
-	while (i < len)
+	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], variable, ft_strlen(variable)) == 0)
-			return (data->env[i] + ft_strlen(variable) + 1);
+			return (ft_free(variable), data->env[i] + ft_strlen(variable));
 		i++;
 	}
-	return (NULL);
+	return (ft_free(variable), NULL);
 }

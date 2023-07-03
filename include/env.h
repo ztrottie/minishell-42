@@ -3,7 +3,7 @@
 
 # include "minishell.h"
 
-char	*env_variable(t_data *data, char *variable);
+char	*env_variable(t_data *data, char *name);
 size_t	variable_content_len(t_data *data, char *line_read);
 char	*variable_name(char *line);
 size_t	variable_name_len(char *line);
