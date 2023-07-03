@@ -16,13 +16,14 @@ static int	expected_token(t_data *data, t_tokens *tokens, int expected, int exce
 	return (SUCCESS);
 }
 
-static int redirection_init(t_data *data, t_tokens **tokens)
+static int redirection_init(t_data *data, t_tokens *tokens)
 {
-	if (expected_token(data, ptr, 0, -1) <= 0)
+	if (expected_token(data, tokens, 0, -1) <= 0)
 		return (INVALID);
+	return (SUCCESS);
 }
 
-int	tokens_parsing(t_data *data, t_tokens *tokens)
+int	tokens_parsing(t_data *data, t_tokens **tokens)
 {
 	t_tokens	*ptr;
 
@@ -31,7 +32,7 @@ int	tokens_parsing(t_data *data, t_tokens *tokens)
 	{
 		if (ptr->type > 1)
 			if (redirection_init(data, ptr) <= 0)
-				return (INVALID)
+				return (INVALID);
 		if (ptr->type == 1)
 		{
 			data->nb_pipe++;

@@ -2,7 +2,7 @@
 
 static void	init_parsing(t_data *data, char *line_read, t_line *line, t_tokens **tokens)
 {
-	data->nb_cmds = 0;
+	data->nb_pipe = 0;
 	line->line = line_read;
 	line->i_line = 0;
 	*tokens = NULL;
@@ -38,17 +38,6 @@ static int	check_quotes(char *line_read)
 	return (VALID);
 }
 
-static int	cmds_init(t_data *data, t_tokens **tokens)
-{
-	size_t	i;
-	int		nb_cmds;
-
-	nb_cmds = data->nb_pipe + 1;
-	data->cmds = ft_calloc(nb_cmds + 1, sizeof(t_cmds));
-	if (!data->cmds)
-		return (FAILURE);
-}
-
 int	parsing(char *line_read, t_data *data)
 {
 	t_line		line;
@@ -61,8 +50,7 @@ int	parsing(char *line_read, t_data *data)
 		return (FAILURE);
 	if (tokens_parsing(data, &tokens) <= 0)
 		return (FAILURE);
-	if (cmds_init(data, &tokens) <= 0)
-		return (FAILURE);
-	ft_printf("%d\n", data->nb_cmds);
+	// if (cmds_init(data, &tokens) <= 0)
+	// 	return (FAILURE);
 	return (SUCCESS);
 }
