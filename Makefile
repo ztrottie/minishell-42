@@ -34,7 +34,9 @@ PARSING_SRCS	=	parsing_init.c \
 					tokens_list.c \
 					line_utils.c \
 					len_control.c \
-					string_control.c
+					string_control.c \
+					tokens_parsing.c \
+					variable_control.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})

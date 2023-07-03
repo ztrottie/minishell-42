@@ -35,7 +35,7 @@ typedef struct s_files
 {
 	char			*name;
 	int				fd;
-	int				cmd_nb;
+	int				cmd_index;
 }	t_files;
 
 typedef struct s_cmds
@@ -51,8 +51,10 @@ typedef struct s_cmds
 
 typedef struct s_data
 {
-	t_cmds		*cmds;
-	char		**env;
+	t_cmds	*cmds;
+	char	**env;
+	int		nb_pipe;
+	int		exit_code;
 }	t_data;
 
 #endif

@@ -7,6 +7,8 @@
 
 # define LIMITCHAR " <>|"
 
+#define TOKERROR 258
+
 typedef struct s_tokens
 {
 	int				type;
@@ -32,5 +34,8 @@ int		cpy_line(t_line *line, t_line *tmp_line);
 size_t	parsed_content_len(t_data *data, t_line *line);
 void	basic_control(t_line *line, t_line *content);
 int		string_control(t_data *data, t_tokens **tokens, t_line *line);
+void	free_tokens(t_tokens **tokens);
+int		tokens_parsing(t_data *data, t_tokens **tokens);
+int		variable_control(t_data *data, t_line *line, t_line *content);
 
 #endif

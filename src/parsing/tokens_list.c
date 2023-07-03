@@ -1,5 +1,20 @@
 #include "../../include/parsing.h"
 
+void	free_tokens(t_tokens **tokens)
+{
+	t_tokens	*tmp;
+	t_tokens	*ptr;
+
+	ptr = *tokens;
+	while (ptr != NULL)
+	{
+		tmp = ptr->next;
+		ft_free(ptr->content);
+		ft_free(ptr);
+		ptr = tmp;
+	}
+}
+
 int	token_add_end(t_tokens **tokens, int type, char *content)
 {
 	t_tokens	*ptr;
