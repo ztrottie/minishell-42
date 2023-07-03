@@ -14,9 +14,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishell> ");
-		parsing(line, &data);
 		if (!line)
 			break ;
+		parsing(line, &data);
 		add_history(line);
 		i++;
 	}

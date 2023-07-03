@@ -30,5 +30,7 @@ int		is_quote(int c);
 int		is_limitchar(int c);
 int		cpy_line(t_line *line, t_line *tmp_line);
 size_t	parsed_content_len(t_data *data, t_line *line);
+void	basic_control(t_line *line, t_line *content);
+int		string_control(t_data *data, t_tokens **tokens, t_line *line);
 
 #endif
