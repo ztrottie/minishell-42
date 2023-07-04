@@ -43,9 +43,9 @@ static int	exit_variable_control(t_data *data, t_line *line, t_line *content)
 	return (SUCCESS);
 }
 
-int	variable_control(t_data *data, t_line *line, t_line *content)
+int	variable_control(t_data *data, t_line *line, t_line *content, int quote)
 {
-	if (line->line[line->i_line + 1] && line->line[line->i_line + 1] != ' ')
+	if (line->line[line->i_line + 1] && line->line[line->i_line + 1] != ' ' && (quote && is_quote(line->line[line->i_line + 1]) != quote))
 		line->i_line++;
 	else
 		return (basic_control(line, content), SUCCESS);

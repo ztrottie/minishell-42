@@ -50,6 +50,11 @@ int	parsing(char *line_read, t_data *data)
 		return (FAILURE);
 	if (tokens_parsing(data, &tokens) <= 0)
 		return (FAILURE);
+	while (tokens != NULL)
+	{
+		ft_printf("[%d]|%s|\n", tokens->type, tokens->content);
+		tokens = tokens->next;
+	}
 	// if (cmds_init(data, &tokens) <= 0)
 	// 	return (FAILURE);
 	return (SUCCESS);

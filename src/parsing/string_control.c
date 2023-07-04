@@ -7,14 +7,12 @@ static int	quote_control(t_data *data, t_line *line, t_line *content, int quote)
 	{
 		if (quote == DOUBLE_QUOTE && line->line[line->i_line] == '$')
 		{
-			if (!variable_control(data, line, content))
+			if (!variable_control(data, line, content, quote))
 				return (FAILURE);
 		}
 		else
 			basic_control(line, content);
 	}
-	if (!line->line[line->i_line])
-		return (FAILURE);
 	line->i_line++;
 	return (SUCCESS);
 }
@@ -36,7 +34,7 @@ static int	token_control(t_tokens **tokens, t_line *content)
 	if (content->line[0])
 	{
 		if (!token_add_end(tokens, 0, content->line))
-			return (ft_free(content->line), FAILURE);
+			return (FAILURE);
 	}
 	else
 		ft_free(content->line);
@@ -60,7 +58,7 @@ int	string_control(t_data *data, t_tokens **tokens, t_line *line)
 		}
 		else if (line->line[line->i_line] == '$')
 		{
-			if (variable_control(data, line, &content) == FAILURE)
+			if (variable_control(data, line, &content, 0) == FAILURE)
 				return (ft_free(content.line), FAILURE);
 		}
 		else
