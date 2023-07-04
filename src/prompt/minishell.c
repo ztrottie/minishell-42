@@ -10,6 +10,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	ft_bzero(&data, sizeof(t_data));
 	cpy_env(&data, env);
+	pwd();
 	i = 0;
 	while (i < 10)
 	{

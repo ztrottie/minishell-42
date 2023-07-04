@@ -2,8 +2,5 @@
 
 int	pwd(void)
 {
-	char	*cwd;
-
-	cwd = NULL;
-	return (printf("%s\n", getcwd(cwd, sizeof(cwd))), SUCCESS);
+	return (printf("%s\n", getcwd(NULL, 0)), SUCCESS);
 }
