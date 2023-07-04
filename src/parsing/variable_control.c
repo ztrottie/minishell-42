@@ -45,10 +45,12 @@ static int	exit_variable_control(t_data *data, t_line *line, t_line *content)
 
 int	variable_control(t_data *data, t_line *line, t_line *content, int quote)
 {
-	if (line->line[line->i_line + 1] && line->line[line->i_line + 1] != ' ' && (quote && is_quote(line->line[line->i_line + 1]) != quote))
-		line->i_line++;
-	else
+	if ((line->line[line->i_line + 1] && line->line[line->i_line + 1] == ' ') \
+	|| (quote && is_quote(line->line[line->i_line + 1]) == quote)
+	|| !line->line[line->i_line + 1])
 		return (basic_control(line, content), SUCCESS);
+	else
+		line->i_line++;
 	if (line->line[line->i_line] == '?')
 		exit_variable_control(data, line, content);
 	else
