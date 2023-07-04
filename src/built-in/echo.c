@@ -42,9 +42,9 @@ int	echo(char **content)
 	return (SUCCESS);
 }
 
-int	main(int ac, char **av)
-{
-	(void) ac;
-	echo(av);
-	return (0);
-}
+// int	main(int ac, char **av)
+// {
+// 	(void) ac;
+// 	echo(av);
+// 	return (0);
+// }
