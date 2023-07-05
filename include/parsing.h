@@ -4,17 +4,11 @@
 # include "minishell.h"
 # include "error.h"
 # include "env.h"
+# include "commands.h"
 
 # define LIMITCHAR " <>|"
 
 #define TOKERROR 258
-
-typedef struct s_tokens
-{
-	int				type;
-	char			*content;
-	struct s_tokens	*next;
-}	t_tokens;
 
 typedef struct s_line
 {

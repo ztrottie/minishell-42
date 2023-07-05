@@ -17,8 +17,8 @@ enum REDIRECION
 {
 	PIPE = 1,
 	RED_IN = 2,
-	RED_OUT = 3,
-	HERE_DOC = 4,
+	HERE_DOC = 3,
+	RED_OUT = 4,
 	RED_OUT_APPEND = 5,
 };
 
@@ -31,11 +31,19 @@ enum REDIRECION
 # define SUCCESS 1
 # define FAILURE -1
 
+typedef struct s_tokens
+{
+	int				type;
+	char			*content;
+	struct s_tokens	*next;
+}	t_tokens;
+
 typedef struct s_files
 {
 	char			*name;
 	int				fd;
 	int				cmd_index;
+	struct s_files	*next;
 }	t_files;
 
 typedef struct s_cmds
