@@ -26,7 +26,8 @@ ENV_SRCS		=	environment.c \
 
 BUILT_SRCS		=	echo.c\
 					pwd.c\
-					env.c
+					env.c\
+					unset.c
 
 PARSING_SRCS	=	parsing_init.c \
 					comparison.c \
@@ -62,9 +63,9 @@ ${BIN_DIR}%.o: ${PARSING_DIR}%.c
 all: $(BIN_DIR) libft $(NAME)
 	@echo "Minishell compiled!"
 
-$(NAME): $(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(PARSING_OBJS)
+$(NAME): $(PROMPT_OBJS) $(ENV_OBJS) $(BUILT_OBJS) $(ERROR_OBJS) $(PARSING_OBJS)
 	@echo "minishell compiling"
-	@$(CC) $(CFLAGS) $(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(PARSING_OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(PROMPT_OBJS) $(ENV_OBJS) $(BUILT_OBJS) $(ERROR_OBJS) $(PARSING_OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
