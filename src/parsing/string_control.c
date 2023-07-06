@@ -29,11 +29,11 @@ static int	init_content(t_data *data, t_line *line, t_line *content)
 	return (SUCCESS);
 }
 
-static int	token_control(t_tokens **tokens, t_line *content)
+static int	token_control(t_tokens **tokens, t_line *content, int type)
 {
 	if (content->line[0])
 	{
-		if (!token_add_end(tokens, 0, content->line))
+		if (!token_add_end(tokens, type, content->line))
 			return (FAILURE);
 	}
 	else
@@ -41,30 +41,40 @@ static int	token_control(t_tokens **tokens, t_line *content)
 	return (SUCCESS);
 }
 
+static int	string_conditions(t_data *data, t_line *line, t_line *content, int quote)
+{
+	if (quote)
+	{
+		if (quote_control(data, line, content, quote) == FAILURE)
+			return (ft_free(content->line), FAILURE);
+	}
+	else if (line->line[line->i_line] == '$')
+	{
+		if (variable_control(data, line, content, 0) == FAILURE)
+			return (ft_free(content->line), FAILURE);
+	}
+	else
+		basic_control(line, content);
+	return (SUCCESS);
+}
+
 int	string_control(t_data *data, t_tokens **tokens, t_line *line)
 {
 	int		quote;
+	int		type;
 	t_line	content;
 
 	if (!init_content(data, line, &content))
 		return (FAILURE);
+	type = 0;
 	while (line->line[line->i_line] && !is_limitchar(line->line[line->i_line]))
 	{
 		quote = is_quote(line->line[line->i_line]);
 		if (quote)
-		{
-			if (quote_control(data, line, &content, quote) == FAILURE)
-				return (ft_free(content.line), FAILURE);
-		}
-		else if (line->line[line->i_line] == '$')
-		{
-			if (variable_control(data, line, &content, 0) == FAILURE)
-				return (ft_free(content.line), FAILURE);
-		}
-		else
-			basic_control(line, &content);
+			type = QUOTES;
+		string_conditions(data, line, &content, quote);
 	}
-	if (!token_control(tokens, &content))
+	if (!token_control(tokens, &content, type))
 		return (FAILURE);
 	return (SUCCESS);
 }

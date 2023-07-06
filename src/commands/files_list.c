@@ -39,4 +39,5 @@ void	files_free(t_files **files)
 		ft_free(ptr);
 		ptr = tmp;
 	}
+	*files = NULL;
 }

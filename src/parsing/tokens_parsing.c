@@ -16,13 +16,6 @@ static int	expected_token(t_data *data, t_tokens *tokens, int expected, int exce
 	return (SUCCESS);
 }
 
-static int redirection_init(t_data *data, t_tokens *tokens)
-{
-	if (expected_token(data, tokens, 0, -1) <= 0)
-		return (INVALID);
-	return (SUCCESS);
-}
-
 int	tokens_parsing(t_data *data, t_tokens **tokens)
 {
 	t_tokens	*ptr;
@@ -30,13 +23,15 @@ int	tokens_parsing(t_data *data, t_tokens **tokens)
 	ptr = *tokens;
 	while (ptr != NULL)
 	{
-		if (ptr->type > 1)
-			if (redirection_init(data, ptr) <= 0)
+		if (ptr->type > PIPE)
+		{
+			if (expected_token(data, ptr, 0, NONE) <= 0)
 				return (INVALID);
-		if (ptr->type == 1)
+		}
+		if (ptr->type == PIPE)
 		{
 			data->nb_pipe++;
-			if (!expected_token(data, ptr, 5, 1))
+			if (!expected_token(data, ptr, 5, PIPE))
 				return (INVALID);
 		}
 		ptr = ptr->next;

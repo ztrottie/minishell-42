@@ -39,7 +39,10 @@ PARSING_SRCS	=	parsing_init.c \
 					tokens_parsing.c \
 					variable_control.c
 
-COMMANDS_SRCS	=	commands_init.c
+COMMANDS_SRCS	=	commands_separator.c \
+					files_list.c \
+					here_doc.c \
+					pid_list.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})

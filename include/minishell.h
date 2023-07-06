@@ -22,6 +22,9 @@ enum REDIRECION
 	RED_OUT_APPEND = 5,
 };
 
+# define QUOTES -1
+# define NONE -200
+
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
 
@@ -57,12 +60,20 @@ typedef struct s_cmds
 	t_files	*output_fds;
 }	t_cmds;
 
+typedef struct s_pid_list
+{
+	pid_t				pid;
+	struct s_pid_list	*next;
+}	t_pid_list;
+
 typedef struct s_data
 {
-	t_cmds	*cmds;
-	char	**env;
-	int		nb_pipe;
-	int		exit_code;
+	t_cmds		*cmds;
+	char		**env;
+	int			nb_pipe;
+	int			exit_code;
+	t_pid_list	*pid;
 }	t_data;
+
 
 #endif
