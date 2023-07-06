@@ -55,6 +55,7 @@ typedef struct s_data
 	char	**env;
 	int		nb_pipe;
 	int		exit_code;
+	int		env_i;
 }	t_data;
 
 #endif
