@@ -6,7 +6,6 @@ int	pid_add_end(t_data *data, pid_t pid)
 
 	if (!data->pid)
 	{
-		ft_printf("ayo");
 		data->pid = ft_calloc(1, sizeof(t_pid_list));
 		if (!data->pid)
 			return (FAILURE);
@@ -25,18 +24,18 @@ int	pid_add_end(t_data *data, pid_t pid)
 	return (SUCCESS);
 }
 
-void	free_pid_list(t_pid_list **pid_list)
+void	free_pid_list(t_data *data)
 {
 	t_pid_list	*ptr;
 	t_pid_list	*tmp;
 
-	ptr = *pid_list;
+	ptr = data->pid;
 	while (ptr != NULL)
 	{
 		tmp = ptr->next;
 		ft_free(ptr);
 		ptr = tmp;
 	}
-	*pid_list = NULL;
+	data->pid = NULL;
 
 }
