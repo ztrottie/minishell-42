@@ -16,55 +16,94 @@ static char	**cpy_environement(char **env, char **cpy_env)
 	return (env);
 }
 
-static char	**reset(t_data *data, char **content, char **env_cpy)
+static	char	**reset(t_data *data, char *variable, char **env_cpy)
 {
 	int	i;
 	int	j;
-	int	len;
 
 	i = 0;
 	j = 0;
-	len = ft_x2strlen(content);
-	while (data->env[i] && env_cpy[j])
+	while (env_cpy[j])
 	{
-		if (ft_strncmp(data->env[i], *content, len) > 0)
+		if (ft_strncmp(variable, env_cpy[j], ft_strlen(variable)))
 		{
 			data->env[i] = ft_strdup(env_cpy[j]);
 			i++;
-			j++;
 		}
+		j++;
 	}
 	return (data->env);
 }
 
-int	ft_unset(t_data *data, char **content)
+int	check_valid_args(char **content)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	**env_cpy;
+	int	i;
+	int	j;
 
 	i = 0;
-	j = 1;
-	len = ft_x2strlen(content);
-	env_cpy = NULL;
-	while (data->env[i])
+	j = 0;
+	while (content[i])
 	{
-		if (data->env[i] != content[j])
-			return (0);
-		if (ft_strncmp(content[j], data->env[i], len) == 0)
+		j = 0;
+		while (content[i][j])
 		{
-			env_cpy = cpy_environement(env_cpy, data->env);
-			ft_x2free((void **)data->env);
-			data->env = ft_calloc(len, sizeof(char));
-			if (!data->env)
-				return (FAILURE);
-			data->env = reset(data, content, env_cpy);
-			ft_x2free((void **)content);
-			ft_x2free((void **)env_cpy);
+			if (!is_valid_var(content[i][j]))
+				return (INVALID);
+			j++;
 		}
 		i++;
-		j++;
+	}
+	return (VALID);
+}
+
+int	ft_unset(t_data *data, char **content)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (content[i])
+	{
+		while (content[i][j])
+		{
+			if (check_valid_args(content) > 0)
+				return (FAILURE);
+			if (ft_strncmp(content[i], data->env, ft_x2strlen(content)))
+			{
+			}
+			j++;
+		}
+		i++;
 	}
 	return (SUCCESS);
 }
+
+
+// int	ft_unset(t_data *data, char **content)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**env_cpy;
+
+// 	i = 0;
+// 	env_cpy = NULL;
+// 	if (!check_valid_args(content))
+// 		return (0);
+// 	while (data->env[i] && content)
+// 	{
+// 		if (ft_strncmp(content, data->env[i], ft_strlen(content)) == 0)
+// 		{
+// 			env_cpy = cpy_environement(env_cpy, data->env);
+// 			ft_x2free((void **)data->env);
+// 			data->env = ft_calloc(ft_x2strlen(content), sizeof(char *));
+// 			if (!data->env)
+// 				return (FAILURE);
+// 			data->env = reset(data, content, env_cpy);
+// 			ft_x2free((void **)env_cpy);
+// 			return (SUCCESS);
+// 		}
+// 		i++;
+// 	}
+// 	return (SUCCESS);
+// }
