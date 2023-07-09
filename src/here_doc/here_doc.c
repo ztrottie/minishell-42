@@ -34,7 +34,7 @@ int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
 	if (pid < 0)
 		return (FAILURE);
 	else if (pid == 0)
-		get_input(fd, limiter, type);
+		get_input(data, fd, limiter, type);
 	else
 		if (pid_add_end(data, pid) <= 0)
 			return (FAILURE);

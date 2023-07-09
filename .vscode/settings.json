@@ -8,6 +8,11 @@
 		"unordered_map": "c",
 		"env.h": "c",
 		"error.h": "c",
-		"parsing.h": "c"
+		"parsing.h": "c",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

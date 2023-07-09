@@ -2,10 +2,13 @@
 
 int	init_parsed_line(t_data *data, t_lines *lines, int type)
 {
-	size_t	i;
+	size_t	len;
 
-	i = 0;
-	while (lines->line)
+	len = parsed_line_len(data, lines, type);
+	lines->parsed_line = ft_calloc(len + 1, sizeof(char));
+	if (lines->parsed_line <= 0)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 char	*get_parsed_line(t_data *data, int type)
@@ -19,7 +22,7 @@ char	*get_parsed_line(t_data *data, int type)
 	line = ft_strjoin(lines.parse_line, "\n");
 	if (!line)
 		return (NULL);
-	return (ft_free(line), parsed_line);
+	return (ft_free(lines.parsed_line), line);
 }
 
 int	get_input(t_data *data, int fd, char *limiter, int type)

@@ -1,14 +1,27 @@
 #include "../../include/here_doc.h"
 
-size_t	variable_len_control(char *line)
+size_t	variable_len_control(t_data *data, char *line)
 {
-	size_t	i;
+	char	*name;
+	char	*exit_code;
+	size_t	len;
 
-	i = 0;
-	while (line[i])
+	name = NULL;
+	len = 1;
+	if (line[len] && line[len] != ' ')
 	{
-
+		name = variable_name(line->line + len);
+		if (name)
+			len = ft_strlen(env_variable(data, name));
+		else if (line->line[line->i_line] == '?')
+		{
+			exit_code = ft_itoa(data->exit_code);
+			if (!exit_code)
+				return (0);
+			len = ft_strlen(exit_code);
+		}
 	}
+	return (ft_free(name), len);
 }
 
 int	init_parsed_line_len(t_lines *lines, char **line)
@@ -23,7 +36,7 @@ int	init_parsed_line_len(t_lines *lines, char **line)
 	reuturn (SUCCESS);
 }
 
-size_t	parsed_line_len(t_data *data, t_lines *lines)
+size_t	parsed_line_len(t_data *data, t_lines *lines, int type)
 {
 	char	*line;
 	size_t	i;
@@ -33,8 +46,8 @@ size_t	parsed_line_len(t_data *data, t_lines *lines)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '$')
-			i += variable_len_control(line + i);
+		if (line[i] == '$' && type)
+			i += variable_len_control(data, line + i);
 		else
 			i++;
 	}
