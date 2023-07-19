@@ -46,7 +46,9 @@ COMMANDS_SRCS	=	commands_separator.c \
 
 HERE_DOC_SRCS	=	here_doc.c \
 					get_input.c \
-					hd_len_control.c
+					hd_len_control.c \
+					hd_control.c \
+					hd_variable_control.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})

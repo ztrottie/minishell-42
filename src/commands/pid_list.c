@@ -1,19 +1,19 @@
 #include "../../include/commands.h"
 
-int	pid_add_end(t_data *data, pid_t pid)
+int	pid_add_end(t_pid_list **pid_list, pid_t pid)
 {
 	t_pid_list	*ptr;
 
-	if (!data->pid)
+	if (!*pid_list)
 	{
-		data->pid = ft_calloc(1, sizeof(t_pid_list));
-		if (!data->pid)
+		*pid_list = ft_calloc(1, sizeof(t_pid_list));
+		if (!*pid_list)
 			return (FAILURE);
-		data->pid->pid = pid;
+		(*pid_list)->pid = pid;
 	}
 	else
 	{
-		ptr = data->pid;
+		ptr = *pid_list;
 		while (ptr->next != NULL)
 			ptr = ptr->next;
 		ptr->next = ft_calloc(1, sizeof(t_pid_list));
@@ -37,5 +37,18 @@ void	free_pid_list(t_data *data)
 		ptr = tmp;
 	}
 	data->pid = NULL;
+}
 
+int	wait_pid_list(t_pid_list **pid)
+{
+	t_pid_list	*ptr;
+	int			status;
+
+	ptr = *pid;
+	while (ptr != NULL)
+	{
+		waitpid(ptr->pid, &status, 0);
+		ptr = ptr->next;
+	}
+	return (SUCCESS);
 }

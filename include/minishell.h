@@ -69,6 +69,7 @@ typedef struct s_pid_list
 typedef struct s_data
 {
 	t_cmds		*cmds;
+	t_tokens	*tokens;
 	char		**env;
 	int			nb_pipe;
 	int			exit_code;

@@ -10,10 +10,10 @@ size_t	variable_len_control(t_data *data, char *line)
 	len = 1;
 	if (line[len] && line[len] != ' ')
 	{
-		name = variable_name(line->line + len);
+		name = variable_name(line + len);
 		if (name)
 			len = ft_strlen(env_variable(data, name));
-		else if (line->line[line->i_line] == '?')
+		else if (line[len] == '?')
 		{
 			exit_code = ft_itoa(data->exit_code);
 			if (!exit_code)
@@ -32,8 +32,8 @@ int	init_parsed_line_len(t_lines *lines, char **line)
 	*line = ft_calloc(len + 1, sizeof(char));
 	if (!*line)
 		return (FAILURE);
-	ft_strlcpy(*line, lines->line, len);
-	reuturn (SUCCESS);
+	ft_strlcpy(*line, lines->line, len + 1);
+	return (SUCCESS);
 }
 
 size_t	parsed_line_len(t_data *data, t_lines *lines, int type)
@@ -51,5 +51,5 @@ size_t	parsed_line_len(t_data *data, t_lines *lines, int type)
 		else
 			i++;
 	}
-	return (i);
+	return (i + 1);
 }

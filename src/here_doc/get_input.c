@@ -6,23 +6,23 @@ int	init_parsed_line(t_data *data, t_lines *lines, int type)
 
 	len = parsed_line_len(data, lines, type);
 	lines->parsed_line = ft_calloc(len + 1, sizeof(char));
-	if (lines->parsed_line <= 0)
+	if (!lines->parsed_line)
 		return (FAILURE);
+	lines->i_parsed_line = 0;
 	return (SUCCESS);
 }
 
 char	*get_parsed_line(t_data *data, int type)
 {
 	t_lines lines;
-	char	*line;
 
 	lines.line = readline("> ");
-	if (init_parsed_line(data, &lines, type))
+	lines.i_line = 0;
+	if (init_parsed_line(data, &lines, type) <= 0)
 		return (NULL);
-	line = ft_strjoin(lines.parse_line, "\n");
-	if (!line)
+	if (hd_line_control(data, &lines, type) <= 0)
 		return (NULL);
-	return (ft_free(lines.parsed_line), line);
+	return (lines.parsed_line);
 }
 
 int	get_input(t_data *data, int fd, char *limiter, int type)
@@ -34,12 +34,12 @@ int	get_input(t_data *data, int fd, char *limiter, int type)
 	new_limiter = ft_strjoin(limiter, "\n");
 	if (!new_limiter)
 		exit(0);
-	line = ft_strjoin(readline("> "), "\n");
 	len = ft_strlen(new_limiter);
+	line = get_parsed_line(data, type);
 	while (line && ft_strncmp(line, new_limiter, len) != 0)
 	{
-		write(fd, line, sizeof(char *));
-		line = ft_strjoin(readline("> "), "\n");
+		write(fd, line, ft_strlen(line));
+		line = get_parsed_line(data, type);
 	}
 	exit(0);
 }

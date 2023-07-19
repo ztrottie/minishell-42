@@ -11,6 +11,8 @@
                 "${workspaceFolder}/src/parsing/*.c",
                 "${workspaceFolder}/src/prompt/*.c",
                 "${workspaceFolder}/src/env/*.c",
+                "${workspaceFolder}/src/commands/*.c",
+                "${workspaceFolder}/src/here_doc/*.c",
                 "${workspaceFolder}/libft/libft.a",
                 "-o",
                 "${workspaceFolder}/minishell"

@@ -55,14 +55,14 @@ size_t	content_size(t_tokens **tokens)
 	return (count);
 }
 
-int	init_content(t_data *data, t_tokens *tokens, int cmds_nb)
+int	init_content(t_data *data, t_tokens **tokens, int cmds_nb)
 {
 	size_t	len;
 
-	if (tokens->type == PIPE)
-		tokens = tokens->next;
-	len = content_size(&tokens);
-	data->cmds[cmds_nb].content = ft_calloc(len, sizeof(char *));
+	if ((*tokens)->type == PIPE)
+		*tokens = (*tokens)->next;
+	len = content_size(tokens);
+	data->cmds[cmds_nb].content = ft_calloc(len + 1, sizeof(char *));
 	if (!data->cmds[cmds_nb].content)
 		return (FAILURE);
 	return (SUCCESS);
@@ -82,7 +82,7 @@ int	commands_separator(t_data *data, t_tokens **tokens)
 		if (ptr->type == PIPE || (ptr == *tokens && cmds_nb < 0))
 		{
 			cmds_nb++;
-			if (init_content(data, ptr, cmds_nb) <= 0)
+			if (init_content(data, &ptr, cmds_nb) <= 0)
 				return (FAILURE);
 		}
 		else if (ptr->type > PIPE)
@@ -90,6 +90,9 @@ int	commands_separator(t_data *data, t_tokens **tokens)
 			if (redirection_choice(data, &ptr, &data->cmds[cmds_nb]) <= 0)
 				return (FAILURE);
 		}
+		else
+			ptr = ptr->next;
 	}
+	wait_pid_list(&data->pid);
 	return (SUCCESS);
 }
