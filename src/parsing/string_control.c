@@ -1,80 +1,81 @@
 #include "../../include/parsing.h"
 
-static int	quote_control(t_data *data, t_line *line, t_line *content, int quote)
+static int	quote_control(t_data *data, t_lines *lines, int quote)
 {
-	line->i_line++;
-	while (line->line[line->i_line] && is_quote(line->line[line->i_line]) != quote)
+	lines->i_line++;
+	while (lines->line[lines->i_line] && is_quote(lines->line[lines->i_line]) != quote)
 	{
-		if (quote == DOUBLE_QUOTE && line->line[line->i_line] == '$')
+		if (quote == DOUBLE_QUOTE && lines->line[lines->i_line] == '$' \
+		&& lines->prev_type != HERE_DOC)
 		{
-			if (!variable_control(data, line, content, quote))
+			if (!variable_control(data, lines, quote))
 				return (FAILURE);
 		}
 		else
-			basic_control(line, content);
+			basic_control(lines);
 	}
-	line->i_line++;
+	lines->i_line++;
 	return (SUCCESS);
 }
 
-static int	init_content(t_data *data, t_line *line, t_line *content)
+static int	init_content(t_data *data, t_lines *lines)
 {
 	size_t	content_len;
 
-	content_len = parsed_content_len(data, line);
-	content->line = ft_calloc(content_len + 1, sizeof(char));
-	if (!content->line)
+	content_len = parsed_content_len(data, lines);
+	lines->parsed_line = ft_calloc(content_len + 1, sizeof(char));
+	if (!lines->parsed_line)
 		return (FAILURE);
-	content->i_line = 0;
+	lines->i_parsed_line = 0;
 	return (SUCCESS);
 }
 
-static int	token_control(t_tokens **tokens, t_line *content, int type)
+static int	token_control(t_tokens **tokens, t_lines *lines, int type)
 {
-	if (content->line[0])
+	if (lines->parsed_line[0])
 	{
-		if (!token_add_end(tokens, type, content->line))
+		if (!token_add_end(tokens, type, lines->parsed_line))
 			return (FAILURE);
 	}
 	else
-		ft_free(content->line);
+		ft_free(lines->parsed_line);
 	return (SUCCESS);
 }
 
-static int	string_conditions(t_data *data, t_line *line, t_line *content, int quote)
+static int	string_conditions(t_data *data, t_lines *lines, int quote)
 {
 	if (quote)
 	{
-		if (quote_control(data, line, content, quote) == FAILURE)
-			return (ft_free(content->line), FAILURE);
+		if (quote_control(data, lines, quote) == FAILURE)
+			return (ft_free(lines->parsed_line), FAILURE);
 	}
-	else if (line->line[line->i_line] == '$')
+	else if (lines->line[lines->i_line] == '$' && lines->prev_type != HERE_DOC)
 	{
-		if (variable_control(data, line, content, 0) == FAILURE)
-			return (ft_free(content->line), FAILURE);
+		if (variable_control(data, lines, 0) == FAILURE)
+			return (ft_free(lines->parsed_line), FAILURE);
 	}
 	else
-		basic_control(line, content);
+		basic_control(lines);
 	return (SUCCESS);
 }
 
-int	string_control(t_data *data, t_tokens **tokens, t_line *line)
+int	string_control(t_data *data, t_tokens **tokens, t_lines *lines)
 {
 	int		quote;
 	int		type;
-	t_line	content;
 
-	if (!init_content(data, line, &content))
+	if (!init_content(data, lines))
 		return (FAILURE);
 	type = 0;
-	while (line->line[line->i_line] && !is_limitchar(line->line[line->i_line]))
+	while (lines->line[lines->i_line] && !is_limitchar(lines->line[lines->i_line]))
 	{
-		quote = is_quote(line->line[line->i_line]);
+		quote = is_quote(lines->line[lines->i_line]);
 		if (quote)
 			type = QUOTES;
-		string_conditions(data, line, &content, quote);
+		string_conditions(data, lines, quote);
 	}
-	if (!token_control(tokens, &content, type))
+	lines->prev_type = type;
+	if (!token_control(tokens, lines, type))
 		return (FAILURE);
 	return (SUCCESS);
 }

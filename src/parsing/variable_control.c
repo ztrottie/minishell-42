@@ -1,12 +1,12 @@
 #include "../../include/parsing.h"
 
-static int	env_varaible_control(t_data *data, t_line *line, t_line *content)
+static int	env_varaible_control(t_data *data, t_lines *lines)
 {
 	char 	*name;
 	char 	*var_content;
 	size_t	i;
 
-	name = variable_name(line->line + line->i_line);
+	name = variable_name(lines->line + lines->i_line);
 	if (!name)
 		return (INVALID);
 	var_content = env_variable(data, name);
@@ -15,16 +15,16 @@ static int	env_varaible_control(t_data *data, t_line *line, t_line *content)
 		i = 0;
 		while (var_content[i])
 		{
-			content->line[content->i_line] = var_content[i];
+			lines->parsed_line[lines->i_parsed_line] = var_content[i];
+			lines->i_parsed_line++;
 			i++;
-			content->i_line++;
 		}
 	}
-	line->i_line += ft_strlen(name);
+	lines->i_line += ft_strlen(name);
 	return (ft_free(name), SUCCESS);
 }
 
-static int	exit_variable_control(t_data *data, t_line *line, t_line *content)
+static int	exit_variable_control(t_data *data, t_lines *lines)
 {
 	char	*exit_code;
 	size_t	i;
@@ -35,25 +35,25 @@ static int	exit_variable_control(t_data *data, t_line *line, t_line *content)
 	i = 0;
 	while (exit_code[i])
 	{
-		content->line[content->i_line] = exit_code[i];
-		content->i_line++;
+		lines->parsed_line[lines->i_parsed_line] = exit_code[i];
+		lines->i_parsed_line++;
 		i++;
 	}
-	line->i_line++;
+	lines->i_line++;
 	return (SUCCESS);
 }
 
-int	variable_control(t_data *data, t_line *line, t_line *content, int quote)
+int	variable_control(t_data *data, t_lines *lines, int quote)
 {
-	if ((line->line[line->i_line + 1] && line->line[line->i_line + 1] == ' ') \
-	|| (quote && is_quote(line->line[line->i_line + 1]) == quote)
-	|| !line->line[line->i_line + 1])
-		return (basic_control(line, content), SUCCESS);
+	if ((lines->line[lines->i_line + 1] && lines->line[lines->i_line + 1] == ' ') \
+	|| (quote && is_quote(lines->line[lines->i_line + 1]) == quote)
+	|| !lines->line[lines->i_line + 1])
+		return (basic_control(lines), SUCCESS);
 	else
-		line->i_line++;
-	if (line->line[line->i_line] == '?')
-		exit_variable_control(data, line, content);
+		lines->i_line++;
+	if (lines->line[lines->i_line] == '?')
+		exit_variable_control(data, lines);
 	else
-		env_varaible_control(data, line, content);
+		env_varaible_control(data, lines);
 	return (SUCCESS);
 }

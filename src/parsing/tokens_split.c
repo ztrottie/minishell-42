@@ -1,47 +1,48 @@
 #include "../../include/parsing.h"
 
-void	basic_control(t_line *line, t_line *content)
+void	basic_control(t_lines *lines)
 {
-	content->line[content->i_line] = line->line[line->i_line];
-	content->i_line++;
-	line->i_line++;
+	lines->parsed_line[lines->i_parsed_line] = lines->line[lines->i_line];
+	lines->i_parsed_line++;
+	lines->i_line++;
 }
 
-static int	operator_control(t_tokens **tokens, t_line *line, int len)
+static int	operator_control(t_tokens **tokens, t_lines *lines, int len)
 {
 	char	*content;
 	int		type;
 
-	content = ft_substr(line->line, line->i_line, len);
+	content = ft_substr(lines->line, lines->i_line, len);
 	if (!content)
 		return (FAILURE);
 	type = is_redirection(content, len);
+	lines->prev_type = type;
 	if (!token_add_end(tokens, type, content))
 		return (ft_free(content), FAILURE);
-	line->i_line += len;
+	lines->i_line += len;
 	return (SUCCESS);
 }
 
-int	token_split(t_data *data, t_tokens **tokens, t_line *line)
+int	token_split(t_data *data, t_tokens **tokens, t_lines *lines)
 {
 	int operator;
 
-	while (line->line[line->i_line])
+	while (lines->line[lines->i_line])
 	{
-		if (line->line[line->i_line] != ' ')
+		if (lines->line[lines->i_line] != ' ')
 		{
-			operator = is_operator(line);
+			operator = is_operator(lines);
 			if (operator)
 			{
-				if (!operator_control(tokens, line, operator))
+				if (!operator_control(tokens, lines, operator))
 					return (free_tokens(tokens), FAILURE);
 			}
 			else
-				if (string_control(data, tokens, line) == FAILURE)
+				if (string_control(data, tokens, lines) == FAILURE)
 					return (FAILURE);
 		}
 		else
-			line->i_line++;
+			lines->i_line++;
 	}
 	return (SUCCESS);
 }

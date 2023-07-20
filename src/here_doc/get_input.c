@@ -31,6 +31,7 @@ int	get_input(t_data *data, int fd, char *limiter, int type)
 	char	*new_limiter;
 	size_t	len;
 
+	
 	new_limiter = ft_strjoin(limiter, "\n");
 	if (!new_limiter)
 		exit(0);

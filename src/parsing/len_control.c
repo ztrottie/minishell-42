@@ -46,13 +46,13 @@ static size_t	quote_len_control(t_data *data, t_line *line, int quote)
 	return (len);
 }
 
-size_t	parsed_content_len(t_data *data, t_line *line)
+size_t	parsed_content_len(t_data *data, t_lines *lines)
 {
 	t_line	tmp_line;
 	size_t	len;
 	int		quote;
 
-	cpy_line(line, &tmp_line);
+	cpy_line(lines, &tmp_line);
 	len = 0;
 	while (tmp_line.line[tmp_line.i_line] && \
 	!is_limitchar(tmp_line.line[tmp_line.i_line]))

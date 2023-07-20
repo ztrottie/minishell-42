@@ -8,6 +8,7 @@
 # include "../readline/history.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdbool.h>
 
@@ -76,5 +77,13 @@ typedef struct s_data
 	t_pid_list	*pid;
 }	t_data;
 
+typedef struct	s_lines
+{
+	char	*line;
+	char	*parsed_line;
+	size_t	i_line;
+	size_t	i_parsed_line;
+	int		prev_type;
+}	t_lines;
 
 #endif

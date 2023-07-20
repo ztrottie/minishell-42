@@ -28,13 +28,17 @@ static char	*find_new_name(void)
 
 int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
 {
-	pid_t	pid;
+	pid_t				pid;
 
 	pid = fork();
 	if (pid < 0)
 		return (FAILURE);
 	else if (pid == 0)
+	{
+		wait_pid_list(&data->pid);
+		ft_printf("ayo %d");
 		get_input(data, fd, limiter, type);
+	}
 	else if (pid > 0)
 		if (pid_add_end(&data->pid, pid) <= 0)
 			return (FAILURE);
