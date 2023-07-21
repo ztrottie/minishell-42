@@ -50,7 +50,7 @@ int	parsing(char *line_read, t_data *data)
 		return (FAILURE);
 	if (tokens_parsing(data, &tokens) <= 0)
 		return (FAILURE);
-	if (commands_separator(data, &tokens) <= 0)
-		return (FAILURE);
+	// if (commands_separator(data, &tokens) <= 0)
+	// 	return (FAILURE);
 	return (SUCCESS);
 }

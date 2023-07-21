@@ -6,6 +6,8 @@
 # include "../libft/libft.h"
 # include "../readline/readline.h"
 # include "../readline/history.h"
+# include <sys/wait.h>
+# include <sys/types.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
@@ -42,13 +44,12 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }	t_tokens;
 
-typedef struct s_files
+typedef struct s_red
 {
-	char			*name;
-	int				fd;
-	int				cmd_index;
-	struct s_files	*next;
-}	t_files;
+	int				type;
+	char			*content;
+	struct s_red	*next;
+}	t_red;
 
 typedef struct s_cmds
 {
