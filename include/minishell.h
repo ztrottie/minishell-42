@@ -26,7 +26,6 @@ enum REDIRECION
 };
 
 # define QUOTES -1
-# define NONE -200
 
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
@@ -57,9 +56,7 @@ typedef struct s_cmds
 	char	*name;
 	char	**content;
 	int		nb_input;
-	t_files	*input_fds;
 	int		nb_output;
-	t_files	*output_fds;
 }	t_cmds;
 
 typedef struct s_pid_list

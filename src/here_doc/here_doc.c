@@ -57,7 +57,7 @@ int	here_doc_main(t_data *data, t_files **inputs, char *limiter, int type)
 		return (FAILURE);
 	close(fd);
 	fd = open(name, O_RDONLY);
-	if (file_add_end(inputs, name, fd) <= 0)
-		return (FAILURE);
+	// if (file_add_end(inputs, name, fd) <= 0)
+	// 	return (FAILURE);
 	return (SUCCESS);
 }

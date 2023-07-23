@@ -6,7 +6,7 @@
 # include "env.h"
 # include "parsing.h"
 
-int		here_doc_main(t_data *data, t_files **inputs, char *limiter, int type);
+int		here_doc_main(t_data *data, char *limiter, int type);
 int		get_input(t_data *data, int fd, char *limiter, int type);
 size_t	parsed_line_len(t_data *data, t_lines *lines, int type);
 int		hd_line_control(t_data *data, t_lines *lines, int type);

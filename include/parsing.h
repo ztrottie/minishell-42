@@ -29,7 +29,6 @@ size_t	parsed_content_len(t_data *data, t_lines *lines);
 void	basic_control(t_lines *lines);
 int		string_control(t_data *data, t_tokens **tokens, t_lines *lines);
 void	free_tokens(t_tokens **tokens);
-int		tokens_parsing(t_data *data, t_tokens **tokens);
 int		variable_control(t_data *data, t_lines *lines, int quote);
 
 #endif
