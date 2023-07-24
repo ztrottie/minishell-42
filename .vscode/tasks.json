@@ -2,8 +2,8 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/make re",
+            "label": "debug",
+            "command": "make",
             "args": [],
             "options": {
                 "cwd": "${workspaceFolder}"

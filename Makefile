@@ -41,6 +41,7 @@ PARSING_SRCS	=	parsing_init.c \
 
 COMMANDS_SRCS	=	pid_list.c \
 					red_list.c \
+					init_commands.c \
 					tokens_parsing.c
 
 HERE_DOC_SRCS	=	here_doc.c \

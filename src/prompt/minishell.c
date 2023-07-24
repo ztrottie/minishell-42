@@ -11,6 +11,7 @@ int	main(int argc, char **argv, char **env)
 	cpy_env(&data, env);
 	while (1)
 	{
+		data.nb_pipe = 0;
 		line = readline("minishell> ");
 		if (!line)
 			break ;

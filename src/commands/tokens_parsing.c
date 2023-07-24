@@ -1,4 +1,4 @@
-#include "../../include/parsing.h"
+#include "../../include/commands.h"
 
 static void	put_error(t_data *data, t_tokens *tokens)
 {
@@ -12,9 +12,9 @@ static void	put_error(t_data *data, t_tokens *tokens)
 	data->exit_code = 258;
 }
 
-int	pipe_errors(t_data *data, t_tokens *tokens, int index)
+static int	pipe_errors(t_data *data, t_tokens *tokens, bool start)
 {
-	if (index == 0)
+	if (start == true)
 		return (put_error(data, tokens), FAILURE);
 	tokens = tokens->next;
 	if (!tokens || tokens->type == PIPE)
@@ -22,39 +22,21 @@ int	pipe_errors(t_data *data, t_tokens *tokens, int index)
 	return (SUCCESS);
 }
 
-int	red_errors(t_data *data, t_tokens *tokens)
+static int	red_errors(t_data *data, t_tokens *tokens)
 {
-	tokens = tokens->next;
+  	tokens = tokens->next;
 	if (!tokens || tokens->type > 0)
 		return (put_error(data, tokens), FAILURE);
 	return (SUCCESS);
 }
 
-static int	expected_token(t_data *data, t_tokens *tokens, int index)
+int	expected_token(t_data *data, t_tokens *tokens, bool start)
 {
 	if (tokens->type == PIPE)
-		if (pipe_errors(data, tokens, index) <= 0)
+		if (pipe_errors(data, tokens, start) <= 0)
 			return (FAILURE);
 	if (tokens->type > PIPE)
 		if (red_errors(data, tokens) <= 0)
 			return (FAILURE);
-	return (SUCCESS);
-}
-
-int	tokens_parsing(t_data *data, t_tokens **tokens)
-{
-	t_tokens	*ptr;
-	size_t		i;
-
-	i = 0;
-	ptr = *tokens;
-	while (ptr != NULL)
-	{
-		ft_printf("[%d]|%s|\n", ptr->type, ptr->content);
-		if (ptr->type >= PIPE)
-		
-		i++;
-		ptr = ptr->next;
-	}
 	return (SUCCESS);
 }

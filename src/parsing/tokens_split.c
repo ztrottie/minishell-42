@@ -7,7 +7,7 @@ void	basic_control(t_lines *lines)
 	lines->i_line++;
 }
 
-static int	operator_control(t_tokens **tokens, t_lines *lines, int len)
+static int	operator_control(t_data *data, t_tokens **tokens, t_lines *lines, int len)
 {
 	char	*content;
 	int		type;
@@ -16,6 +16,8 @@ static int	operator_control(t_tokens **tokens, t_lines *lines, int len)
 	if (!content)
 		return (FAILURE);
 	type = is_redirection(content, len);
+	if (type == PIPE)
+		data->nb_pipe++;
 	lines->prev_type = type;
 	if (!token_add_end(tokens, type, content))
 		return (ft_free(content), FAILURE);
@@ -34,7 +36,7 @@ int	token_split(t_data *data, t_tokens **tokens, t_lines *lines)
 			operator = is_operator(lines);
 			if (operator)
 			{
-				if (!operator_control(tokens, lines, operator))
+				if (!operator_control(data, tokens, lines, operator))
 					return (free_tokens(tokens), FAILURE);
 			}
 			else

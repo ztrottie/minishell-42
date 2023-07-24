@@ -1,6 +1,6 @@
 #include "../../include/parsing.h"
 
-int	red_add_end(t_red **red_list, int type, char *content)
+int	red_add_end(t_red **red_list, int type, char *content, int cont_type)
 {
 	t_red	*ptr;
 
@@ -11,6 +11,7 @@ int	red_add_end(t_red **red_list, int type, char *content)
 			return (FAILURE);
 		(*red_list)->type = type;
 		(*red_list)->content = content;
+		(*red_list)->cont_type = cont_type;
 	}
 	else
 	{
@@ -22,6 +23,7 @@ int	red_add_end(t_red **red_list, int type, char *content)
 			return (FAILURE);
 		ptr->next->type = type;
 		ptr->next->content = content;
+		ptr->cont_type = cont_type;
 	}
 	return (SUCCESS);
 }

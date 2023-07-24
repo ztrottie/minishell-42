@@ -46,6 +46,7 @@ typedef struct s_tokens
 typedef struct s_red
 {
 	int				type;
+	int				cont_type;
 	char			*content;
 	struct s_red	*next;
 }	t_red;
@@ -55,6 +56,7 @@ typedef struct s_cmds
 	int		nb;
 	char	*name;
 	char	**content;
+	t_red	*red;
 	int		nb_input;
 	int		nb_output;
 }	t_cmds;
@@ -64,6 +66,15 @@ typedef struct s_pid_list
 	pid_t				pid;
 	struct s_pid_list	*next;
 }	t_pid_list;
+
+typedef struct	s_lines
+{
+	char	*line;
+	char	*parsed_line;
+	size_t	i_line;
+	size_t	i_parsed_line;
+	int		prev_type;
+}	t_lines;
 
 typedef struct s_data
 {
@@ -75,13 +86,5 @@ typedef struct s_data
 	t_pid_list	*pid;
 }	t_data;
 
-typedef struct	s_lines
-{
-	char	*line;
-	char	*parsed_line;
-	size_t	i_line;
-	size_t	i_parsed_line;
-	int		prev_type;
-}	t_lines;
 
 #endif
