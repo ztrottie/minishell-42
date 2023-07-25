@@ -48,12 +48,7 @@ int	parsing(char *line_read, t_data *data)
 	init_parsing(data, line_read, &lines, &tokens);
 	if (token_split(data, &tokens, &lines) <= 0)
 		return (FAILURE);
-	while (tokens != NULL)
-	{
-		ft_printf("[%d]|%s|\n", tokens->type, tokens->content);
-		tokens = tokens->next;
-	}
-	// if (init_commands(data, &tokens) <= 0)
-	// 	return (FAILURE);
+	if (init_commands(data, &tokens) <= 0)
+		return (FAILURE);
 	return (SUCCESS);
 }

@@ -37,7 +37,7 @@ int	token_split(t_data *data, t_tokens **tokens, t_lines *lines)
 			if (operator)
 			{
 				if (!operator_control(data, tokens, lines, operator))
-					return (free_tokens(tokens), FAILURE);
+					return (free_tokens(tokens, false), FAILURE);
 			}
 			else
 				if (string_control(data, tokens, lines) == FAILURE)

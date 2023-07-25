@@ -11,6 +11,7 @@ void	free_pid_list(t_data *data);
 int		wait_pid_list(t_pid_list **pid);
 void	free_red_list(t_red **red_list);
 int		red_add_end(t_red **red_list, int type, char *content, int cont_type);
+int		init_cmds_content(t_data *data, t_tokens **tokens);
 
 
 #endif

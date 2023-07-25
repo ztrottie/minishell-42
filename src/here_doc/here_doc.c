@@ -30,7 +30,6 @@ int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
 {
 	pid_t				pid;
 
-	wait_pid_list(&data->pid);
 	pid = fork();
 	if (pid < 0)
 		return (FAILURE);
@@ -39,6 +38,7 @@ int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
 	else if (pid > 0)
 		if (pid_add_end(&data->pid, pid) <= 0)
 			return (FAILURE);
+	wait_pid_list(&data->pid);
 	return (SUCCESS);
 }
 

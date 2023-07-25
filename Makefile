@@ -42,7 +42,8 @@ PARSING_SRCS	=	parsing_init.c \
 COMMANDS_SRCS	=	pid_list.c \
 					red_list.c \
 					init_commands.c \
-					tokens_parsing.c
+					tokens_parsing.c \
+					init_contents.c
 
 HERE_DOC_SRCS	=	here_doc.c \
 					get_input.c \
@@ -58,7 +59,7 @@ PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 COMMANDS_OBJS	=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
 HERE_DOC_OBJS	=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
 
-OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS)
+OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(HERE_DOC_OBJS)
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@

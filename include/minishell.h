@@ -51,6 +51,14 @@ typedef struct s_red
 	struct s_red	*next;
 }	t_red;
 
+typedef struct	s_files
+{
+	int				fd;
+	bool			here_doc;
+	char			*name;
+	struct s_files	*next;
+}	t_files
+
 typedef struct s_cmds
 {
 	int		nb;
