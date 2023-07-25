@@ -19,25 +19,19 @@ char    **cpy_environement(char **env, char **cpy_env)
 	return (env);
 }
 
-// static int    is_valid_args(char **content)
-// {
-// 	int	i;
-// 	int	j;
+int	ft_strsearch(char *str, char reject)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (content[i])
-// 	{
-// 		j = 0;
-// 		while (content[i][j])
-// 		{
-// 			if (!is_valid_var(content[i][j]))
-// 				return (FAILURE);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (SUCCESS);
-// }
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == reject) && str[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static char    **reset(char **env, char *variable, char **env_cpy)
 	{
@@ -69,6 +63,12 @@ int    ft_unset(t_data *data, char **content)
 	env = data->env;
 	while (content[i])
 	{
+		if (ft_strsearch(content[i], 32))
+		{
+			ft_printf_fd(2, "minishell: unset: `%s : not a valid identifier", content[i]);
+			i++;
+			continue ;
+		}
 		content[i] = ft_strjoin(content[i], "=");
 		j = 0;
 		while (env[j])
@@ -78,11 +78,11 @@ int    ft_unset(t_data *data, char **content)
 				env_cpy = cpy_environement(NULL, env);
 				ft_x2free((void **)env);
 				env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
-				printf("non\n");
 				if (!env)
 					return (FAILURE);
 				env = reset(env, content[i], env_cpy);
 				ft_x2free((void **)env_cpy);
+				j--;
 			}
 			j++;
 		}

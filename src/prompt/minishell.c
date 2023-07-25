@@ -2,10 +2,10 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*line;
+	//char	*line;
 	int		i = 0;
 	t_data	data;
-	char *content[] = {"unset", "PWD", "USER"};
+	char *content[] = {"unset", "P WD", "USER", "_", NULL};
 
 	(void)argc;
 	(void)argv;
@@ -26,15 +26,14 @@ int	main(int argc, char **argv, char **env)
 		i++;
 	}
 	i = 0;
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-			break ;
-		parsing(line, &data);
-		add_history(line);
-		i++;
-	}
-	ft_x2free((void **)data.env);
-	rl_clear_history();
+	// while (1)
+	// {
+	// 	line = readline("minishell> ");
+	// 	if (!line)
+	// 		break ;
+	// 	parsing(line, &data);
+	// 	add_history(line);
+	// 	i++;
+	// }
+	// ft_x2free((void **)data.env);
 }
