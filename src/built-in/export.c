@@ -15,16 +15,23 @@ static void	export_env(t_data *data)
 
 static void	export_to_env(t_data *data, char **content)
 {
-	int	i;
+	int				i;
+	int				j;
+	char	**env_cpy;
 
-	i = 0;
+	i = 1;
+	j = 0;
+	env_cpy = ft_calloc(sizeof(int), ft_x2strlen(data->env) + 1);
+	if (!env_cpy)
+		return(FAILURE);
+	env_cpy = ft_get_strjoin(env_cpy[j], content[i]);
 	while (content[i])
 	{
-		
+
 	}
 }
 
-int	export(t_data *data, char **content)
+int	export(t_data *data, char **content, bool fork)
 {
 	int	i;
 	int	exit_code;
@@ -35,9 +42,12 @@ int	export(t_data *data, char **content)
 		export_env(data);
 	else
 	{
-		if (content[i] == '=' && (content[i][0] != '=' || content[i][0] != ft_isdigit(content[i])))
-			//export in env and save the new env
-			return (exit_or_return(fork, exit_code));
+		while (content[i])
+		{
+			if (content[i] == '=' && (content[i][0] != '=' || content[i][0] != ft_isdigit(content[i])))
+				//export in env and save the new env
+				return (exit_or_return(fork, exit_code));
+		}
 	}
-	return (SUCCESS);
+	return (exit_or_return(fork, exit_code));
 }
