@@ -63,9 +63,9 @@ int	init_commands(t_data *data, t_tokens **tokens)
 	if (init_cmds_content(data, tokens) <= 0)
 		return (FAILURE);
 	if (command_separator(data, tokens) <= 0)
-		return (FAILURE);
+		return (redirection_main(data, ERROR));
 	free_tokens(tokens, true);
-	for (int i = 0; i < data->nb_pipe + 1; i++)
+	for (size_t i = 0; i < data->nb_pipe + 1; i++)
 	{
 		ft_printf("[%d]|%s|\n", i, data->cmds[i].name);
 		for (int j = 0; data->cmds[i].content[j]; j++)

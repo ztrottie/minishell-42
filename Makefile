@@ -9,6 +9,7 @@ ENV_DIR			=	src/env/
 PARSING_DIR		=	src/parsing/
 COMMANDS_DIR	=	src/commands/
 HERE_DOC_DIR	=	src/here_doc/
+EXECUTION_DIR	=	src/execution/
 
 LIBFT_DIR		=	libft/
 READLINE		=	readline/libreadline.a
@@ -51,6 +52,9 @@ HERE_DOC_SRCS	=	here_doc.c \
 					hd_control.c \
 					hd_variable_control.c
 
+EXECUTION_SRCS	=	redirection.c \
+					files_list.c
+
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
 BUILT_OBJS		=	$(addprefix ${BIN_DIR}, ${BUILT_SRCS:.c=.o})
@@ -58,10 +62,14 @@ ERROR_OBJS		=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
 PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 COMMANDS_OBJS	=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
 HERE_DOC_OBJS	=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
+EXECUTION_OBJS	=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
 
-OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(HERE_DOC_OBJS)
+OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(EXECUTION_OBJS) $(HERE_DOC_OBJS)
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${EXECUTION_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ENV_DIR}%.c

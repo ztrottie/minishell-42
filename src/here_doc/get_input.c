@@ -25,22 +25,21 @@ char	*get_parsed_line(t_data *data, int type)
 	return (lines.parsed_line);
 }
 
-int	get_input(t_data *data, int fd, char *limiter, int type)
+int	get_input(t_hd *hd)
 {
 	char	*line;
 	char	*new_limiter;
 	size_t	len;
 
-	
-	new_limiter = ft_strjoin(limiter, "\n");
+	new_limiter = ft_strjoin(hd->limiter, "\n");
 	if (!new_limiter)
 		exit(0);
 	len = ft_strlen(new_limiter);
-	line = get_parsed_line(data, type);
+	line = get_parsed_line(hd->data, hd->type);
 	while (line && ft_strncmp(line, new_limiter, len) != 0)
 	{
-		write(fd, line, ft_strlen(line));
-		line = get_parsed_line(data, type);
+		write(hd->fd, line, ft_strlen(line));
+		line = get_parsed_line(hd->data, hd->type);
 	}
 	exit(0);
 }

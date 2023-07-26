@@ -26,7 +26,7 @@ static char	*find_new_name(void)
 	return (ft_free(name), ft_free(nb), NULL);
 }
 
-int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
+static int	fork_here_doc(t_hd *hd)
 {
 	pid_t				pid;
 
@@ -34,30 +34,33 @@ int	fork_here_doc(t_data *data, int fd, char *limiter, int type)
 	if (pid < 0)
 		return (FAILURE);
 	else if (pid == 0)
-		get_input(data, fd, limiter, type);
+		get_input(hd);
 	else if (pid > 0)
-		if (pid_add_end(&data->pid, pid) <= 0)
+		if (pid_add_end(&hd->data->pid, pid) <= 0)
 			return (FAILURE);
-	wait_pid_list(&data->pid);
+	wait_pid_list(&hd->data->pid);
 	return (SUCCESS);
 }
 
-int	here_doc_main(t_data *data, t_files **inputs, char *limiter, int type)
+int	here_doc_main(t_data *data, t_files **inputs, t_red *red)
 {
+	t_hd	hd;
 	char	*name;
-	int		fd;
 
 	name = find_new_name();
 	if (!name)
 		return (FAILURE);
-	fd = open(name, O_WRONLY | O_CREAT, 0644);
-	if (fd < 0)
+	hd.fd = open(name, O_WRONLY | O_CREAT, 0644);
+	if (hd.fd < 0)
 		return (FAILURE);
-	if (fork_here_doc(data, fd, limiter, type) <= 0)
+	hd.data = data;
+	hd.limiter = red->content;
+	hd.type = red->cont_type;
+	if (fork_here_doc(&hd) <= 0)
 		return (FAILURE);
-	close(fd);
-	fd = open(name, O_RDONLY);
-	// if (file_add_end(inputs, name, fd) <= 0)
-	// 	return (FAILURE);
+	close(hd.fd);
+	hd.fd = open(name, O_RDONLY);
+	if (file_add_end(inputs, hd.fd, name, true) <= 0)
+		return (FAILURE);
 	return (SUCCESS);
 }

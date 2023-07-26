@@ -16,8 +16,9 @@
 
 # define METACHAR "|<>"
 
-enum REDIRECION
+enum TOKEN_TYPES
 {
+	QUOTES = -1,
 	PIPE = 1,
 	RED_IN = 2,
 	HERE_DOC = 3,
@@ -25,7 +26,11 @@ enum REDIRECION
 	RED_OUT_APPEND = 5,
 };
 
-# define QUOTES -1
+enum MODE
+{
+	STD = 1,
+	ERROR = 2,
+};
 
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
@@ -54,10 +59,10 @@ typedef struct s_red
 typedef struct	s_files
 {
 	int				fd;
-	bool			here_doc;
 	char			*name;
+	bool			here_doc;
 	struct s_files	*next;
-}	t_files
+}	t_files;
 
 typedef struct s_cmds
 {
@@ -65,8 +70,8 @@ typedef struct s_cmds
 	char	*name;
 	char	**content;
 	t_red	*red;
-	int		nb_input;
-	int		nb_output;
+	t_files	*input;
+	t_files	*output;
 }	t_cmds;
 
 typedef struct s_pid_list
@@ -88,8 +93,9 @@ typedef struct s_data
 {
 	t_cmds		*cmds;
 	t_tokens	*tokens;
+	bool		token_error;
 	char		**env;
-	int			nb_pipe;
+	size_t		nb_pipe;
 	int			exit_code;
 	t_pid_list	*pid;
 }	t_data;
