@@ -52,20 +52,23 @@ static char    **reset(char **env, char *variable, char **env_cpy)
 	return (env);
 }
 
-int    ft_unset(t_data *data, char **content)
+int    ft_unset(t_data *data, char **content, bool fork)
 {
-	int		i;
-	int		j;
+	int				i;
+	int				j;
+	int		exit_code;
 	char	**env_cpy;
 	char	**env;
 
 	i = 1;
+	exit_code = 0;
 	env = data->env;
 	while (content[i])
 	{
 		if (ft_strsearch(content[i], 32))
 		{
 			ft_printf_fd(2, "minishell: unset: `%s : not a valid identifier", content[i]);
+			exit_code = 1;
 			i++;
 			continue ;
 		}
@@ -79,7 +82,7 @@ int    ft_unset(t_data *data, char **content)
 				ft_x2free((void **)env);
 				env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
 				if (!env)
-					return (FAILURE);
+					return (exit_or_return(fork, exit_code));
 				env = reset(env, content[i], env_cpy);
 				ft_x2free((void **)env_cpy);
 				j--;
@@ -90,5 +93,5 @@ int    ft_unset(t_data *data, char **content)
 	}
 	data->env = cpy_environement(NULL, env);
 	ft_x2free((void **)env);
-	return (SUCCESS);
+	return (exit_or_return(fork, exit_code));
 }
