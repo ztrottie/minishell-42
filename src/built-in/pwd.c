@@ -2,5 +2,5 @@
 
 int	pwd(void)
 {
-	return (printf("%s\n", getcwd(NULL, 0)), SUCCESS);
+	return (printf("%s\n", getcwd(NULL, 0)), 0);
 }

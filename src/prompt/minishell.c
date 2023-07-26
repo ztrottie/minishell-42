@@ -5,7 +5,7 @@ int	main(int argc, char **argv, char **env)
 	//char	*line;
 	int		i = 0;
 	t_data	data;
-	char *content[] = {"unset", "P WD", "USER", "_", NULL};
+	char *content[] = {"unset", "PATH", NULL};
 
 	(void)argc;
 	(void)argv;
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", data.env[i]);
 		i++;
 	}
+	pwd();
 	i = 0;
 	// while (1)
 	// {
