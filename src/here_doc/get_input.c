@@ -28,18 +28,17 @@ char	*get_parsed_line(t_data *data, int type)
 int	get_input(t_hd *hd)
 {
 	char	*line;
-	char	*new_limiter;
 	size_t	len;
 
-	new_limiter = ft_strjoin(hd->limiter, "\n");
-	if (!new_limiter)
-		exit(0);
-	len = ft_strlen(new_limiter);
 	line = get_parsed_line(hd->data, hd->type);
-	while (line && ft_strncmp(line, new_limiter, len) != 0)
+	len = ft_strlen(line);
+	while (line && ft_strncmp(line, hd->limiter, len) != 0)
 	{
 		write(hd->fd, line, ft_strlen(line));
+		write(hd->fd, "\n", 1);
+		ft_free(line);
 		line = get_parsed_line(hd->data, hd->type);
 	}
+	ft_free(line);
 	exit(0);
 }

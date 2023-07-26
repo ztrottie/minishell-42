@@ -30,16 +30,18 @@ static int	error_redirection(t_data *data)
 		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
 		data->token_error = false;
 	}
+	close_all(data);
+	free_all(data, false);
 	return (SUCCESS);
 }
 
 int	redirection_main(t_data *data, int mode)
 {
-	// if (mode == STD)
-	// {
-	// 	if (std_redirection(data) <= 0)
-	// 		return (FAILURE);
-	// }
+	if (mode == STD)
+	{
+		close_all(data);
+		free_all(data, false);
+	}
 	if (mode == ERROR)
 		if (error_redirection(data) <= 0)
 			return (FAILURE);

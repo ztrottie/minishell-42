@@ -92,7 +92,6 @@ typedef struct	s_lines
 typedef struct s_data
 {
 	t_cmds		*cmds;
-	t_tokens	*tokens;
 	bool		token_error;
 	char		**env;
 	size_t		nb_pipe;

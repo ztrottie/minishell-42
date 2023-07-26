@@ -63,7 +63,7 @@ int	init_commands(t_data *data, t_tokens **tokens)
 	if (init_cmds_content(data, tokens) <= 0)
 		return (FAILURE);
 	if (command_separator(data, tokens) <= 0)
-		return (redirection_main(data, ERROR));
+		return (free_tokens(tokens, true), redirection_main(data, ERROR));
 	free_tokens(tokens, true);
 	for (size_t i = 0; i < data->nb_pipe + 1; i++)
 	{
@@ -73,6 +73,8 @@ int	init_commands(t_data *data, t_tokens **tokens)
 		for (t_red *ptr = data->cmds[i].red; ptr != NULL; ptr = ptr->next)
 			ft_printf("[%d]|[%d] %s|\n", i, ptr->type, ptr->content);
 	}
+	close_all(data);
+	free_all(data, false);
 	return (SUCCESS);
 }
 

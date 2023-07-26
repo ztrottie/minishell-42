@@ -4,7 +4,7 @@
             "type": "cppbuild",
             "label": "debug",
             "command": "make",
-            "args": [],
+            "args": ["re"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -44,5 +44,6 @@ int	free_files(t_files **files)
 		ft_free(ptr);
 		ptr = tmp;
 	}
+	*files = NULL;
 	return (SUCCESS);
 }

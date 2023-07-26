@@ -19,6 +19,6 @@ int	main(int argc, char **argv, char **env)
 			parsing(line, &data);
 		add_history(line);
 	}
-	ft_x2free((void **)data.env);
+	free_all(&data, true);
 	rl_clear_history();
 }

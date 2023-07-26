@@ -53,7 +53,9 @@ HERE_DOC_SRCS	=	here_doc.c \
 					hd_variable_control.c
 
 EXECUTION_SRCS	=	redirection.c \
-					files_list.c
+					files_list.c \
+					close_all_fd.c \
+					free_all.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
