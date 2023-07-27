@@ -17,6 +17,7 @@ void	ft_exit(t_data *data, t_cmds *cmds)
 				return (error_code("Too many arguments", 2, data));
 			if (data->exit_code > 255 || data->exit_code < 0)
 				data->exit_code = 255;
+			data->exit_code %= 256;
 		}
 		else
 			return (error_code("numeric argument required", 2, data));

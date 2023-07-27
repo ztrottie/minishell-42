@@ -1,14 +1,11 @@
 #include "../../include/built_in.h"
 
-static void	export_env(t_data *data)
+static void	export_env(t_data *data, t_export *export)
 {
-	char	**env;
 	int			i;
-
-	data->env = env;
-	while (env[i])
+	while (export->env[i])
 	{
-		ft_printf("declare -x %s\n", env[i]);
+		ft_printf("declare -x %s\n", export->env[i]);
 		i++;
 	}
 }
@@ -27,7 +24,7 @@ static void	export_to_env(t_data *data, char **content)
 	env_cpy = ft_get_strjoin(env_cpy[j], content[i]);
 	while (content[i])
 	{
-
+		
 	}
 }
 

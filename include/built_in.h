@@ -5,11 +5,21 @@
 # include "env.h"
 # include "error.h"
 
-int	pwd(void);
-int	print_env(char **env);
-int	export(t_data *data, char **content);
-int	cd(t_data *data);
-int	ft_unset(t_data *data, char **content, bool fork);
-int	echo(char **content);
+typedef struct s_export
+{
+	char	**env;
+	int		exit_code;
+	int		env_i;
+}	t_export;
+
+
+int		pwd(void);
+int		print_env(char **env);
+int		export(t_data *data, char **content);
+int		cd(t_data *data);
+int		ft_unset(t_data *data, char **content, t_export *export, bool fork);
+int		echo(char **content);
+char    **cpy_environement(char **env, char **cpy_env);
+
 
 #endif

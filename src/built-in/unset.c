@@ -52,7 +52,27 @@ static char    **reset(char **env, char *variable, char **env_cpy)
 	return (env);
 }
 
-int    ft_unset(t_data *data, char **content, bool fork)
+static void	check_export(char *var, char **env_cpy, t_export *export)
+{
+	int	j;
+
+	j = 0;
+	while (export->env[j])
+	{
+		if (ft_strncmp(var, export->env[j], ft_strlen(var + 1)) == 0)
+		{
+			env_cpy = cpy_environement(NULL, export->env);
+			ft_x2free((void **)export->env);
+			export->env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
+			export->env = reset(export->env, var, env_cpy);
+			ft_x2free((void **)env_cpy);
+			j--;
+		}
+		j++;
+	}
+}
+
+int    ft_unset(t_data *data, char **content, t_export *export , bool fork)
 {
 	int				i;
 	int				j;
@@ -72,6 +92,7 @@ int    ft_unset(t_data *data, char **content, bool fork)
 			i++;
 			continue ;
 		}
+		check_export(ft_strdup(content[i]), env_cpy, export);
 		content[i] = ft_strjoin(content[i], "=");
 		j = 0;
 		while (env[j])
