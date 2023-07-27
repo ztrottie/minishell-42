@@ -51,5 +51,6 @@ size_t	parsed_line_len(t_data *data, t_lines *lines, int type)
 		else
 			i++;
 	}
+	ft_free(line);
 	return (i + 1);
 }

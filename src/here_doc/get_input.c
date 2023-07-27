@@ -40,5 +40,9 @@ int	get_input(t_hd *hd)
 		line = get_parsed_line(hd->data, hd->type);
 	}
 	ft_free(line);
+	ft_free(hd->name);
+	close(hd->fd);
+	close_all(hd->data);
+	free_all(hd->data, true);
 	exit(0);
 }

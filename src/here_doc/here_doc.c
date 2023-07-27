@@ -56,6 +56,7 @@ int	here_doc_main(t_data *data, t_files **inputs, t_red *red)
 	hd.data = data;
 	hd.limiter = red->content;
 	hd.type = red->cont_type;
+	hd.name = name;
 	if (fork_here_doc(&hd) <= 0)
 		return (FAILURE);
 	close(hd.fd);

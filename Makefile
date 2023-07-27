@@ -55,7 +55,8 @@ HERE_DOC_SRCS	=	here_doc.c \
 EXECUTION_SRCS	=	redirection.c \
 					files_list.c \
 					close_all_fd.c \
-					free_all.c
+					free_all.c \
+					error_case.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
@@ -122,7 +123,7 @@ fclean: clean
 
 re: fclean all
 
-val: all
+val: re
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.txt ./minishell
 
 .PHONY:	all clean fclean re libft

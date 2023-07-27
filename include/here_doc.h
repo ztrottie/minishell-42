@@ -12,6 +12,7 @@ typedef struct	s_hd
 	int		fd;
 	char	*limiter;
 	int		type;
+	char 	*name;
 } t_hd;
 
 
