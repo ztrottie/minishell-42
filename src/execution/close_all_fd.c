@@ -7,8 +7,11 @@ static int	close_files(t_files **files)
 	ptr = *files;
 	while (ptr != NULL)
 	{
-		if (close(ptr->fd) < 0)
-			return (FAILURE);
+		if (ptr->fd > 0)
+		{
+			if (close(ptr->fd) < 0)
+				return (FAILURE);
+		}
 		ptr = ptr->next;
 	}
 	return (SUCCESS);
