@@ -1,8 +1,10 @@
 #include "../../include/built_in.h"
 
-static void	export_env(t_data *data, t_export *export)
+static void	export_env(t_export *export)
 {
-	int			i;
+	int	i;
+
+	i = 0;
 	while (export->env[i])
 	{
 		ft_printf("declare -x %s\n", export->env[i]);
@@ -10,25 +12,70 @@ static void	export_env(t_data *data, t_export *export)
 	}
 }
 
-static void	export_to_env(t_data *data, char **content)
+static char	*var_name(char *content)
 {
-	int				i;
-	int				j;
-	char	**env_cpy;
+	int		i;
+	char	*name;
 
-	i = 1;
-	j = 0;
-	env_cpy = ft_calloc(sizeof(int), ft_x2strlen(data->env) + 1);
-	if (!env_cpy)
-		return(FAILURE);
-	env_cpy = ft_get_strjoin(env_cpy[j], content[i]);
+	i = 0;
 	while (content[i])
 	{
-		
+			if (content[i] != '+' || content[i] != '=')
+				break ;
+		i++;
 	}
+	name = ft_calloc(sizeof(char), i + 1);
+	if (!name)
+		return (NULL);
+	ft_strlcpy(name, &content[i], i + 1);
+	return (name);
 }
 
-int	export(t_data *data, char **content, bool fork)
+static	int	parse_new_var(char *var, int exit_code)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(var[0]) || var[0] != '_')
+	{
+		exit_code = 1;
+		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
+		return (FAILURE);
+	}
+	while (var[i])
+	{
+		if (var[i] == '=' || var[i] == '_' || var[i + 1] == '_')
+			break ;
+		if (!ft_isalnum(var[i]) || var[i] != '=')
+		{
+			exit_code = 1;
+			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
+			return (FAILURE);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
+static int	export_var(char **content, t_export *export, int exit_code)
+{
+	int			i;
+	char	*var;
+
+	i = 0;
+	while (content[i])
+	{
+		var = var_name(content[i]);
+		if (parse_new_var(var, exit_code))
+		{
+
+		}
+		i++;
+	}
+	return (FAILURE);
+}
+
+int	ft_export(char **content, t_export *export)
 {
 	int	i;
 	int	exit_code;
@@ -36,15 +83,9 @@ int	export(t_data *data, char **content, bool fork)
 	i = 1;
 	exit_code = 0;
 	if (!content[1])
-		export_env(data);
+		export_env(export);
 	else
 	{
-		while (content[i])
-		{
-			if (content[i] == '=' && (content[i][0] != '=' || content[i][0] != ft_isdigit(content[i])))
-				//export in env and save the new env
-				return (exit_or_return(fork, exit_code));
-		}
 	}
-	return (exit_or_return(fork, exit_code));
+	return (exit_or_return(&fork, exit_code));
 }

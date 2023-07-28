@@ -1,35 +1,23 @@
 #include "../../include/prompt.h"
 
-static void	export_env(t_export *export)
-{
-	int i;
-
-	i = 0;
-	while (export->env[i])
-	{
-		ft_printf("declare -x %s\n", export->env[i]);
-		i++;
-	}
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	//char	*line;
 	int		i = 0;
 	t_data	data;
 	t_export	export;
-	char *content[10] = {"unset", "PWD", "USER", "HOME", "PATH", NULL};
+	//char *content[10] = {"unset", "PWD", "USER", "HOME", "PATH", NULL};
+	char *e_content[10] = {"export", NULL};
 
 	(void)argc;
 	(void)argv;
 	ft_bzero(&data, sizeof(t_data));
 	cpy_env(&data, env);
 	export.env = cpy_environement(NULL, data.env);
-	export_env(&export);
-	ft_unset(&data, content, &export, false);
-	printf("\n");
-	printf("\n");
-	export_env(&export);
+//	ft_unset(&data, content, &export, false);
+//	printf("\n");
+//	printf("\n");
+	ft_export(e_content, &export);
 	// i = 0;
 	// while (data.env[i])
 	// {

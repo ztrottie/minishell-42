@@ -15,7 +15,7 @@ typedef struct s_export
 
 int		pwd(void);
 int		print_env(char **env);
-int		export(t_data *data, char **content);
+int		ft_export(char **content, t_export *export);
 int		cd(t_data *data);
 int		ft_unset(t_data *data, char **content, t_export *export, bool fork);
 int		echo(char **content);
