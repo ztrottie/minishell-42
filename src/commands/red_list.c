@@ -37,8 +37,7 @@ void	free_red_list(t_red **red_list)
 	while (ptr != NULL)
 	{
 		tmp = ptr->next;
-		if (ptr->type == HERE_DOC)
-			ft_free(ptr->content);
+		ft_free(ptr->content);
 		ft_free(ptr);
 		ptr = tmp;
 	}

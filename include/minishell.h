@@ -8,6 +8,7 @@
 # include "../readline/history.h"
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
@@ -61,6 +62,7 @@ typedef struct	s_files
 	int				fd;
 	char			*name;
 	bool			here_doc;
+	bool			input;
 	struct s_files	*next;
 }	t_files;
 

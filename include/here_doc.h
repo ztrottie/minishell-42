@@ -16,7 +16,7 @@ typedef struct	s_hd
 } t_hd;
 
 
-int		here_doc_main(t_data *data, t_files **inputs, t_red *red);
+int		here_doc_main(t_data *data, t_red *red, char **name, bool error);
 int		get_input(t_hd *hd);
 size_t	parsed_line_len(t_data *data, t_lines *lines, int type);
 int		hd_line_control(t_data *data, t_lines *lines, int type);

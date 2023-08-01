@@ -41,27 +41,36 @@ static int	fork_here_doc(t_hd *hd)
 	wait_pid_list(&hd->data->pid);
 	return (SUCCESS);
 }
+static int	init_hd(t_data *data, t_hd *hd, t_red *red)
+{
+	hd->data = data;
+	hd->limiter = red->content;
+	hd->type = red->cont_type;
+	hd->name = find_new_name();
+	if (!hd->name)
+		return (FAILURE);
+	hd->fd = open(hd->name, O_WRONLY | O_CREAT, 0644);
+	if (hd->fd < 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
-int	here_doc_main(t_data *data, t_files **inputs, t_red *red)
+int	here_doc_main(t_data *data, t_red *red, char **name, bool error)
 {
 	t_hd	hd;
-	char	*name;
 
-	name = find_new_name();
-	if (!name)
+	if (init_hd(data, &hd, red) <= 0)
 		return (FAILURE);
-	hd.fd = open(name, O_WRONLY | O_CREAT, 0644);
-	if (hd.fd < 0)
-		return (FAILURE);
-	hd.data = data;
-	hd.limiter = red->content;
-	hd.type = red->cont_type;
-	hd.name = name;
 	if (fork_here_doc(&hd) <= 0)
 		return (FAILURE);
-	close(hd.fd);
-	hd.fd = open(name, O_RDONLY);
-	if (file_add_end(inputs, hd.fd, name, true) <= 0)
+	if (close(hd.fd) < 0)
 		return (FAILURE);
+	if (error)
+	{
+		if (unlink(hd.name) < 0)
+			return (FAILURE);
+	}
+	else
+		*name = hd.name;
 	return (SUCCESS);
 }

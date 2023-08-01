@@ -26,6 +26,7 @@
 		"ratio": "c",
 		"tuple": "c",
 		"utility": "c",
-		"execution.h": "c"
+		"execution.h": "c",
+		"typeinfo": "c"
 	}
 }

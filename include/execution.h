@@ -10,5 +10,6 @@ int		redirection_main(t_data *data, int mode);
 int		close_all(t_data *data);
 void	free_all(t_data *data, bool all);
 int		error_redirection(t_data *data);
+int		convert_redirection(t_data *data);
 
 #endif

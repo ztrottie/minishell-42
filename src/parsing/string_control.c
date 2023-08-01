@@ -32,13 +32,8 @@ static int	init_content(t_data *data, t_lines *lines)
 
 static int	token_control(t_tokens **tokens, t_lines *lines, int type)
 {
-	if (lines->parsed_line[0])
-	{
-		if (!token_add_end(tokens, type, lines->parsed_line))
-			return (FAILURE);
-	}
-	else
-		ft_free(lines->parsed_line);
+	if (!token_add_end(tokens, type, lines->parsed_line))
+		return (FAILURE);
 	return (SUCCESS);
 }
 

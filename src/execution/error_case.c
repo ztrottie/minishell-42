@@ -8,7 +8,13 @@ static int	open_redirection_error(t_data *data, t_cmds *cmds)
 	while (ptr != NULL)
 	{
 		if (ptr->type == HERE_DOC)
-			here_doc_main(data, &cmds->input, ptr);
+		{
+			if (here_doc_main(data, ptr, NULL, true) <= 0)
+				return (FAILURE);
+			if (close_all(data) <= 0)
+				return (FAILURE);
+			free_files(&cmds->input);
+		}
 		ptr = ptr->next;
 	}
 	return (SUCCESS);
@@ -31,7 +37,8 @@ int	error_redirection(t_data *data)
 		data->token_error = false;
 		data->exit_code = 258;
 	}
-	close_all(data);
+	if (close_all(data) <= 0)
+		return (FAILURE);
 	free_all(data, false);
 	return (SUCCESS);
 }
