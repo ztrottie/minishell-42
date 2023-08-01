@@ -1,10 +1,46 @@
 #include "../../include/built_in.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+static char    **ft_sort_params(int nbr_param, char **tabexport)
+{
+    int        i;
+    int        j;
+    char    *temp;
+
+    i = 0;
+    while (i < nbr_param)
+    {
+        j = i + 1;
+        while (j < nbr_param)
+        {
+            if (ft_strcmp(tabexport[j], tabexport[i]) < 0)
+            {
+                temp = tabexport[i];
+                tabexport[i] = tabexport[j];
+                tabexport[j] = temp;
+            }
+            j++;
+        }
+        i++;
+    }
+    return (tabexport);
+}
+
 static void	export_env(t_export *export)
 {
 	int	i;
 
 	i = 0;
+	export->env = ft_sort_params(ft_x2strlen(export->env), export->env);
 	while (export->env[i])
 	{
 		ft_printf("declare -x %s\n", export->env[i]);
@@ -68,7 +104,7 @@ static int	export_var(char **content, t_export *export, int exit_code)
 		var = var_name(content[i]);
 		if (parse_new_var(var, exit_code))
 		{
-
+			
 		}
 		i++;
 	}
