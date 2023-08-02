@@ -35,24 +35,17 @@ static void	exit_hd(t_hd *hd, char **line)
 	exit(0);
 }
 
+
 static int	write_valid(t_hd *hd)
 {
-	struct stat	file_stat;
+	struct stat	file_info;
 
-	if (fstat(hd->fd, &file_stat) < 0)
+	if (fstat(hd->fd, &file_info) < 0)
 		return (FAILURE);
-	if (file_stat.st_mode != 0100644)
+	if (!(file_info.st_mode & S_IWUSR))
 	{
-		ft_printf_fd(2, "minishell: you just chmod your here_doc🤡!\n");
+		ft_printf_fd(2, "minishell: you revoked the write perm you twat🤡!\n");
 		return (FAILURE);
-	}
-	else
-	{
-		if (access(hd->name, F_OK) < 0)
-		{
-			ft_printf_fd(2, "minihsell: you just deleted your here_doc🖕!\n");
-			return (FAILURE);
-		}
 	}
 	return (SUCCESS);
 }
@@ -63,10 +56,8 @@ int	get_input(t_hd *hd)
 	size_t	len;
 
 	line = readline("> ");
-	len = ft_strlen(line);
-	if (len == 0)
-		len = ft_strlen(hd->limiter);
-	while (ft_strncmp(line, hd->limiter, len) != 0)
+	len = ft_strlen(hd->limiter);
+	while (!(ft_strlen(line) == len && ft_strncmp(line, hd->limiter, len) == 0))
 	{
 		line = get_parsed_line(hd->data, hd->type, line);
 		if (write_valid(hd) <= 0)

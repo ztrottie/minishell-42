@@ -98,6 +98,7 @@ typedef struct s_data
 	char		**env;
 	size_t		nb_pipe;
 	int			exit_code;
+	struct stat	info_last_hd;
 	t_pid_list	*pid;
 }	t_data;
 

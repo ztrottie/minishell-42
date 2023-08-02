@@ -52,7 +52,8 @@ size_t	parsed_content_len(t_data *data, t_lines *lines)
 	size_t	len;
 	int		quote;
 
-	cpy_line(lines, &tmp_line);
+	if (cpy_line(lines, &tmp_line) <= 0)
+		return (FAILURE);
 	len = 0;
 	while (tmp_line.line[tmp_line.i_line] && \
 	!is_limitchar(tmp_line.line[tmp_line.i_line]))

@@ -13,7 +13,6 @@ static int	open_redirection_error(t_data *data, t_cmds *cmds)
 				return (FAILURE);
 			if (close_all(data) <= 0)
 				return (FAILURE);
-			free_files(&cmds->input);
 		}
 		ptr = ptr->next;
 	}

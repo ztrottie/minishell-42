@@ -2,16 +2,23 @@
 
 static int	input_redirection_choice(t_data *data, t_red *red, t_files *file)
 {
+	int			exit_code;
+	struct stat	info;
+
 	file->here_doc = false;
 	if (red->type == RED_IN)
 		file->name = red->content;
 	else
 	{
 		file->here_doc = true;
-		if (here_doc_main(data, red, &file->name, false) <= 0)
-			return (FAILURE);
+		exit_code = here_doc_main(data, red, &file->name, false);
+		if (exit_code == FAILURE)
+			return (exit_code);
 	}
+	if (exit_code == INVALID)
 	file->fd = open(file->name, O_RDONLY);
+	if (fstat(file->fd, &info) < 0)
+		return (FAILURE);
 	file->input = true;
 	return (SUCCESS);
 }

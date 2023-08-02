@@ -1,19 +1,20 @@
 #include "../../include/here_doc.h"
 
-size_t	variable_len_control(t_data *data, char *line)
+static size_t	variable_len_control(t_data *data, t_line *line)
 {
 	char	*name;
 	char	*exit_code;
 	size_t	len;
 
+	line->i_line++;
 	name = NULL;
 	len = 1;
-	if (line[len] && line[len] != ' ')
+	if (line->line[line->i_line] && line->line[line->i_line] != ' ')
 	{
-		name = variable_name(line + len);
+		name = variable_name(line->line + line->i_line);
 		if (name)
 			len = ft_strlen(env_variable(data, name));
-		else if (line[len] == '?')
+		else if (line->line[line->i_line] == '?')
 		{
 			exit_code = ft_itoa(data->exit_code);
 			if (!exit_code)
@@ -21,36 +22,27 @@ size_t	variable_len_control(t_data *data, char *line)
 			len = ft_strlen(exit_code);
 		}
 	}
+	line->i_line += ft_strlen(name);
 	return (ft_free(name), len);
-}
-
-int	init_parsed_line_len(t_lines *lines, char **line)
-{
-	size_t	len;
-
-	len = ft_strlen(lines->line);
-	*line = ft_calloc(len + 1, sizeof(char));
-	if (!*line)
-		return (FAILURE);
-	ft_strlcpy(*line, lines->line, len + 1);
-	return (SUCCESS);
 }
 
 size_t	parsed_line_len(t_data *data, t_lines *lines, int type)
 {
-	char	*line;
-	size_t	i;
+	t_line	tmp_line;
+	size_t	len;
 
-	if (init_parsed_line_len(lines, &line) <= 0)
-		return (0);
-	i = 0;
-	while (line[i])
+	if (cpy_line(lines, &tmp_line) <= 0)
+		return (FAILURE);
+	len = 0;
+	while (tmp_line.line[tmp_line.i_line])
 	{
-		if (line[i] == '$' && type)
-			i += variable_len_control(data, line + i);
+		if (tmp_line.line[tmp_line.i_line] == '$' && type == 0)
+			len += variable_len_control(data, &tmp_line);
 		else
-			i++;
+		{
+			len++;
+			tmp_line.i_line++;
+		}
 	}
-	ft_free(line);
-	return (i + 1);
+	return (ft_free(tmp_line.line), len);
 }

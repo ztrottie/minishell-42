@@ -8,11 +8,11 @@
 
 typedef struct	s_hd
 {
-	t_data	*data;
-	int		fd;
-	char	*limiter;
-	int		type;
-	char 	*name;
+	t_data		*data;
+	int			fd;
+	char		*limiter;
+	int			type;
+	char 		*name;
 } t_hd;
 
 

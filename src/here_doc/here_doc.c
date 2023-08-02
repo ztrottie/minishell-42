@@ -28,7 +28,8 @@ static char	*find_new_name(void)
 
 static int	fork_here_doc(t_hd *hd)
 {
-	pid_t				pid;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -36,9 +37,7 @@ static int	fork_here_doc(t_hd *hd)
 	else if (pid == 0)
 		get_input(hd);
 	else if (pid > 0)
-		if (pid_add_end(&hd->data->pid, pid) <= 0)
-			return (FAILURE);
-	wait_pid_list(&hd->data->pid);
+		waitpid(pid, &status, 0);
 	return (SUCCESS);
 }
 static int	init_hd(t_data *data, t_hd *hd, t_red *red)
@@ -55,6 +54,26 @@ static int	init_hd(t_data *data, t_hd *hd, t_red *red)
 	return (SUCCESS);
 }
 
+static int	hd_error_handler(t_data *data, t_hd *hd)
+{
+	struct stat	tmp_info;
+
+	if (access(hd->name, F_OK) == 0)
+	{
+		if (stat(hd->name, &tmp_info) < 0)
+			return (FAILURE);
+		if (tmp_info.st_mtimespec.tv_sec != data->info_last_hd.st_mtimespec.tv_sec \
+		&& tmp_info.st_mtimespec.tv_nsec != data->info_last_hd.st_mtimespec.tv_nsec)
+			ft_printf_fd(2, "minishell1: you deleted your here_doc! why would you do that?!🤡\n");
+		else
+			if (unlink(hd->name) < 0)
+				return (FAILURE);
+	}
+	else
+		ft_printf_fd(2, "minishell2: you deleted your here_doc! why would you do that?!🤡\n");
+	return (SUCCESS);
+}
+
 int	here_doc_main(t_data *data, t_red *red, char **name, bool error)
 {
 	t_hd	hd;
@@ -63,13 +82,12 @@ int	here_doc_main(t_data *data, t_red *red, char **name, bool error)
 		return (FAILURE);
 	if (fork_here_doc(&hd) <= 0)
 		return (FAILURE);
+	if (fstat(hd.fd, &data->info_last_hd) < 0)
+		return (perror("fstat"), FAILURE);
 	if (close(hd.fd) < 0)
 		return (FAILURE);
 	if (error)
-	{
-		if (unlink(hd.name) < 0)
-			return (FAILURE);
-	}
+		return (hd_error_handler(data, &hd));
 	else
 		*name = hd.name;
 	return (SUCCESS);
