@@ -35,7 +35,6 @@ static void	exit_hd(t_hd *hd, char **line)
 	exit(0);
 }
 
-
 static int	write_valid(t_hd *hd)
 {
 	struct stat	file_info;
@@ -63,7 +62,6 @@ int	get_input(t_hd *hd)
 		if (write_valid(hd) <= 0)
 			exit_hd(hd, &line);
 		write(hd->fd, line, ft_strlen(line));
-		write(hd->fd, "\n", 1);
 		ft_free(line);
 		line = readline("> ");
 	}

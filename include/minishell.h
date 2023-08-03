@@ -17,7 +17,7 @@
 
 # define METACHAR "|<>"
 
-enum TOKEN_TYPES
+enum e_token_types
 {
 	QUOTES = -1,
 	PIPE = 1,
@@ -27,7 +27,7 @@ enum TOKEN_TYPES
 	RED_OUT_APPEND = 5,
 };
 
-enum MODE
+enum e_mode
 {
 	STD = 1,
 	ERROR = 2,

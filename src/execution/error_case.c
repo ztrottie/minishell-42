@@ -3,14 +3,18 @@
 static int	open_redirection_error(t_data *data, t_cmds *cmds)
 {
 	t_red	*ptr;
+	int		exit_code;
 
 	ptr = cmds->red;
 	while (ptr != NULL)
 	{
 		if (ptr->type == HERE_DOC)
 		{
-			if (here_doc_main(data, ptr, NULL, true) <= 0)
+			exit_code = here_doc_main(data, ptr, NULL, true);
+			if (exit_code == FAILURE)
 				return (FAILURE);
+			else if (exit_code == INVALID)
+				return (INVALID);
 			if (close_all(data) <= 0)
 				return (FAILURE);
 		}
@@ -26,7 +30,7 @@ int	error_redirection(t_data *data)
 	i = 0;
 	while (i < data->nb_pipe + 1)
 	{
-		if (open_redirection_error(data, &data->cmds[i]) <= 0)
+		if (open_redirection_error(data, &data->cmds[i]) < 0)
 			return (FAILURE);
 		i++;
 	}

@@ -19,5 +19,6 @@ int	hd_line_control(t_data *data, t_lines *lines, int type)
 		else
 			hd_basic_control(lines);
 	}
+	lines->parsed_line[lines->i_parsed_line] = '\n';
 	return (SUCCESS);
 }
