@@ -3,11 +3,11 @@
 int	main(int argc, char **argv, char **env)
 {
 	//char	*line;
-	int		i = 0;
+	//int		i = 0;
 	t_data	data;
 	t_export	export;
 	//char *content[10] = {"unset", "PWD", "USER", "HOME", "PATH", NULL};
-	char *e_content[10] = {"export", NULL};
+	char *e_content[10] = {"export", "allo", NULL};
 
 	(void)argc;
 	(void)argv;
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 	// 	i++;
 	// }
 	// ft_unset(&data, )
-	i = 0;
+	//i = 0;
 	// while (1)
 	// {
 	// 	line = readline("minishell> ");

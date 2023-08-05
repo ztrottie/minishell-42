@@ -10,6 +10,26 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+char    **add_environement(char **env, char **cpy_env, char *content)
+{
+	int   i;
+
+	i = 0;
+	while (cpy_env[i])
+		i++;
+	env = ft_calloc(i + 2, sizeof(char *));
+	if (!env)
+		return (NULL);
+	i = 0;
+	while (cpy_env[i] && cpy_env[i + 1])
+	{
+		env[i] = ft_strdup(cpy_env[i]);
+		i++;
+	}
+	env[i] = ft_strdup(content);
+	return (ft_x2free((void **)cpy_env), env);
+}
+
 static char    **ft_sort_params(int nbr_param, char **tabexport)
 {
     int        i;
@@ -67,61 +87,70 @@ static char	*var_name(char *content)
 	return (name);
 }
 
-static	int	parse_new_var(char *var, int exit_code)
-{
-	int	i;
+// static	int	parse_new_var(char *var, int exit_code)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!ft_isalpha(var[0]) || var[0] != '_')
-	{
-		exit_code = 1;
-		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
-		return (FAILURE);
-	}
-	while (var[i])
-	{
-		if (var[i] == '=' || var[i] == '_' || var[i + 1] == '_')
-			break ;
-		if (!ft_isalnum(var[i]) || var[i] != '=')
-		{
-			exit_code = 1;
-			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
-			return (FAILURE);
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
+// 	i = 0;
+// 	if (!ft_isalpha(var[0]) || var[0] != '_')
+// 	{
+// 		exit_code = 1;
+// 		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
+// 		return (FAILURE);
+// 	}
+// 	while (var[i])
+// 	{
+// 		if (var[i] == '=' || var[i] == '_' || var[i + 1] == '_')
+// 			break ;
+// 		if (!ft_isalnum(var[i]) || var[i] != '=')
+// 		{
+// 			exit_code = 1;
+// 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
+// 			return (FAILURE);
+// 		}
+// 		i++;
+// 	}
+// 	return (SUCCESS);
+// }
 
-static int	export_var(char **content, t_export *export, int exit_code)
+static int	export_var(char *content, t_export **export)
 {
-	int			i;
 	char	*var;
+	char	**env;
+	int		j;
 
-	i = 0;
-	while (content[i])
+	j = 0;
+	env = (*export)->env;
+	while (env[j])
 	{
-		var = var_name(content[i]);
-		if (parse_new_var(var, exit_code))
-		{
-			
-		}
-		i++;
+		var = var_name(content);
+		if (!ft_strcmp(env[j], var))
+			return (SUCCESS);
+		j++;
 	}
+	env = add_environement(NULL, env, content);
+	//ft_x2free((void **)(*export)->env);
+	(*export)->env = env;
+	printf("%ld\n", ft_x2strlen(env));
+	export_env((*export));
 	return (FAILURE);
 }
 
 int	ft_export(char **content, t_export *export)
 {
 	int	i;
-	int	exit_code;
 
 	i = 1;
-	exit_code = 0;
 	if (!content[1])
 		export_env(export);
 	else
 	{
+		while (content[i])
+		{
+			export_var(content[i], &export);
+			i++;
+		}
 	}
-	return (exit_or_return(&fork, exit_code));
+	return (SUCCESS);
+	//return (exit_or_return(&fork, exit_code));
 }
