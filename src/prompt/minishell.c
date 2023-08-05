@@ -7,7 +7,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	data;
 	t_export	export;
 	//char *content[10] = {"unset", "PWD", "USER", "HOME", "PATH", NULL};
-	char *e_content[10] = {"export", "allo", NULL};
+	char *e_content[10] = {"export", "allo", "salut", NULL};
 
 	(void)argc;
 	(void)argv;

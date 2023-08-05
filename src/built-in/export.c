@@ -21,7 +21,7 @@ char    **add_environement(char **env, char **cpy_env, char *content)
 	if (!env)
 		return (NULL);
 	i = 0;
-	while (cpy_env[i] && cpy_env[i + 1])
+	while (cpy_env[i])
 	{
 		env[i] = ft_strdup(cpy_env[i]);
 		i++;
@@ -129,9 +129,7 @@ static int	export_var(char *content, t_export **export)
 		j++;
 	}
 	env = add_environement(NULL, env, content);
-	//ft_x2free((void **)(*export)->env);
 	(*export)->env = env;
-	printf("%ld\n", ft_x2strlen(env));
 	export_env((*export));
 	return (FAILURE);
 }
