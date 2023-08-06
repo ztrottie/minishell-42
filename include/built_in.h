@@ -15,11 +15,12 @@ typedef struct s_export
 
 int		pwd(void);
 int		print_env(char **env);
-int		ft_export(char **content, t_export *export);
+int		ft_export(char **content, t_export *export, t_data *data);
 int		cd(t_data *data);
 int		ft_unset(t_data *data, char **content, t_export *export, bool fork);
 int		echo(char **content);
 char    **cpy_environement(char **env, char **cpy_env);
+int		ft_strsearch(char *str, char reject);
 
 
 #endif

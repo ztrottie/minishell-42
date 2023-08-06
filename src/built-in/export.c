@@ -10,11 +10,13 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char    **add_environement(char **env, char **cpy_env, char *content)
+char    **add_environement(char **env, char **cpy_env, char *content, int option)
 {
-	int   i;
+	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (cpy_env[i])
 		i++;
 	env = ft_calloc(i + 2, sizeof(char *));
@@ -23,11 +25,17 @@ char    **add_environement(char **env, char **cpy_env, char *content)
 	i = 0;
 	while (cpy_env[i])
 	{
-		env[i] = ft_strdup(cpy_env[i]);
+		if (option == 1 && ft_strsearch(cpy_env[i], '='))
+			env[j++] = ft_strdup(cpy_env[i]);
+		else if (option != 1)
+			env[i] = ft_strdup(cpy_env[i]);
 		i++;
 	}
-	env[i] = ft_strdup(content);
-	return (ft_x2free((void **)cpy_env), env);
+	if (option == 2)
+		env[i] = ft_strdup(content);
+	if (option == 2)
+		return (ft_x2free((void **)cpy_env), env);
+	return (env);
 }
 
 static char    **ft_sort_params(int nbr_param, char **tabexport)
@@ -87,14 +95,14 @@ static char	*var_name(char *content)
 	return (name);
 }
 
-// static	int	parse_new_var(char *var, int exit_code)
+// static	int	parse_new_var(char *var)
 // {
 // 	int	i;
 
 // 	i = 0;
 // 	if (!ft_isalpha(var[0]) || var[0] != '_')
 // 	{
-// 		exit_code = 1;
+// 		//exit_code = 1;
 // 		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
 // 		return (FAILURE);
 // 	}
@@ -104,7 +112,7 @@ static char	*var_name(char *content)
 // 			break ;
 // 		if (!ft_isalnum(var[i]) || var[i] != '=')
 // 		{
-// 			exit_code = 1;
+// 		//	exit_code = 1;
 // 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
 // 			return (FAILURE);
 // 		}
@@ -128,13 +136,13 @@ static int	export_var(char *content, t_export **export)
 			return (SUCCESS);
 		j++;
 	}
-	env = add_environement(NULL, env, content);
+	env = add_environement(NULL, env, content, 2);
 	(*export)->env = env;
 	export_env((*export));
 	return (FAILURE);
 }
 
-int	ft_export(char **content, t_export *export)
+int	ft_export(char **content, t_export *export, t_data *data)
 {
 	int	i;
 
@@ -149,6 +157,7 @@ int	ft_export(char **content, t_export *export)
 			i++;
 		}
 	}
+	data->env = add_environement(NULL, export->env, NULL, 1);
 	return (SUCCESS);
 	//return (exit_or_return(&fork, exit_code));
 }

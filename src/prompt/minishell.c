@@ -7,7 +7,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	data;
 	t_export	export;
 	//char *content[10] = {"unset", "PWD", "USER", "HOME", "PATH", NULL};
-	char *e_content[10] = {"export", "allo", "salut", NULL};
+	char *e_content[10] = {"export", "allo=", "allo", "non=", NULL};
 
 	(void)argc;
 	(void)argv;
@@ -17,7 +17,8 @@ int	main(int argc, char **argv, char **env)
 //	ft_unset(&data, content, &export, false);
 //	printf("\n");
 //	printf("\n");
-	ft_export(e_content, &export);
+	ft_export(e_content, &export, &data);
+	print_env(data.env);
 	// i = 0;
 	// while (data.env[i])
 	// {
