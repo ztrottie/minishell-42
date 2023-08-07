@@ -1,15 +1,5 @@
 #include "../../include/built_in.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 char    **add_environement(char **env, char **cpy_env, char *content, int option)
 {
 	int	i;
@@ -32,9 +22,10 @@ char    **add_environement(char **env, char **cpy_env, char *content, int option
 		i++;
 	}
 	if (option == 2)
+	{
 		env[i] = ft_strdup(content);
-	if (option == 2)
 		return (ft_x2free((void **)cpy_env), env);
+	}
 	return (env);
 }
 
@@ -95,31 +86,31 @@ static char	*var_name(char *content)
 	return (name);
 }
 
-// static	int	parse_new_var(char *var)
-// {
-// 	int	i;
+static	int	parse_new_var(char *var)
+{
+	int	i;
 
-// 	i = 0;
-// 	if (!ft_isalpha(var[0]) || var[0] != '_')
-// 	{
-// 		//exit_code = 1;
-// 		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
-// 		return (FAILURE);
-// 	}
-// 	while (var[i])
-// 	{
-// 		if (var[i] == '=' || var[i] == '_' || var[i + 1] == '_')
-// 			break ;
-// 		if (!ft_isalnum(var[i]) || var[i] != '=')
-// 		{
-// 		//	exit_code = 1;
-// 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n");
-// 			return (FAILURE);
-// 		}
-// 		i++;
-// 	}
-// 	return (SUCCESS);
-// }
+	i = 0;
+	if (!ft_isalpha(var[0]) && var[0] != '_')
+	{
+		//exit_code = 1;
+		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
+		return (INVALID);
+	}
+	while (var[i])
+	{
+		if (var[i] == '=')
+			break ;
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+		{
+		//	exit_code = 1;
+			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
+			return (INVALID);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
 
 static int	export_var(char *content, t_export **export)
 {
@@ -153,7 +144,8 @@ int	ft_export(char **content, t_export *export, t_data *data)
 	{
 		while (content[i])
 		{
-			export_var(content[i], &export);
+			if (parse_new_var(content[i]))
+				export_var(content[i], &export);
 			i++;
 		}
 	}
