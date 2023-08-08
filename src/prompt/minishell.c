@@ -1,40 +1,37 @@
 #include "../../include/prompt.h"
 
+static int	init_data(int argc, char **argv, char **env, t_data *data)
+{
+	(void)argc;
+	(void)argv;
+	ft_bzero(data, sizeof(t_data));
+	if (cpy_env(data, env) <= 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
-	int		i = 0;
 	t_data	data;
 	char *content[] = {"unset", "PWD", "USER"};
 
-	(void)argc;
-	(void)argv;
-	ft_bzero(&data, sizeof(t_data));
-	cpy_env(&data, env);
-	while (data.env[i])
-	{
-		ft_printf("%s\n", data.env[i]);
-		i++;
-	}
-	ft_unset(&data, content);
-	ft_printf("\n");
-	ft_printf("\n");
-	i = 0;
-	while (data.env[i])
-	{
-		ft_printf("%s\n", data.env[i]);
-		i++;
-	}
-	i = 0;
+	if (init_data(argc, argv, env, &data) <= 0)
+		return (FAILURE);
 	while (1)
 	{
+		data.nb_pipe = 0;
 		line = readline("minishell> ");
 		if (!line)
 			break ;
-		parsing(line, &data);
+		if (ft_strlen(line) > 0)
+		{
+			if (parsing(line, &data) == SUCCESS)
+				redirection_main(&data, STD);
+		}
 		add_history(line);
-		i++;
+		free_all(&data, false);
 	}
-	ft_x2free((void **)data.env);
+	free_all(&data, true);
 	rl_clear_history();
 }

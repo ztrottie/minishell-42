@@ -1,6 +1,6 @@
 #include "../../include/parsing.h"
 
-void	free_tokens(t_tokens **tokens)
+void	free_tokens(t_tokens **tokens, bool flag)
 {
 	t_tokens	*tmp;
 	t_tokens	*ptr;
@@ -9,8 +9,17 @@ void	free_tokens(t_tokens **tokens)
 	while (ptr != NULL)
 	{
 		tmp = ptr->next;
-		ft_free(ptr->content);
-		ft_free(ptr);
+		if (flag == false)
+		{
+			ft_free(ptr->content);
+			ft_free(ptr);
+		}
+		else
+		{
+			if (ptr->type >= PIPE)
+				ft_free(ptr->content);
+			ft_free(ptr);
+		}
 		ptr = tmp;
 	}
 }

@@ -21,15 +21,15 @@ int	is_redirection(char *line, int len)
 	return (0);
 }
 
-int	is_operator(t_line *line)
+int	is_operator(t_lines *lines)
 {
 	int	metachar_index;
 
-	metachar_index = is_metachar(line->line[line->i_line]);
+	metachar_index = is_metachar(lines->line[lines->i_line]);
 	if (metachar_index > 0)
 	{
 		if (metachar_index != PIPE && \
-		is_metachar(line->line[line->i_line + 1]) == metachar_index)
+		is_metachar(lines->line[lines->i_line + 1]) == metachar_index)
 			return (2);
 		return (1);
 	}

@@ -1,4 +1,4 @@
-#include "../../include/parsing.h"
+#include "../../include/here_doc.h"
 
 static int	env_varaible_control(t_data *data, t_lines *lines)
 {
@@ -43,12 +43,13 @@ static int	exit_variable_control(t_data *data, t_lines *lines)
 	return (SUCCESS);
 }
 
-int	variable_control(t_data *data, t_lines *lines, int quote)
+int	hd_variable_control(t_data *data, t_lines *lines)
 {
-	if ((lines->line[lines->i_line + 1] && lines->line[lines->i_line + 1] == ' ') \
-	|| (quote && is_quote(lines->line[lines->i_line + 1]) == quote)
+	if ((lines->line[lines->i_line + 1] && \
+	lines->line[lines->i_line + 1] == ' ') \
+	|| is_quote(lines->line[lines->i_line + 1]) \
 	|| !lines->line[lines->i_line + 1])
-		return (basic_control(lines), SUCCESS);
+		return (hd_basic_control(lines), SUCCESS);
 	else
 		lines->i_line++;
 	if (lines->line[lines->i_line] == '?')
@@ -57,3 +58,5 @@ int	variable_control(t_data *data, t_lines *lines, int quote)
 		env_varaible_control(data, lines);
 	return (SUCCESS);
 }
+
+

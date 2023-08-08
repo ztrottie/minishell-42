@@ -6,20 +6,31 @@
 # include "../libft/libft.h"
 # include "../readline/readline.h"
 # include "../readline/history.h"
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdbool.h>
 
 # define METACHAR "|<>"
 
-enum REDIRECION
+enum e_token_types
 {
+	QUOTES = -1,
 	PIPE = 1,
 	RED_IN = 2,
-	RED_OUT = 3,
-	HERE_DOC = 4,
+	HERE_DOC = 3,
+	RED_OUT = 4,
 	RED_OUT_APPEND = 5,
+};
+
+enum e_mode
+{
+	STD = 1,
+	ERROR = 2,
 };
 
 # define SINGLE_QUOTE 1
@@ -31,11 +42,28 @@ enum REDIRECION
 # define SUCCESS 1
 # define FAILURE -1
 
-typedef struct s_files
+typedef struct s_tokens
 {
-	char			*name;
+	int				type;
+	char			*content;
+	struct s_tokens	*next;
+}	t_tokens;
+
+typedef struct s_red
+{
+	int				type;
+	int				cont_type;
+	char			*content;
+	struct s_red	*next;
+}	t_red;
+
+typedef struct	s_files
+{
 	int				fd;
-	int				cmd_index;
+	char			*name;
+	bool			here_doc;
+	bool			input;
+	struct s_files	*next;
 }	t_files;
 
 typedef struct s_cmds
@@ -43,19 +71,36 @@ typedef struct s_cmds
 	int		nb;
 	char	*name;
 	char	**content;
-	int		nb_input;
-	t_files	*input_fds;
-	int		nb_output;
-	t_files	*output_fds;
+	t_red	*red;
+	t_files	*input;
+	t_files	*output;
 }	t_cmds;
+
+typedef struct s_pid_list
+{
+	pid_t				pid;
+	struct s_pid_list	*next;
+}	t_pid_list;
+
+typedef struct	s_lines
+{
+	char	*line;
+	char	*parsed_line;
+	size_t	i_line;
+	size_t	i_parsed_line;
+	int		prev_type;
+}	t_lines;
 
 typedef struct s_data
 {
-	t_cmds	*cmds;
-	char	**env;
-	int		nb_pipe;
-	int		exit_code;
-	int		env_i;
+	t_cmds		*cmds;
+	bool		token_error;
+	char		**env;
+	size_t		nb_pipe;
+	int			exit_code;
+	struct stat	info_last_hd;
+	t_pid_list	*pid;
 }	t_data;
+
 
 #endif

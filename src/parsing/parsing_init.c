@@ -1,17 +1,19 @@
 #include "../../include/parsing.h"
 
-static void	init_parsing(t_data *data, char *line_read, t_line *line, t_tokens **tokens)
+static void	init_parsing(t_data *data, char *line_read, \
+t_lines *lines, t_tokens **tokens)
 {
 	data->nb_pipe = 0;
-	line->line = line_read;
-	line->i_line = 0;
+	lines->line = line_read;
+	lines->i_line = 0;
 	*tokens = NULL;
 }
 
 static int	find_next_quote(t_line *line, int quote)
 {
 	line->i_line++;
-	while (is_quote(line->line[line->i_line]) != quote && line->line[line->i_line])
+	while (is_quote(line->line[line->i_line]) != quote \
+	&& line->line[line->i_line])
 		line->i_line++;
 	if (line->line[line->i_line])
 		return (VALID);
@@ -40,22 +42,15 @@ static int	check_quotes(char *line_read)
 
 int	parsing(char *line_read, t_data *data)
 {
-	t_line		line;
+	t_lines		lines;
 	t_tokens	*tokens;
 
-	init_parsing(data, line_read, &line, &tokens);
 	if (check_quotes(line_read) <= 0)
 		return (FAILURE);
-	if (token_split(data, &tokens, &line) <= 0)
+	init_parsing(data, line_read, &lines, &tokens);
+	if (token_split(data, &tokens, &lines) <= 0)
 		return (FAILURE);
-	if (tokens_parsing(data, &tokens) <= 0)
+	if (init_commands(data, &tokens) <= 0)
 		return (FAILURE);
-	while (tokens != NULL)
-	{
-		ft_printf("[%d]|%s|\n", tokens->type, tokens->content);
-		tokens = tokens->next;
-	}
-	// if (cmds_init(data, &tokens) <= 0)
-	// 	return (FAILURE);
 	return (SUCCESS);
 }
