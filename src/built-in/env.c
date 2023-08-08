@@ -1,6 +1,6 @@
 #include "../../include/built_in.h"
 
-int	print_env(char **env)
+int	print_env(char **env, int fd)
 {
 	int	i;
 
@@ -9,7 +9,7 @@ int	print_env(char **env)
 		return (FAILURE);
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		ft_printf_fd(fd,"%s\n", env[i]);
 		i++;
 	}
 	return (SUCCESS);
