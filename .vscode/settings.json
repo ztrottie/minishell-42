@@ -27,6 +27,7 @@
 		"tuple": "c",
 		"utility": "c",
 		"execution.h": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"prompt.h": "c"
 	}
 }

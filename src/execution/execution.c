@@ -3,7 +3,24 @@
 static int	check_builtin_nofork(t_data *data)
 {
 	if (ft_strcmp(data->cmds->name, "export") == 0)
-		data->exit_code = ft_export(data->cmds->content, data, data->cmds->output->fd, false);
+		return (VALID);
+	if (ft_strcmp(data->cmds->name, "unset") == 0)
+		return (VALID);
+	return (INVALID);
+}
+
+static int	exec_nofork(t_data *data)
+{
+	int	fd;
+
+	if (data->cmds->output)
+		fd = data->cmds->output->fd;
+	else
+		fd = 1;
+	if (ft_strcmp(data->cmds->name, "export") == 0)
+		data->exit_code = ft_export(data->cmds->content, data, fd, false);
+	if (ft_strcmp(data->cmds->name, "unset") == 0)
+		data->exit_code = ft_unset(data, data->cmds->content, data->export, false);
 	return (SUCCESS);
 }
 
@@ -11,4 +28,5 @@ int	exec_main(t_data *data)
 {
 	if (data->nb_pipe == 0 && check_builtin_nofork(data) == VALID)
 		exec_nofork(data);
+	return (SUCCESS);
 }

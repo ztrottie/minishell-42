@@ -54,7 +54,7 @@ static char    **ft_sort_params(int nbr_param, char **tabexport)
     return (tabexport);
 }
 
-static void	export_env(t_export *export)
+static void	export_env(t_export *export, int fd)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ static void	export_env(t_export *export)
 	export->env = ft_sort_params(ft_x2strlen(export->env), export->env);
 	while (export->env[i])
 	{
-		ft_printf("declare -x %s\n", export->env[i]);
+		ft_printf_fd(fd, "declare -x %s\n", export->env[i]);
 		i++;
 	}
 }
@@ -129,29 +129,33 @@ static int	export_var(char *content, t_data *data)
 	}
 	env = add_environement(NULL, env, content, 2);
 	data->export->env = env;
-	export_env((*export));
 	return (FAILURE);
 }
 
 int	ft_export(char **content, t_data *data, int fd, bool fork)
 {
 	int	i;
-	int	exit_code
+	int	exit_code;
 
 	i = 1;
 	exit_code = 0;
 	if (!data->export)
-	data->export->env = cpy_environement(NULL, data->env);
+	{
+		data->export = ft_calloc(1, sizeof(t_export));
+		if (!data->export)
+			return (FAILURE);
+		data->export->env = cpy_environement(data->env);
+	}
 	if (!content[1])
-		export_env(data->export);
+		export_env(data->export, fd);
 	else
 	{
 		while (content[i])
 		{
 			if (parse_new_var(content[i], &exit_code))
-				export_var(content[i], data->export);
-			else if (parse_new_var(content[i], &exit_code) && ft_strsearch(content[i], '='))
-				check_if_exist(data->export, content[i]);
+				export_var(content[i], data);
+			// else if (parse_new_var(content[i], &exit_code) && ft_strsearch(content[i], '='))
+			// 	check_if_exist(data->export, content[i]);
 			i++;
 		}
 	}
