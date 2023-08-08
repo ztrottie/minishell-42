@@ -1,6 +1,6 @@
 #include "../../include/built_in.h"
 
-int	pwd(void)
+int	pwd(int fd)
 {	
-	return (printf("%s\n", getcwd(NULL, 0)), 0);
+	return (ft_printf_fd(fd, "%s\n", getcwd(NULL, 0)), 0);
 }

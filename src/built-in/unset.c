@@ -27,7 +27,7 @@ int	ft_strsearch(char *str, char reject)
 	while (str[i])
 	{
 		if ((str[i] == reject) && str[i])
-			return (1);
+			return (i);
 		i++;
 	}
 	return (0);

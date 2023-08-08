@@ -146,6 +146,8 @@ int	ft_export(char **content, t_export *export, t_data *data)
 		{
 			if (parse_new_var(content[i]))
 				export_var(content[i], &export);
+			else if (parse_new_var(content[i]) && ft_strsearch(content[i], '='))
+				check_if_exist(export, content[i]);
 			i++;
 		}
 	}
