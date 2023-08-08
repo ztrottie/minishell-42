@@ -2,7 +2,7 @@
 
 char    **cpy_environement(char **cpy_env)
 {
-	int   i;
+	int		i;
 	char	**env;
 
 	i = 0;
@@ -58,11 +58,11 @@ static void	check_export(char *var, char **env_cpy, t_export *export)
 	int	j;
 
 	j = 0;
-	while (export->env[j])
+	while (export && export->env[j])
 	{
 		if (ft_strncmp(var, export->env[j], ft_strlen(var + 1)) == 0)
 		{
-			env_cpy = cpy_environement(NULL, export->env);
+			env_cpy = cpy_environement(export->env);
 			ft_x2free((void **)export->env);
 			export->env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
 			export->env = reset(export->env, var, env_cpy);
@@ -88,7 +88,7 @@ int    ft_unset(t_data *data, char **content, t_export *export , bool fork)
 	{
 		if (ft_strsearch(content[i], 32))
 		{
-			ft_printf_fd(2, "minishell: unset: `%s : not a valid identifier", content[i]);
+			ft_printf_fd(2, "minishell: unset: `%s : not a valid identifier\n", content[i]);
 			exit_code = 1;
 			i++;
 			continue ;
@@ -100,7 +100,7 @@ int    ft_unset(t_data *data, char **content, t_export *export , bool fork)
 		{
 			if (ft_strncmp(content[i], env[j], ft_strlen(content[i])) == 0)
 			{
-				env_cpy = cpy_environement(NULL, env);
+				env_cpy = cpy_environement(env);
 				ft_x2free((void **)env);
 				env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
 				if (!env)
@@ -113,7 +113,7 @@ int    ft_unset(t_data *data, char **content, t_export *export , bool fork)
 		}
 		i++;
 	}
-	data->env = cpy_environement(NULL, env);
+	data->env = cpy_environement(env);
 	ft_x2free((void **)env);
 	return (exit_or_return(fork, exit_code));
 }

@@ -28,9 +28,12 @@ ENV_SRCS			=	environment.c \
 						variable.c \
 						env_utils.c
 
-BUILT_SRCS			=	echo.c\
-						pwd.c\
-						env.c
+BUILT_SRCS			=	echo.c \
+						pwd.c \
+						env.c \
+						export_utils.c \
+						export.c \
+						unset.c
 
 PARSING_SRCS		=	parsing_init.c \
 						comparison.c \

@@ -7,11 +7,11 @@
 
 int		pwd(int fd);
 int		print_env(char **env, int fd);
-int		ft_export(char **content, t_export *export, t_data *data);
+int		ft_export(char **content, t_data *data, int fd, bool fork);
 int		cd(t_data *data);
 int		ft_unset(t_data *data, char **content, t_export *export, bool fork);
 int		echo(char **content);
-char    **cpy_environement(char **env, char **cpy_env);
+char    **cpy_environement(char **cpy_env);
 int		ft_strsearch(char *str, char reject);
 void	check_if_exist(t_export *export, char *var);
 

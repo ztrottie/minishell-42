@@ -5,5 +5,7 @@
 # include "built_in.h"
 # include "error.h"
 # include "parsing.h"
+# include "execution.h"
+# include "redirection.h"
 
 #endif
