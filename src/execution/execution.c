@@ -13,6 +13,8 @@ static int	exec_nofork(t_data *data)
 {
 	int	fd;
 
+	if (data->cmds->input && data->cmds->input->fd < 0)
+		return (SUCCESS);
 	if (data->cmds->output)
 		fd = data->cmds->output->fd;
 	else
