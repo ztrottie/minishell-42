@@ -91,6 +91,13 @@ typedef struct	s_lines
 	int		prev_type;
 }	t_lines;
 
+typedef struct s_export
+{
+	char	**env;
+	int		exit_code;
+	int		env_i;
+}	t_export;
+
 typedef struct s_data
 {
 	t_cmds		*cmds;
@@ -100,6 +107,7 @@ typedef struct s_data
 	int			exit_code;
 	struct stat	info_last_hd;
 	t_pid_list	*pid;
+	t_export	*export;
 }	t_data;
 
 

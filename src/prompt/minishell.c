@@ -31,7 +31,6 @@ int	main(int argc, char **argv, char **env)
 				redirection_main(&data, STD);
 		}
 		add_history(line);
-		free_all(&data, false);
 	}
 	free_all(&data, true);
 	rl_clear_history();

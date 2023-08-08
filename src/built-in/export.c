@@ -86,14 +86,14 @@ static char	*var_name(char *content)
 	return (name);
 }
 
-static	int	parse_new_var(char *var)
+static	int	parse_new_var(char *var, int *exit_code)
 {
 	int	i;
 
 	i = 0;
 	if (!ft_isalpha(var[0]) && var[0] != '_')
 	{
-		//exit_code = 1;
+		*exit_code = 1;
 		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
 		return (INVALID);
 	}
@@ -103,7 +103,7 @@ static	int	parse_new_var(char *var)
 			break ;
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
-		//	exit_code = 1;
+			*exit_code = 1;
 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
 			return (INVALID);
 		}
@@ -112,14 +112,14 @@ static	int	parse_new_var(char *var)
 	return (SUCCESS);
 }
 
-static int	export_var(char *content, t_export **export)
+static int	export_var(char *content, t_data *data)
 {
 	char	*var;
 	char	**env;
 	int		j;
 
 	j = 0;
-	env = (*export)->env;
+	env = data->export->env;
 	while (env[j])
 	{
 		var = var_name(content);
@@ -128,30 +128,33 @@ static int	export_var(char *content, t_export **export)
 		j++;
 	}
 	env = add_environement(NULL, env, content, 2);
-	(*export)->env = env;
+	data->export->env = env;
 	export_env((*export));
 	return (FAILURE);
 }
 
-int	ft_export(char **content, t_export *export, t_data *data)
+int	ft_export(char **content, t_data *data, int fd, bool fork)
 {
 	int	i;
+	int	exit_code
 
 	i = 1;
+	exit_code = 0;
+	if (!data->export)
+	data->export->env = cpy_environement(NULL, data->env);
 	if (!content[1])
-		export_env(export);
+		export_env(data->export);
 	else
 	{
 		while (content[i])
 		{
-			if (parse_new_var(content[i]))
-				export_var(content[i], &export);
-			else if (parse_new_var(content[i]) && ft_strsearch(content[i], '='))
-				check_if_exist(export, content[i]);
+			if (parse_new_var(content[i], &exit_code))
+				export_var(content[i], data->export);
+			else if (parse_new_var(content[i], &exit_code) && ft_strsearch(content[i], '='))
+				check_if_exist(data->export, content[i]);
 			i++;
 		}
 	}
-	data->env = add_environement(NULL, export->env, NULL, 1);
-	return (SUCCESS);
-	//return (exit_or_return(&fork, exit_code));
+	data->env = add_environement(NULL, data->export->env, NULL, 1);
+	return (exit_or_return(fork, exit_code));
 }

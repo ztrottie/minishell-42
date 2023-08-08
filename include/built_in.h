@@ -5,14 +5,6 @@
 # include "env.h"
 # include "error.h"
 
-typedef struct s_export
-{
-	char	**env;
-	int		exit_code;
-	int		env_i;
-}	t_export;
-
-
 int		pwd(int fd);
 int		print_env(char **env, int fd);
 int		ft_export(char **content, t_export *export, t_data *data);

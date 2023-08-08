@@ -1,8 +1,9 @@
 #include "../../include/built_in.h"
 
-char    **cpy_environement(char **env, char **cpy_env)
+char    **cpy_environement(char **cpy_env)
 {
 	int   i;
+	char	**env;
 
 	i = 0;
 	while (cpy_env[i])

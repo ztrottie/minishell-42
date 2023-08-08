@@ -11,7 +11,6 @@ int	get_var_content(char *content)
 	{
 		if (ft_strsearch(content, '='))
 		{
-			save = i;
 			
 		}
 		i++;
