@@ -1,4 +1,4 @@
-#include "../../include/execution.h"
+#include "../../include/redirection.h"
 
 static int	open_pipes(t_data *data)
 {

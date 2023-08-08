@@ -1,6 +1,7 @@
 #include "../../include/parsing.h"
 
-static void	init_parsing(t_data *data, char *line_read, t_lines *lines, t_tokens **tokens)
+static void	init_parsing(t_data *data, char *line_read, \
+t_lines *lines, t_tokens **tokens)
 {
 	data->nb_pipe = 0;
 	lines->line = line_read;
@@ -11,7 +12,8 @@ static void	init_parsing(t_data *data, char *line_read, t_lines *lines, t_tokens
 static int	find_next_quote(t_line *line, int quote)
 {
 	line->i_line++;
-	while (is_quote(line->line[line->i_line]) != quote && line->line[line->i_line])
+	while (is_quote(line->line[line->i_line]) != quote \
+	&& line->line[line->i_line])
 		line->i_line++;
 	if (line->line[line->i_line])
 		return (VALID);

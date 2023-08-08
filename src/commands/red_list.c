@@ -45,8 +45,6 @@ int	find_next_red(bool input, t_red *red)
 				return (VALID);
 		ptr = ptr->next;
 	}
-	if (ptr == NULL)
-		return (VALID);
 	return (INVALID);
 }
 

@@ -1,4 +1,4 @@
-#include "../../include/execution.h"
+#include "../../include/redirection.h"
 
 int	output_redirection_choice(t_red *red, t_files *file)
 {
@@ -10,6 +10,6 @@ int	output_redirection_choice(t_red *red, t_files *file)
 	else
 		file->fd = open(file->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (file->fd < 0)
-		return (INVALID);
+		return (perror(file->name), INVALID);
 	return (VALID);
 }

@@ -2,7 +2,7 @@
 # define COMMANDS_H
 
 # include "minishell.h"
-# include "execution.h"
+# include "redirection.h"
 
 int		init_commands(t_data *data, t_tokens **tokens);
 int		expected_token(t_data *data, t_tokens *tokens, bool start);

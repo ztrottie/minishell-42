@@ -1,4 +1,4 @@
-#include "../../include/execution.h"
+#include "../../include/redirection.h"
 
 static int	close_files(t_files **files)
 {

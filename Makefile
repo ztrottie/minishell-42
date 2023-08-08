@@ -9,6 +9,7 @@ ENV_DIR			=	src/env/
 PARSING_DIR		=	src/parsing/
 COMMANDS_DIR	=	src/commands/
 HERE_DOC_DIR	=	src/here_doc/
+REDIRECTION_DIR	=	src/redirection/
 EXECUTION_DIR	=	src/execution/
 
 LIBFT_DIR		=	libft/
@@ -19,63 +20,66 @@ CC				=	gcc
 CFLAGS			=	-Wextra -Wall -Werror -g
 LIBFT			=	$(LIBFT_DIR)libft.a
 
-PROMPT_SRCS		=	minishell.c
+PROMPT_SRCS			=	minishell.c
 
-ERROR_SRCS		=	ft_exit.c
+ERROR_SRCS			=	ft_exit.c
 
-ENV_SRCS		=	environment.c \
-					variable.c \
-					env_utils.c
+ENV_SRCS			=	environment.c \
+						variable.c \
+						env_utils.c
 
-BUILT_SRCS		=	echo.c\
-					pwd.c\
-					env.c
+BUILT_SRCS			=	echo.c\
+						pwd.c\
+						env.c
 
-PARSING_SRCS	=	parsing_init.c \
-					comparison.c \
-					tokens_split.c \
-					tokens_list.c \
-					line_utils.c \
-					len_control.c \
-					string_control.c \
-					variable_control.c \
+PARSING_SRCS		=	parsing_init.c \
+						comparison.c \
+						tokens_split.c \
+						tokens_list.c \
+						line_utils.c \
+						len_control.c \
+						string_control.c \
+						variable_control.c \
 
-COMMANDS_SRCS	=	pid_list.c \
-					red_list.c \
-					init_commands.c \
-					tokens_parsing.c \
-					init_contents.c
+COMMANDS_SRCS		=	pid_list.c \
+						red_list.c \
+						init_commands.c \
+						tokens_parsing.c \
+						init_contents.c
 
-HERE_DOC_SRCS	=	here_doc.c \
-					get_input.c \
-					hd_len_control.c \
-					hd_control.c \
-					hd_variable_control.c
+HERE_DOC_SRCS		=	here_doc.c \
+						get_input.c \
+						hd_len_control.c \
+						hd_control.c \
+						hd_variable_control.c
 
-EXECUTION_SRCS	=	redirection.c \
-					files_list.c \
-					close_all_fd.c \
-					free_all.c \
-					error_case.c \
-					open_redirection.c \
-					open_input_redirection.c \
-					open_output_redirection.c
+REDIRECTION_SRCS	=	redirection.c \
+						files_list.c \
+						close_all_fd.c \
+						free_all.c \
+						error_case.c \
+						open_redirection.c \
+						open_input_redirection.c \
+						open_output_redirection.c
 
-PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
-ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
-BUILT_OBJS		=	$(addprefix ${BIN_DIR}, ${BUILT_SRCS:.c=.o})
-ERROR_OBJS		=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
-PARSING_OBJS	=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
-COMMANDS_OBJS	=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
-HERE_DOC_OBJS	=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
-EXECUTION_OBJS	=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
+EXECUTION_SRCS		=	execution.c
 
-OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(EXECUTION_OBJS) $(HERE_DOC_OBJS)
+PROMPT_OBJS			=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
+ENV_OBJS			=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
+BUILT_OBJS			=	$(addprefix ${BIN_DIR}, ${BUILT_SRCS:.c=.o})
+ERROR_OBJS			=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
+PARSING_OBJS		=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
+COMMANDS_OBJS		=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
+HERE_DOC_OBJS		=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
+REDIRECTION_OBJS	=	$(addprefix ${BIN_DIR}, ${REDIRECTION_SRCS:.c=.o})
+EXECUTION_OBJS		=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
+
+OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(REDIRECTION_OBJS) $(HERE_DOC_OBJS) $(EXECUTION_OBJS)
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
-${BIN_DIR}%.o: ${EXECUTION_DIR}%.c
+${BIN_DIR}%.o: ${REDIRECTION_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ENV_DIR}%.c
@@ -94,6 +98,9 @@ ${BIN_DIR}%.o: ${COMMANDS_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${HERE_DOC_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${EXECUTION_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) libft $(NAME)

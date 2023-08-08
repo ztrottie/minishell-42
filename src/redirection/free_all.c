@@ -1,4 +1,4 @@
-#include "../../include/execution.h"
+#include "../../include/redirection.h"
 
 static void	free_cmds(t_data *data)
 {
