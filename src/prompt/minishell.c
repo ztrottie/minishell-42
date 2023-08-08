@@ -14,6 +14,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
+	char *content[] = {"unset", "PWD", "USER"};
 
 	if (init_data(argc, argv, env, &data) <= 0)
 		return (FAILURE);
