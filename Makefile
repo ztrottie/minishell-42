@@ -57,7 +57,9 @@ EXECUTION_SRCS	=	redirection.c \
 					close_all_fd.c \
 					free_all.c \
 					error_case.c \
-					open_redirection.c
+					open_redirection.c \
+					open_input_redirection.c \
+					open_output_redirection.c
 
 PROMPT_OBJS		=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS		=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})

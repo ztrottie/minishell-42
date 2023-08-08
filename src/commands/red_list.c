@@ -28,6 +28,28 @@ int	red_add_end(t_red **red_list, int type, char *content, int cont_type)
 	return (SUCCESS);
 }
 
+int	find_next_red(bool input, t_red *red)
+{
+	t_red *ptr;
+
+	ptr = red;
+	while (ptr != NULL)
+	{
+		if (input)
+		{
+			if (ptr->type == HERE_DOC || ptr->type == RED_IN)
+				return (VALID);
+		}
+		else
+			if (ptr->type == RED_OUT || ptr->type == RED_OUT_APPEND)
+				return (VALID);
+		ptr = ptr->next;
+	}
+	if (ptr == NULL)
+		return (VALID);
+	return (INVALID);
+}
+
 void	free_red_list(t_red **red_list)
 {
 	t_red	*ptr;
