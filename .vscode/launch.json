@@ -12,8 +12,9 @@
 		"stopAtEntry": false,
 		"cwd": "${fileDirname}",
 		"environment": [],
-		"externalConsole": false,
-		"MIMode": "lldb"
+		"externalConsole": true,
+		"MIMode": "lldb",
+		"preLaunchTask": "debug"
 	}
 ]
 }
