@@ -1,15 +1,13 @@
 #include "../../include/built_in.h"
 
-char    **add_environement(char **env, char **cpy_env, char *content, int option)
+char    **add_environement(char **cpy_env, char *content, int option)
 {
 	int	i;
 	int	j;
+	char	**env;
 
-	i = 0;
 	j = 0;
-	while (cpy_env[i])
-		i++;
-	env = ft_calloc(i + 2, sizeof(char *));
+	env = ft_calloc(ft_x2strlen(cpy_env) + 2, sizeof(char *));
 	if (!env)
 		return (NULL);
 	i = 0;
@@ -127,7 +125,7 @@ static int	export_var(char *content, t_data *data)
 			return (SUCCESS);
 		j++;
 	}
-	env = add_environement(NULL, env, content, 2);
+	env = add_environement(env, content, 2);
 	data->export->env = env;
 	return (FAILURE);
 }
@@ -159,6 +157,6 @@ int	ft_export(char **content, t_data *data, int fd, bool fork)
 			i++;
 		}
 	}
-	data->env = add_environement(NULL, data->export->env, NULL, 1);
+	data->env = add_environement(data->export->env, NULL, 1);
 	return (exit_or_return(fork, exit_code));
 }
