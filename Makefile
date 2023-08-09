@@ -3,7 +3,6 @@ NAME			=	minishell
 BIN_DIR			=	bin/
 
 PROMPT_DIR		=	src/prompt/
-BUILT_DIR		=	src/built-in/
 ERROR_DIR		=	src/error/
 ENV_DIR			=	src/env/
 PARSING_DIR		=	src/parsing/
@@ -11,6 +10,10 @@ COMMANDS_DIR	=	src/commands/
 HERE_DOC_DIR	=	src/here_doc/
 REDIRECTION_DIR	=	src/redirection/
 EXECUTION_DIR	=	src/execution/
+EXPORT_DIR		=	src/built-in/export/
+CD_DIR			=	src/built-in/cd/
+EXIT_DIR		=	src/built-in/exit/
+UNSET_DIR		=	src/built-in/unset/
 
 LIBFT_DIR		=	libft/
 READLINE		=	readline/libreadline.a
@@ -28,13 +31,6 @@ ENV_SRCS			=	environment.c \
 						variable.c \
 						env_utils.c
 
-BUILT_SRCS			=	echo.c \
-						pwd.c \
-						env.c \
-						export_utils.c \
-						export.c \
-						unset.c
-
 PARSING_SRCS		=	parsing_init.c \
 						comparison.c \
 						tokens_split.c \
@@ -44,8 +40,7 @@ PARSING_SRCS		=	parsing_init.c \
 						string_control.c \
 						variable_control.c \
 
-COMMANDS_SRCS		=	pid_list.c \
-						red_list.c \
+COMMANDS_SRCS		=	red_list.c \
 						init_commands.c \
 						tokens_parsing.c \
 						init_contents.c
@@ -65,19 +60,44 @@ REDIRECTION_SRCS	=	redirection.c \
 						open_input_redirection.c \
 						open_output_redirection.c
 
-EXECUTION_SRCS		=	execution.c
+EXECUTION_SRCS		=	execution.c \
+						pid_list.c
+
+EXPORT_SRCS			=	cd.c
+
+CD_SRCS				=	export_utils.c \
+						export.c
+
+EXIT_SRCS			=	exit.c
+
+UNSET_SRCS			=	unset.c
+
 
 PROMPT_OBJS			=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS			=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
-BUILT_OBJS			=	$(addprefix ${BIN_DIR}, ${BUILT_SRCS:.c=.o})
 ERROR_OBJS			=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
 PARSING_OBJS		=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 COMMANDS_OBJS		=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
 HERE_DOC_OBJS		=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
 REDIRECTION_OBJS	=	$(addprefix ${BIN_DIR}, ${REDIRECTION_SRCS:.c=.o})
 EXECUTION_OBJS		=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
+EXPORT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXPORT_SRCS:.c=.o})
+CD_OBJS				=	$(addprefix ${BIN_DIR}, ${CD_SRCS:.c=.o})
+EXIT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXIT_SRCS:.c=.o})
+UNSET_OBJS			=	$(addprefix ${BIN_DIR}, ${UNSET_SRCS:.c=.o})
 
-OBJS			=	$(PROMPT_OBJS) $(ENV_OBJS) $(ERROR_OBJS) $(COMMANDS_OBJS) $(PARSING_OBJS) $(REDIRECTION_OBJS) $(HERE_DOC_OBJS) $(EXECUTION_OBJS) $(BUILT_OBJS)
+OBJS			=	$(PROMPT_OBJS) \
+					$(ENV_OBJS) \
+					$(ERROR_OBJS) \
+					$(COMMANDS_OBJS) \
+					$(PARSING_OBJS) \
+					$(REDIRECTION_OBJS) \
+					$(HERE_DOC_OBJS) \
+					$(EXECUTION_OBJS) \
+					$(EXPORT_OBJS) \
+					$(CD_OBJS) \
+					$(EXIT_OBJS) \
+					$(UNSET_OBJS)
 
 ${BIN_DIR}%.o: ${PROMPT_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
@@ -86,9 +106,6 @@ ${BIN_DIR}%.o: ${REDIRECTION_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ENV_DIR}%.c
-	@${CC} ${CFLAGS} -c $< -o $@
-
-${BIN_DIR}%.o: ${BUILT_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ERROR_DIR}%.c
@@ -104,6 +121,18 @@ ${BIN_DIR}%.o: ${HERE_DOC_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${EXECUTION_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${EXPORT_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${EXIT_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${UNSET_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${CD_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) libft $(NAME)

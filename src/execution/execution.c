@@ -29,6 +29,6 @@ static int	exec_nofork(t_data *data)
 int	exec_main(t_data *data)
 {
 	if (data->nb_pipe == 0 && check_builtin_nofork(data) == VALID)
-		exec_nofork(data);
+		return (exec_nofork(data));
 	return (SUCCESS);
 }
