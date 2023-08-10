@@ -3,6 +3,6 @@
 
 #include "../../../include/minishell.h"
 
-int	echo(char **content)
+int	echo(char **content);
 
 #endif

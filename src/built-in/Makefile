@@ -1,5 +1,4 @@
 all:
-	@$(MAKE) -sC cd/
 	@$(MAKE) -sC echo/
 	@$(MAKE) -sC env/
 	@$(MAKE) -sC exit/
@@ -8,7 +7,6 @@ all:
 	@$(MAKE) -sC unset/
 
 clean:
-	@$(MAKE) -sC cd/ clean
 	@$(MAKE) -sC echo/ clean
 	@$(MAKE) -sC env/ clean 
 	@$(MAKE) -sC exit/ clean
@@ -17,7 +15,6 @@ clean:
 	@$(MAKE) -sC unset/ clean
 
 fclean:
-	@$(MAKE) -sC cd/ fclean
 	@$(MAKE) -sC echo/ fclean
 	@$(MAKE) -sC env/ fclean
 	@$(MAKE) -sC exit/ fclean
