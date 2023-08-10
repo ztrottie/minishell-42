@@ -52,7 +52,6 @@ int    ft_unset(char **content, char ***env, bool fork)
 	{
 		if (parse_var(content[i], &exit_code))
 		{
-			content[i] = ft_strjoin(content[i], "=");
 			j = 0;
 			while (env[0][j])
 			{

@@ -21,6 +21,5 @@ void	ft_exit(t_data *data, t_cmds *cmds)
 		else
 			return (error_code("numeric argument required", 2, data));
 	}
-	ft_x2free((void **)data->env);
 	exit(data->exit_code);
 }
