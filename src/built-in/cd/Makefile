@@ -1,4 +1,4 @@
-NAME		=	cd
+NAME		=	../bin/cd
 
 BIN_DIR		=	bin/
 LIBFT_DIR	=	../../../libft/
@@ -19,7 +19,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling cd!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)

@@ -1,4 +1,4 @@
-NAME		=	echo
+NAME		=	../bin/echo
 
 BIN_DIR		=	bin/
 LIBFT_DIR	=	../../../libft/
@@ -20,7 +20,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling echo!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../bin/$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)

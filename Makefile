@@ -135,7 +135,7 @@ all: $(BIN_DIR) libft built-in $(NAME)
 	@echo "Minishell compiled!"
 
 $(NAME): $(OBJS)
-	@echo "minishell compiling"
+	@echo "Minishell compiling"
 	@$(CC) $(CFLAGS) $(OBJS) -l readline -l ncurses $(READLINE) $(HISTORY) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
