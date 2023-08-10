@@ -62,7 +62,7 @@ int    ft_unset(char **content, char ***env, bool fork)
 					ft_x2free((void **)*env);
 					*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
 					if (!env)
-						return (exit_or_return(fork, exit_code));
+						return (exit_or_reset(fork, exit_code));
 					*env = reset(*env, content[i], env_cpy);
 					ft_x2free((void **)env_cpy);
 				}
@@ -72,5 +72,5 @@ int    ft_unset(char **content, char ***env, bool fork)
 		}
 	}
 	*env = cpy_environement(*env);
-	return (exit_or_return(fork, exit_code));
+	return (exit_or_reset(fork, exit_code));
 }
