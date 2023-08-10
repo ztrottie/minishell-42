@@ -6,6 +6,7 @@ all: $(BIN_DIR)
 	@$(MAKE) -sC export/
 	@$(MAKE) -sC pwd/
 	@$(MAKE) -sC unset/
+	@$(MAKE) -sC cd/
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -16,13 +17,15 @@ clean:
 	@$(MAKE) -sC export/ clean
 	@$(MAKE) -sC pwd/ clean
 	@$(MAKE) -sC unset/ clean
+	@$(MAKE) -sC cd/ clean
 
 fclean:
-	@$(MAKE) -C echo/ fclean
-	@$(MAKE) -C env/ fclean
-	@$(MAKE) -C export/ fclean
-	@$(MAKE) -C pwd/ fclean
-	@$(MAKE) -C unset/ fclean
+	@$(MAKE) -sC echo/ fclean
+	@$(MAKE) -sC env/ fclean
+	@$(MAKE) -sC export/ fclean
+	@$(MAKE) -sC pwd/ fclean
+	@$(MAKE) -sC unset/ fclean
+	@$(MAKE) -sC cd/ fclean
 	@rm -fr $(BIN_DIR)
 
 re: fclean all
