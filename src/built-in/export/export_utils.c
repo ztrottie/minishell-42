@@ -1,9 +1,24 @@
-#include "../../../include/built_in.h"
+#include "export.h"
 
-int	exit_or_reset(bool fork, int exit_code)
+int	check_type(char *content, int index)
+{	
+	if (content[index] == '=')
+		return (TRUNC);
+	else if (content[index] == '+')
+		return (ADD);
+	return (INVALID);
+}
+
+int	is_complete(char *var)
 {
-	if (fork)
-		exit(exit_code);
-	else
-		return (exit_code);
+	size_t	i;
+
+	i = 0;
+	while (var[i])
+	{
+		if (var[i] == '=')
+			return (VALID);
+		i++;
+	}
+	return (INVALID);
 }

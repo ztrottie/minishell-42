@@ -1,69 +1,4 @@
-#include "../../../include/built_in.h"
-
-char    **add_environement(char **cpy_env, char *content, int option)
-{
-	int		i;
-	int		j;
-	char **env;
-
-	env = ft_calloc(ft_x2strlen(cpy_env) + 2, sizeof(char *));
-	if (!env)
-		return (NULL);
-	j = 0;
-	i = 0;
-	while (cpy_env[i])
-	{
-		if (option == 1 && ft_strsearch(cpy_env[i], '='))
-			env[j++] = ft_strdup(cpy_env[i]);
-		else if (option != 1)
-			env[i] = ft_strdup(cpy_env[i]);
-		i++;
-	}
-	if (option == 2)
-	{
-		env[i] = ft_strdup(content);
-		return (ft_x2free((void **)cpy_env), env);
-	}
-	return (env);
-}
-
-static char    **ft_sort_params(int nbr_param, char **tabexport)
-{
-    int        i;
-    int        j;
-    char    *temp;
-
-    i = 0;
-    while (i < nbr_param)
-    {
-        j = i + 1;
-        while (j < nbr_param)
-        {
-            if (ft_strcmp(tabexport[j], tabexport[i]) < 0)
-            {
-                temp = tabexport[i];
-                tabexport[i] = tabexport[j];
-                tabexport[j] = temp;
-            }
-            j++;
-        }
-        i++;
-    }
-    return (tabexport);
-}
-
-static void	export_env(t_export *export, int fd)
-{
-	int	i;
-
-	i = 0;
-	export->env = ft_sort_params(ft_x2strlen(export->env), export->env);
-	while (export->env[i])
-	{
-		ft_printf_fd(fd, "declare -x %s\n", export->env[i]);
-		i++;
-	}
-}
+#include "export.h"
 
 static char	*var_name(char *content)
 {
@@ -73,14 +8,14 @@ static char	*var_name(char *content)
 	i = 0;
 	while (content[i])
 	{
-			if (content[i] != '+' || content[i] != '=')
+			if (content[i] == '+' || content[i] == '=')
 				break ;
 		i++;
 	}
 	name = ft_calloc(sizeof(char), i + 1);
 	if (!name)
 		return (NULL);
-	ft_strlcpy(name, &content[i], i + 1);
+	ft_strlcpy(name, content, i + 1);
 	return (name);
 }
 
@@ -110,51 +45,45 @@ static	int	parse_new_var(char *var, int *exit_code)
 	return (SUCCESS);
 }
 
-static int	export_var(char *content, t_data *data)
+static int	export_var(char *content, char ***env)
 {
 	char	*var;
-	char	**env;
+	int		type;
 	int		j;
 
+	var = var_name(content);
+	type = check_type(content, ft_strlen(var));
 	j = 0;
-	env = data->export->env;
-	while (env[j])
+	while (env[0][j])
 	{
-		var = var_name(content);
-		if (!ft_strcmp(env[j], var))
-			return (SUCCESS);
+		if (ft_strncmp(env[0][j], var, ft_strlen(var)) == 0)
+		{
+			return(type_choice(&env[0][j], content, type));
+		}
 		j++;
 	}
-	env = add_environement(env, content, 2);
-	data->export->env = env;
-	return (FAILURE);
+	if (create_var(content, env, type) <= 0)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
-int	ft_export(char **content, t_data *data, int fd, bool fork)
+int	ft_export(char **argv, char ***env, bool fork, int fd)
 {
 	int	i;
 	int	exit_code;
 
 	i = 1;
 	exit_code = 0;
-	if (!data->export)
-	{
-		data->export = ft_calloc(1, sizeof(t_export));
-		if (!data->export)
-			return (FAILURE);
-		data->export->env = cpy_environement(data->env);
-	}
-	if (!content[1])
-		export_env(data->export, fd);
+	if (!argv[1])
+		export_env(*env, fd);
 	else
 	{
-		while (content[i])
+		while (argv[i])
 		{
-			if (parse_new_var(content[i], &exit_code))
-				export_var(content[i], data);
+			if (parse_new_var(argv[i], &exit_code))
+				export_var(argv[i], env);
 			i++;
 		}
 	}
-	data->env = add_environement(data->export->env, NULL, 1);
-	return (exit_or_reset(fork, exit_code));
+	return (exit_or_return(fork, exit_code));
 }

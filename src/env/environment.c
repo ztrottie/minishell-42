@@ -10,7 +10,7 @@ int	cpy_env(t_data *data, char **env)
 		return (FAILURE);
 	while (env[i])
 	{
-		data->env[i] = ft_calloc(ft_strlen(env[i]), sizeof(char));
+		data->env[i] = ft_calloc(ft_strlen(env[i]) + 1, sizeof(char));
 		if (!data->env[i])
 			return (FAILURE);
 		data->env[i] = ft_memcpy(data->env[i], env[i], ft_strlen(env[i]));

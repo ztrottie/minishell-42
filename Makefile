@@ -24,7 +24,6 @@ LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS			=	minishell.c
 
-
 ENV_SRCS			=	environment.c \
 						variable.c \
 						env_utils.c
@@ -61,10 +60,14 @@ REDIRECTION_SRCS	=	redirection.c \
 EXECUTION_SRCS		=	execution.c \
 						pid_list.c
 
-EXPORT_SRCS			=	cd.c
+CD_SRCS				=	cd.c
 
-CD_SRCS				=	export_utils.c \
-						export.c
+EXPORT_SRCS			=	export_utils.c \
+						export.c \
+						ft_exit.c \
+						print_export.c \
+						create_var.c \
+						export_type.c
 
 UNSET_SRCS			=	unset.c\
 						unset_utils.c

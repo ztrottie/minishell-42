@@ -12,9 +12,7 @@ static int	init_data(int argc, char **argv, char **env, t_data *data)
 
 int	main(int argc, char **argv, char **env)
 {
-
 	char	*line;
-
 	t_data	data;
 
 	if (init_data(argc, argv, env, &data) <= 0)
