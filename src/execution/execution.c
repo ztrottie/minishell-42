@@ -20,7 +20,7 @@ static int	exec_nofork(t_data *data)
 	else
 		fd = 1;
 	if (ft_strcmp(data->cmds->name, "export") == 0)
-		data->exit_code = ft_export(data->cmds->content, data, fd, false);
+		data->exit_code = ft_export(data->cmds->content, &data->env, false, fd);
 	if (ft_strcmp(data->cmds->name, "unset") == 0)
 		data->exit_code = ft_unset(data, data->cmds->content, data->export, false);
 	return (SUCCESS);

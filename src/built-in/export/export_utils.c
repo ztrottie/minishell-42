@@ -1,37 +1,24 @@
-#include "../../include/built_in.h"
+#include "export.h"
 
-// int	get_var_content(char *content)
-// {
-// 	int	i;
-// 	int	save;
+int	check_type(char *content, int index)
+{	
+	if (content[index] == '=')
+		return (TRUNC);
+	else if (content[index] == '+')
+		return (ADD);
+	return (INVALID);
+}
 
-// 	i = 0;
-// 	save = 0;
-// 	while (content[i])
-// 	{
-// 		if (ft_strsearch(content, '='))
-// 		{
-			
-// 		}
-// 		i++;
-// 	}
+int	is_complete(char *var)
+{
+	size_t	i;
 
-// }
-
-// void	check_if_exist(t_export *export, char *var)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (export->env[i])
-// 	{
-// 		if (ft_strsearch(export->env[i], '=') && !ft_strcmp(export->env[i], var))
-// 		{
-// 			export->env[i] = ft_strdup(var);
-// 			return ;
-// 		}
-// 		else
-// 			export->env[i] = ft_strdup(var);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (var[i])
+	{
+		if (var[i] == '=')
+			return (VALID);
+		i++;
+	}
+	return (INVALID);
+}
