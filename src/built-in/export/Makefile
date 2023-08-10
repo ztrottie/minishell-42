@@ -1,4 +1,4 @@
-NAME		=	export
+NAME		=	../bin/export
 
 BIN_DIR		=	bin/
 LIBFT_DIR	=	../../../libft/
@@ -25,7 +25,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling export!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../bin/$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
