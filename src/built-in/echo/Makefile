@@ -7,8 +7,8 @@ CC			=	gcc
 CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
-SRCS		=	echo.c\
-				main.c
+SRCS		=	echo.c \
+				  main.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
@@ -20,7 +20,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling echo!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)

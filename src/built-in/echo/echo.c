@@ -1,4 +1,4 @@
-#include "../../include/built_in.h"
+#include "echo.h"
 
 static int	check_if_option(char **content)
 {
