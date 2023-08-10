@@ -25,7 +25,7 @@ static int	check_exit_code(t_data *data, t_files *file)
 	}
 	file->fd = open(file->name, O_RDONLY);
 	if (file->fd < 0)
-		return (data->exit_code = 1, perror(file->name), INVALID);
+		return (perror(file->name), INVALID);
 	return (SUCCESS);
 }
 int	input_redirection_choice(t_data *data, t_red *red, t_files *file)

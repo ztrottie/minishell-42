@@ -30,7 +30,7 @@ static void	exit_hd(t_hd *hd, char **line)
 	ft_free(*line);
 	ft_free(hd->name);
 	close(hd->fd);
-	close_all(hd->data);
+	close_all(hd->data, false);
 	free_all(hd->data, true);
 	exit(0);
 }

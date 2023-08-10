@@ -15,7 +15,7 @@ static int	open_redirection_error(t_data *data, t_cmds *cmds)
 				return (FAILURE);
 			else if (exit_code == INVALID)
 				return (INVALID);
-			if (close_all(data) <= 0)
+			if (close_all(data, false) <= 0)
 				return (FAILURE);
 		}
 		ptr = ptr->next;
@@ -40,7 +40,7 @@ int	error_redirection(t_data *data)
 		data->token_error = false;
 		data->exit_code = 258;
 	}
-	if (close_all(data) <= 0)
+	if (close_all(data, false) <= 0)
 		return (FAILURE);
 	free_all(data, false);
 	return (SUCCESS);

@@ -59,7 +59,13 @@ REDIRECTION_SRCS	=	redirection.c \
 						open_output_redirection.c
 
 EXECUTION_SRCS		=	execution.c \
-						pid_list.c
+						pid_list.c \
+						std_exec.c \
+						exec_nofork.c \
+						child_process.c \
+						get_in_out.c \
+						get_cmd_path.c \
+						cmd_path_error.c
 
 CD_SRCS				=	cd.c
 

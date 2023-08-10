@@ -57,14 +57,12 @@ static int	export_var(char *content, char ***env)
 	while (env[0][j])
 	{
 		if (ft_strncmp(env[0][j], var, ft_strlen(var)) == 0)
-		{
-			return(type_choice(&env[0][j], content, type));
-		}
+			return(ft_free(var), type_choice(&env[0][j], content, type));
 		j++;
 	}
 	if (create_var(content, env, type) <= 0)
-		return (FAILURE);
-	return (SUCCESS);
+		return (ft_free(var), FAILURE);
+	return (ft_free(var), SUCCESS);
 }
 
 int	ft_export(char **argv, char ***env, bool fork, int fd)

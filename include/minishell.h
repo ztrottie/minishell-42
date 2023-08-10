@@ -106,7 +106,7 @@ typedef struct s_data
 	size_t		nb_pipe;
 	int			exit_code;
 	struct stat	info_last_hd;
-	t_pid_list	*pid;
+	t_pid_list	*pid_list;
 	t_export	*export;
 }	t_data;
 

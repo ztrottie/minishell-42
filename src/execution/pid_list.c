@@ -29,25 +29,30 @@ void	free_pid_list(t_data *data)
 	t_pid_list	*ptr;
 	t_pid_list	*tmp;
 
-	ptr = data->pid;
+	ptr = data->pid_list;
 	while (ptr != NULL)
 	{
 		tmp = ptr->next;
 		ft_free(ptr);
 		ptr = tmp;
 	}
-	data->pid = NULL;
+	data->pid_list = NULL;
 }
 
-int	wait_pid_list(t_pid_list **pid)
+int	wait_pid_list(t_data *data)
 {
 	t_pid_list	*ptr;
 	int			status;
 
-	ptr = *pid;
+	ptr = data->pid_list;
 	while (ptr != NULL)
 	{
-		waitpid(ptr->pid, &status, 0);
+		if (waitpid(ptr->pid, &status, 0) < 0)
+			return (FAILURE);
+		if (WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->exit_code = WTERMSIG(status);
 		ptr = ptr->next;
 	}
 	return (SUCCESS);

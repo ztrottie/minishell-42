@@ -1,13 +1,17 @@
 #include "../../include/execution.h"
 
-int	child_process(t_data *data, int cmd_nb)
+int	parent_process(t_data *data)
 {
-	
+	if (close_all(data, true) <= 0)
+		return (FAILURE);
+	if (wait_pid_list(data) <= 0)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	std_exec(t_data *data)
 {
-	int		cmd_nb;
+	size_t	cmd_nb;
 	pid_t	pid;
 
 	cmd_nb = 0;
@@ -15,17 +19,15 @@ int	std_exec(t_data *data)
 	{
 		pid = fork();
 		if (pid < 0)
-		{
 			return (FAILURE);
-		}
 		else if (pid == 0)
-		{
 			child_process(data, cmd_nb);
-		}
 		else
-			if (pid_add_end(&data->pid, pid))
+			if (pid_add_end(&data->pid_list, pid) <= 0)
 				break ;
 		cmd_nb++;
 	}
-	return (SUCESS);
+	if (parent_process(data) <= 0)
+		return (FAILURE);
+	return (SUCCESS);
 }

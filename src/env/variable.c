@@ -57,6 +57,7 @@ char *env_variable(t_data *data, char *name)
 {
 	size_t	i;
 	char	*variable;
+	char	*var_content;
 
 	if (!data->env)
 		return (NULL);
@@ -67,7 +68,10 @@ char *env_variable(t_data *data, char *name)
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], variable, ft_strlen(variable)) == 0)
-			return (ft_free(variable), data->env[i] + ft_strlen(variable));
+		{
+			var_content = ft_strdup(data->env[i] + ft_strlen(variable));
+			return (ft_free(variable), var_content);
+		}
 		i++;
 	}
 	return (ft_free(variable), NULL);
