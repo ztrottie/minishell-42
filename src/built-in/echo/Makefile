@@ -7,11 +7,12 @@ CC			=	gcc
 CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
-SRCS		=	echo.c
+SRCS		=	echo.c\
+				main.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
-$(BIN_DIR)%.o: ./%.echo
+$(BIN_DIR)%.o: ./%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) $(NAME)

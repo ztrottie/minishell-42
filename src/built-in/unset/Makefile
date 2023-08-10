@@ -8,11 +8,12 @@ CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
 SRCS		=	unset.c\
-				unset_utils.c
+				unset_utils.c\
+				main.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
-$(BIN_DIR)%.o: ./%.unset
+$(BIN_DIR)%.o: ./%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) $(NAME)
