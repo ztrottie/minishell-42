@@ -43,13 +43,18 @@ static void	unset_var(char **content, char ***env, int i, int j)
 {
 	char	**env_cpy;
 
-	if (ft_strncmp(content[i], env[0][j], ft_strlen(content[i])) == 0)
+	while (env[0][j])
 	{
-		env_cpy = cpy_environement(*env);
-		ft_x2free((void **)*env);
-		*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
-		*env = reset(*env, content[i], env_cpy);
-		ft_x2free((void **)env_cpy);
+		if (ft_strncmp(content[i], env[0][j], ft_strlen(content[i])) == 0)
+		{
+			env_cpy = cpy_environement(*env);
+			ft_x2free((void **)*env);
+			*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
+			*env = reset(*env, content[i], env_cpy);
+			ft_x2free((void **)env_cpy);
+			j--;
+		}
+		j++;
 	}
 }
 
@@ -66,11 +71,7 @@ int    ft_unset(char **content, char ***env, bool fork)
 		if (parse_var(content[i], &exit_code))
 		{
 			j = 0;
-			while (env[0][j])
-			{
-				unset_var(content, env, i, j);
-				j++;
-			}
+			unset_var(content, env, i, j);
 			i++;
 		}
 	}
