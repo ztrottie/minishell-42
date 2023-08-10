@@ -7,7 +7,8 @@ CC			=	gcc
 CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
-SRCS		=	cd.c
+SRCS		=	cd.c \
+				main.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
