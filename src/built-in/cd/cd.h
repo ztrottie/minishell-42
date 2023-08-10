@@ -3,6 +3,6 @@
 
 #include "../../../include/minishell.h"
 
-int	cd();
+int	cd(int ac, char **av, char ***env);
 
 #endif
