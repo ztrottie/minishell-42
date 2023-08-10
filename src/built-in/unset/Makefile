@@ -21,7 +21,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling unset!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../bin/$(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -30,7 +30,6 @@ clean:
 	@rm -fr $(BIN_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
 
 re: fclean all
 
