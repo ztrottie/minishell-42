@@ -1,6 +1,8 @@
-#include "../../include/built_in.h"
+#include "pwd.h"
 
-int	pwd(int fd)
+int	pwd()
 {	
-	return (ft_printf_fd(fd, "%s\n", getcwd(NULL, 0)), 0);
+	if (getcwd(NULL, 0) == NULL)
+		return (FAILURE);
+	ft_printf("%s\n", getcwd(NULL, 0));
 }

@@ -1,4 +1,4 @@
-#include "../../include/built_in.h"
+#include "../../../include/built_in.h"
 
 char    **add_environement(char **cpy_env, char *content, int option)
 {
@@ -97,9 +97,9 @@ static	int	parse_new_var(char *var, int *exit_code)
 	}
 	while (var[i])
 	{
-		if (var[i] == '=')
+		if (var[i] == '=' || (var[i] == '+' && var[i + 1] == '='))
 			break ;
-		if (!ft_isalnum(var[i]) && var[i] != '_')
+		if ((!ft_isalnum(var[i]) && var[i] != '_') || var[i] == ' ')
 		{
 			*exit_code = 1;
 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
@@ -152,11 +152,9 @@ int	ft_export(char **content, t_data *data, int fd, bool fork)
 		{
 			if (parse_new_var(content[i], &exit_code))
 				export_var(content[i], data);
-			// else if (parse_new_var(content[i], &exit_code) && ft_strsearch(content[i], '='))
-			// 	check_if_exist(data->export, content[i]);
 			i++;
 		}
 	}
 	data->env = add_environement(data->export->env, NULL, 1);
-	return (exit_or_return(fork, exit_code));
+	return (exit_or_reset(fork, exit_code));
 }

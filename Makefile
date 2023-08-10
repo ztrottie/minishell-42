@@ -3,7 +3,6 @@ NAME			=	minishell
 BIN_DIR			=	bin/
 
 PROMPT_DIR		=	src/prompt/
-ERROR_DIR		=	src/error/
 ENV_DIR			=	src/env/
 PARSING_DIR		=	src/parsing/
 COMMANDS_DIR	=	src/commands/
@@ -25,7 +24,6 @@ LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS			=	minishell.c
 
-ERROR_SRCS			=	ft_exit.c
 
 ENV_SRCS			=	environment.c \
 						variable.c \
@@ -68,14 +66,12 @@ EXPORT_SRCS			=	cd.c
 CD_SRCS				=	export_utils.c \
 						export.c
 
-EXIT_SRCS			=	exit.c
-
-UNSET_SRCS			=	unset.c
+UNSET_SRCS			=	unset.c\
+						unset_utils.c
 
 
 PROMPT_OBJS			=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS			=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
-ERROR_OBJS			=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
 PARSING_OBJS		=	$(addprefix ${BIN_DIR}, ${PARSING_SRCS:.c=.o})
 COMMANDS_OBJS		=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
 HERE_DOC_OBJS		=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
@@ -88,7 +84,6 @@ UNSET_OBJS			=	$(addprefix ${BIN_DIR}, ${UNSET_SRCS:.c=.o})
 
 OBJS			=	$(PROMPT_OBJS) \
 					$(ENV_OBJS) \
-					$(ERROR_OBJS) \
 					$(COMMANDS_OBJS) \
 					$(PARSING_OBJS) \
 					$(REDIRECTION_OBJS) \
@@ -106,9 +101,6 @@ ${BIN_DIR}%.o: ${REDIRECTION_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${ENV_DIR}%.c
-	@${CC} ${CFLAGS} -c $< -o $@
-
-${BIN_DIR}%.o: ${ERROR_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${PARSING_DIR}%.c

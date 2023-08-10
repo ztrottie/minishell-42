@@ -2,7 +2,6 @@
 # define PARSING_H
 
 # include "minishell.h"
-# include "error.h"
 # include "env.h"
 # include "commands.h"
 
