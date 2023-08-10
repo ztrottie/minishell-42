@@ -1,7 +1,8 @@
 #include "pwd.h"
 
-int main(int ac, char **ac)
+int main(int ac, char **av)
 {
-	(void) pwd;
+	(void)ac;
+	(void)av;
 	pwd();
 }

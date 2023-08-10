@@ -7,9 +7,13 @@ CC			=	gcc
 CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
-SRCS		=	export.c\
-				export_utils.c\
-				main.c
+SRCS		=	export.c \
+				export_utils.c \
+				main.c \
+				create_var.c \
+				export_type.c \
+				ft_exit.c \
+				print_export.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
@@ -21,7 +25,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling export!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -29,7 +33,7 @@ $(BIN_DIR):
 clean:
 	@rm -fr $(BIN_DIR)
 
-flcean: clean
+fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all

@@ -20,7 +20,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling pwd!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -28,7 +28,7 @@ $(BIN_DIR):
 clean:
 	@rm -fr $(BIN_DIR)
 
-flcean: clean
+fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all

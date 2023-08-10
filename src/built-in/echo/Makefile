@@ -8,7 +8,7 @@ CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
 SRCS		=	echo.c \
-				  main.c
+				main.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
@@ -28,7 +28,7 @@ $(BIN_DIR):
 clean:
 	@rm -fr $(BIN_DIR)
 
-flcean: clean
+fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all

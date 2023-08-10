@@ -28,7 +28,7 @@ $(BIN_DIR):
 clean:
 	@rm -fr $(BIN_DIR)
 
-flcean: clean
+fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
