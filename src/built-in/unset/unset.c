@@ -39,12 +39,25 @@ static char    **reset(char **env, char *variable, char **env_cpy)
 	return (env);
 }
 
+static void	unset_var(char **content, char ***env, int i, int j)
+{
+	char	**env_cpy;
+
+	if (ft_strncmp(content[i], env[0][j], ft_strlen(content[i])) == 0)
+	{
+		env_cpy = cpy_environement(*env);
+		ft_x2free((void **)*env);
+		*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
+		*env = reset(*env, content[i], env_cpy);
+		ft_x2free((void **)env_cpy);
+	}
+}
+
 int    ft_unset(char **content, char ***env, bool fork)
 {
 	int				i;
 	int				j;
 	int		exit_code;
-	char	**env_cpy;
 
 	i = 1;
 	exit_code = 0;
@@ -55,16 +68,7 @@ int    ft_unset(char **content, char ***env, bool fork)
 			j = 0;
 			while (env[0][j])
 			{
-				if (ft_strncmp(content[i], env[0][j], ft_strlen(content[i])) == 0)
-				{
-					env_cpy = cpy_environement(*env);
-					ft_x2free((void **)*env);
-					*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
-					if (!env)
-						return (exit_or_reset(fork, exit_code));
-					*env = reset(*env, content[i], env_cpy);
-					ft_x2free((void **)env_cpy);
-				}
+				unset_var(content, env, i, j);
 				j++;
 			}
 			i++;
