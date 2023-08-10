@@ -1,4 +1,4 @@
-NAME		=	../bin/cd
+NAME		=	cd
 
 BIN_DIR		=	bin/
 LIBFT_DIR	=	../../../libft/
