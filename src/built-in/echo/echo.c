@@ -41,10 +41,3 @@ int	echo(char **content)
 		printf("\n");
 	return (SUCCESS);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	(void) ac;
-// 	echo(av);
-// 	return (0);
-// }

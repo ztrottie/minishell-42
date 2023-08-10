@@ -34,7 +34,7 @@ static	int	parse_new_var(char *var, int *exit_code)
 	{
 		if (var[i] == '=' || (var[i] == '+' && var[i + 1] == '='))
 			break ;
-		if (!ft_isalnum(var[i]) && var[i] != '_')
+		if ((!ft_isalnum(var[i]) && var[i] != '_') || var[i] == ' ')
 		{
 			*exit_code = 1;
 			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);

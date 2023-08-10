@@ -110,5 +110,4 @@ typedef struct s_data
 	t_export	*export;
 }	t_data;
 
-
 #endif

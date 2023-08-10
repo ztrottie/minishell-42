@@ -28,6 +28,8 @@
 		"utility": "c",
 		"execution.h": "c",
 		"typeinfo": "c",
-		"prompt.h": "c"
+		"prompt.h": "c",
+		"built_in.h": "c",
+		"minishell.h": "c"
 	}
 }
