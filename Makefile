@@ -2,6 +2,7 @@ NAME			=	minishell
 
 BIN_DIR			=	bin/
 
+BUILT_DIR		=	src/built-in/
 PROMPT_DIR		=	src/prompt/
 ENV_DIR			=	src/env/
 PARSING_DIR		=	src/parsing/
@@ -130,7 +131,7 @@ ${BIN_DIR}%.o: ${UNSET_DIR}%.c
 ${BIN_DIR}%.o: ${CD_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
-all: $(BIN_DIR) libft $(NAME)
+all: $(BIN_DIR) libft built-in $(NAME)
 	@echo "Minishell compiled!"
 
 $(NAME): $(OBJS)
@@ -150,13 +151,18 @@ libft:
 	fi
 	@$(MAKE) -sC $(LIBFT_DIR)
 
+built-in:
+	@$(MAKE) -sC $(BUILT_DIR)
+
 clean:
 	@rm -fr $(BIN_DIR)
 	@$(MAKE) -sC $(LIBFT_DIR) clean
+	@$(MAKE) -sC $(BUILT_DIR) clean
 
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -sC $(LIBFT_DIR) fclean
+	@$(MAKE) -sC $(BUILT_DIR) fclean
 
 re: fclean all
 
