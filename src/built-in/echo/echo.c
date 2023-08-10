@@ -32,12 +32,12 @@ int	echo(char **content)
 	i = check_if_option(content) + 1;
 	while (content[i])
 	{
-		printf("%s", content[i]);
+		ft_printf("%s", content[i]);
 		if (content[i + 1])
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 	if (check_if_option(content) == 0)
-		printf("\n");
-	return (SUCCESS);
+		ft_printf("\n");
+	exit (0);
 }
