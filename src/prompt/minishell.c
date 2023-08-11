@@ -19,9 +19,10 @@ int	main(int argc, char **argv, char **env)
 		return (FAILURE);
 	while (1)
 	{
-		sig_handler(SIGDEFAULT);
 		data.nb_pipe = 0;
+		sig_handler_p(false, true);
 		line = readline("minishell> ");
+		sig_handler_p(false, false);
 		if (!line)
 			break ;
 		if (ft_strlen(line) > 0)
@@ -34,5 +35,6 @@ int	main(int argc, char **argv, char **env)
 		free_all(&data, false);
 	}
 	free_all(&data, true);
+	ft_printf("exit\n");
 	rl_clear_history();
 }

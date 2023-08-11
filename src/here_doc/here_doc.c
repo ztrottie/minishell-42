@@ -31,6 +31,7 @@ static int	fork_here_doc(t_hd *hd)
 	pid_t	pid;
 	int		status;
 
+	sig_handler_p(true, false);
 	pid = fork();
 	if (pid < 0)
 		return (print_error("fork"), FAILURE);
@@ -38,6 +39,7 @@ static int	fork_here_doc(t_hd *hd)
 		get_input(hd);
 	else if (pid > 0)
 		waitpid(pid, &status, 0);
+	sig_handler_p(false, false);
 	return (SUCCESS);
 }
 static int	init_hd(t_data *data, t_hd *hd, t_red *red)

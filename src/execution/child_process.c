@@ -51,7 +51,7 @@ int	child_process(t_data *data, int cmd_nb)
 	int		type;
 	char	*path;
 
-	sig_handler(SIGCHILD);
+	sig_handler_c(false);
 	if (data->cmds[cmd_nb].name)
 	{
 		type = get_cmd_type(data->cmds[cmd_nb].name);
