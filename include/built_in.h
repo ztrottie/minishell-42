@@ -4,7 +4,8 @@
 # include "minishell.h"
 # include "env.h"
 
-int		ft_unset(char **argv, char ***env, bool fork);
-int		ft_export(char **argv, char ***env, bool fork, int fd);
+int	ft_unset(char **argv, char ***env, bool fork);
+int	ft_export(char **argv, char ***env, bool fork, int fd);
+int	cd(char **av, char ***env);
 
 #endif

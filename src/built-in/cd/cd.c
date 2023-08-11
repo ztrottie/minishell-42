@@ -9,7 +9,6 @@ static char	*get_path_name(char **env, char *name)
 	len = ft_strlen(name);
 	while (*env && env[i])
 	{
-		printf("%s\n", env[i]);
 		if (strncmp(env[i], name, len) == 0)
 			return (env[i] + len);
 		i++;
@@ -47,7 +46,6 @@ static int	go_to_dir(char *content, char **env)
 	if (ft_strncmp(content, "-", 2) == 0)
 	{
 		temp = get_path_name(env, "OLDPWD=");
-		ft_printf("%s\n", temp);
 		if (temp)
 			content = temp;
 		else
@@ -65,11 +63,9 @@ static int	go_to_dir(char *content, char **env)
 	return (ch_dir);
 }
 
-int	cd(int ac, char **av, char ***env)
+int	cd(char **av, char ***env)
 {
 	int	len;
-	(void)ac;
-	(void)av;
 
 	len = ft_x2strlen(av);
 	if (len == 1)
