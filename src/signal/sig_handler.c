@@ -2,7 +2,11 @@
 
 static void	sig_hd(int sig)
 {
-	(void)sig;
+	if (sig == SIGINT)
+	{
+		ft_printf_fd(STDERR_FILENO, "\n");
+		close(STDIN_FILENO);
+	}
 }
 
 static void	default_sig(int sig)
@@ -22,26 +26,35 @@ static void	back_slash(int sig)
 		ft_printf_fd(2, "Quit: 3\n");
 }
 
-void	sig_handler(int type)
+void	sig_handler_c(bool is_heredoc)
 {
-	if (type == SIGHD)
+	if (is_heredoc == true)
 	{
 		signal(SIGINT, sig_hd);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else
+	{
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
-	else if (type == SIGDEFAULT)
+}
+
+void	sig_handler_p(bool mute, bool is_interactive)
+{
+	if (mute == true)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (is_interactive == true)
 	{
 		signal(SIGINT, default_sig);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (type == SIGPARENT)
+	else
 	{
 		signal(SIGINT, back_slash);
 		signal(SIGQUIT, back_slash);
-	}
-	else if (type == SIGCHILD)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 	}
 }

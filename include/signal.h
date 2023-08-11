@@ -5,7 +5,10 @@
 # include "minishell.h"
 # include "redirection.h"
 
-void	sig_handler(int type);
+void	sig_handler_p(bool mute, bool is_interactive);
+void	sig_handler_c(bool is_heredoc);
+
+
 
 enum e_sig_type
 {
