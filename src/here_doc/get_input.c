@@ -58,6 +58,8 @@ int	get_input(t_hd *hd)
 	len = ft_strlen(hd->limiter);
 	while (!(ft_strlen(line) == len && ft_strncmp(line, hd->limiter, len) == 0))
 	{
+		if (!line)
+			break;
 		line = get_parsed_line(hd->data, hd->type, line);
 		if (write_valid(hd) <= 0)
 			exit_hd(hd, &line);
@@ -65,6 +67,7 @@ int	get_input(t_hd *hd)
 		ft_free(line);
 		line = readline("> ");
 	}
+	ft_printf("ayo");
 	exit_hd(hd, &line);
 	return (SUCCESS);
 }

@@ -51,18 +51,23 @@ int	child_process(t_data *data, int cmd_nb)
 	int		type;
 	char	*path;
 
-	type = get_cmd_type(data->cmds[cmd_nb].name);
-	if (get_in_out(&data->cmds[cmd_nb]) <= 0)
-		exit_child(data, 1);
-	if (close_all(data, false) <= 0)
-		exit_child(data, 1);
-	if (get_cmd_path(data, cmd_nb, type, &path) <= 0)
-		exit_child(data, 1);
-	free_child(data, cmd_nb);
-	if (execve(path, data->cmds[cmd_nb].content, data->env) < 0)
-		perror("EXECVE");
-	ft_free(path);
-	ft_x2free((void **)data->cmds[cmd_nb].content);
-	ft_x2free((void **)data->env);
+	if (data->cmds[cmd_nb].name)
+	{
+		type = get_cmd_type(data->cmds[cmd_nb].name);
+		if (get_in_out(&data->cmds[cmd_nb]) <= 0)
+			exit_child(data, 1);
+		if (close_all(data, false) <= 0)
+			exit_child(data, 1);
+		if (get_cmd_path(data, cmd_nb, type, &path) <= 0)
+			exit_child(data, 1);
+		free_child(data, cmd_nb);
+		if (execve(path, data->cmds[cmd_nb].content, data->env) < 0)
+			perror("EXECVE");
+		ft_free(path);
+		ft_x2free((void **)data->cmds[cmd_nb].content);
+		ft_x2free((void **)data->env);
+	}
+	else
+		free_all(data, true);
 	exit(0);
 }
