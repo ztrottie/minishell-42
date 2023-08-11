@@ -11,6 +11,7 @@ HERE_DOC_DIR	=	src/here_doc/
 REDIRECTION_DIR	=	src/redirection/
 EXECUTION_DIR	=	src/execution/
 ERROR_DIR		=	src/error/
+SIGNAL_DIR		=	src/signal/
 EXPORT_DIR		=	src/built-in/export/
 CD_DIR			=	src/built-in/cd/
 EXIT_DIR		=	src/built-in/exit/
@@ -71,6 +72,8 @@ EXECUTION_SRCS		=	execution.c \
 
 ERROR_SRCS			=	error.c
 
+SIGNAL_SRCS			=	sig_handler.c
+
 CD_SRCS				=	cd.c
 
 EXPORT_SRCS			=	export_utils.c \
@@ -96,6 +99,7 @@ HERE_DOC_OBJS		=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
 REDIRECTION_OBJS	=	$(addprefix ${BIN_DIR}, ${REDIRECTION_SRCS:.c=.o})
 EXECUTION_OBJS		=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
 ERROR_OBJS			=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
+SIGNAL_OBJS			=	$(addprefix ${BIN_DIR}, ${SIGNAL_SRCS:.c=.o})
 EXPORT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXPORT_SRCS:.c=.o})
 CD_OBJS				=	$(addprefix ${BIN_DIR}, ${CD_SRCS:.c=.o})
 EXIT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXIT_SRCS:.c=.o})
@@ -109,6 +113,7 @@ OBJS			=	$(PROMPT_OBJS) \
 					$(HERE_DOC_OBJS) \
 					$(EXECUTION_OBJS) \
 					$(ERROR_OBJS) \
+					$(SIGNAL_OBJS) \
 					$(EXPORT_OBJS) \
 					$(CD_OBJS) \
 					$(EXIT_OBJS) \
@@ -139,6 +144,9 @@ ${BIN_DIR}%.o: ${ERROR_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${EXPORT_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${SIGNAL_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${EXIT_DIR}%.c
