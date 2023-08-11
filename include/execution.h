@@ -25,7 +25,7 @@ int		exec_nofork(t_data *data);
 int		check_builtin_nofork(t_data *data);
 int		child_process(t_data *data, int cmd_nb);
 int		std_exec(t_data *data);
-int		get_in_out(t_cmds *cmds);
+int		get_in_out(t_data *data, t_cmds *cmds);
 int		get_cmd_path(t_data *data, int cmd_nb, int type, char **path);
 void	path_error(t_data *data, int cmd_nb, int type, char **splited_path);
 void	free_child(t_data *data, size_t cmd_nb);
