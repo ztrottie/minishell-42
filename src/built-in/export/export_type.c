@@ -31,6 +31,7 @@ static int	type_add(char **var, char *content)
 	if (get_line_add(*var, content, &line) <= 0)
 		return (FAILURE);
 	new_var = ft_strjoin(*var, line);
+	ft_free(line);
 	ft_free(*var);
 	*var = new_var;
 	return(SUCCESS);

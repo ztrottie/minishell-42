@@ -52,7 +52,7 @@ static void	unset_var(char **content, char ***env, int i, int j)
 			*env = ft_calloc(ft_x2strlen(env_cpy), sizeof(char *));
 			*env = reset(*env, content[i], env_cpy);
 			ft_x2free((void **)env_cpy);
-			j--;
+			return ;
 		}
 		j++;
 	}
@@ -75,6 +75,5 @@ int    ft_unset(char **content, char ***env, bool fork)
 			i++;
 		}
 	}
-	*env = cpy_environement(*env);
 	return (exit_or_reset(fork, exit_code));
 }

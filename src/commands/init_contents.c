@@ -12,7 +12,7 @@ static int	init_content(t_data *data, t_tokens **ptr, size_t *cmd_nb, size_t *co
 {
 	data->cmds[*cmd_nb].content = ft_calloc(*content_count + 1, sizeof(char *));
 	if (!data->cmds[*cmd_nb].content)
-		return (FAILURE);
+		return (print_error("malloc"), FAILURE);
 	*cmd_nb += 1;
 	*content_count = 0;
 	if (*ptr)

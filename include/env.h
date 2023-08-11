@@ -2,6 +2,7 @@
 # define ENV_H
 
 # include "minishell.h"
+# include "error.h"
 
 char	*env_variable(t_data *data, char *name);
 size_t	variable_content_len(t_data *data, char *line_read);

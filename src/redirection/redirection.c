@@ -9,7 +9,7 @@ static int	open_pipes(t_data *data)
 	while (i < data->nb_pipe)
 	{
 		if (pipe(end) < 0)
-			return (FAILURE);
+			return (print_error("pipe"), FAILURE);
 		if (file_add_end(&data->cmds[i].output, end[1], NULL, false) <= 0 \
 		|| file_add_end(&data->cmds[i + 1].input, end[0], NULL, false) <= 0)
 			return (FAILURE);

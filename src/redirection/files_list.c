@@ -8,7 +8,7 @@ int	file_add_end(t_files **files, int fd, char *name, bool here_doc)
 	{
 		*files = ft_calloc(1, sizeof(t_files));
 		if (!*files)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		(*files)->fd = fd;
 		(*files)->name = name;
 		(*files)->here_doc = here_doc;
@@ -20,7 +20,7 @@ int	file_add_end(t_files **files, int fd, char *name, bool here_doc)
 			ptr = ptr->next;
 		ptr->next = ft_calloc(1, sizeof(t_files));
 		if (!ptr->next)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		ptr->next->fd = fd;
 		ptr->next->name = name;
 		ptr->next->here_doc = here_doc;

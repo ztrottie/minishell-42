@@ -21,7 +21,7 @@ char	*variable_name(char *line)
 		return (NULL);
 	name = ft_calloc(len + 1, sizeof(char));
 	if (!name)
-		return (NULL);
+		return (print_error("malloc"), NULL);
 	i = 0;
 	while (i < len)
 	{

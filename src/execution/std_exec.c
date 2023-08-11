@@ -19,7 +19,7 @@ int	std_exec(t_data *data)
 	{
 		pid = fork();
 		if (pid < 0)
-			return (FAILURE);
+			return (print_error("fork"), FAILURE);
 		else if (pid == 0)
 			child_process(data, cmd_nb);
 		else

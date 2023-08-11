@@ -25,7 +25,7 @@ static int	init_content(t_data *data, t_lines *lines)
 	content_len = parsed_content_len(data, lines);
 	lines->parsed_line = ft_calloc(content_len + 1, sizeof(char));
 	if (!lines->parsed_line)
-		return (FAILURE);
+		return (print_error("malloc"), FAILURE);
 	lines->i_parsed_line = 0;
 	return (SUCCESS);
 }

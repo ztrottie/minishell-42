@@ -17,6 +17,7 @@ static int	get_builtin_path(t_data *data, int cmd_nb, char **path)
 		return (FAILURE);
 	if (access(*path, F_OK | X_OK) < 0)
 	{
+		ft_free(*path);
 		if (errno == EACCES)
 			path_error(data, cmd_nb, errno);
 		else
@@ -36,20 +37,19 @@ static int	split_path(t_data *data, char ***splited_path)
 		return (COMMAND_NOT_FOUND);
 	temp = ft_split(path, ':');
 	if (!temp)
-		return (FAILURE);
+		return (ft_free(path), FAILURE);
 	*splited_path = ft_calloc(ft_x2strlen(temp) + 1, sizeof(char *));
 	if (!*splited_path)
-		return (ft_x2free((void **)temp), FAILURE);
+		return (ft_free(path), ft_x2free((void **)temp), print_error("malloc"), FAILURE);
 	i = 0;
 	while (temp[i])
 	{
 		splited_path[0][i] = ft_strjoin(temp[i], "/");
 		if (!splited_path[0][i])
-			return (ft_x2free((void **)*splited_path), ft_x2free((void **)temp), FAILURE);
+			return (ft_free(path), ft_x2free((void **)*splited_path), ft_x2free((void **)temp), FAILURE);
 		i++;
 	}
-	ft_x2free((void **)temp);
-	return (SUCCESS);
+	return (ft_x2free((void **)temp), ft_free(path), SUCCESS);
 }
 
 static int	get_command_path(t_data *data, int cmd_nb, char **path)
@@ -90,9 +90,7 @@ int	get_cmd_path(t_data *data, int cmd_nb, int type, char **path)
 			return (FAILURE);
 	}
 	else
-	{
 		if (get_command_path(data, cmd_nb, path) <= 0)
 			return (FAILURE);
-	}
 	return (SUCCESS);
 }

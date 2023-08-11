@@ -4,6 +4,7 @@
 # include "minishell.h"
 # include "here_doc.h"
 # include "commands.h"
+# include "error.h"
 
 int		free_files(t_files **files);
 int		file_add_end(t_files **files, int fd, char *name, bool here_doc);

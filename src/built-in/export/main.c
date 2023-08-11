@@ -3,5 +3,5 @@
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	ft_export(argv, &env, true, 1);
+	return (ft_export(argv, &env, true, 1));
 }

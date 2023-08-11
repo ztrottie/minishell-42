@@ -57,7 +57,7 @@ typedef struct s_red
 	struct s_red	*next;
 }	t_red;
 
-typedef struct	s_files
+typedef struct s_files
 {
 	int				fd;
 	char			*name;
@@ -82,7 +82,7 @@ typedef struct s_pid_list
 	struct s_pid_list	*next;
 }	t_pid_list;
 
-typedef struct	s_lines
+typedef struct s_lines
 {
 	char	*line;
 	char	*parsed_line;
