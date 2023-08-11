@@ -25,14 +25,14 @@ static char	*get_parsed_line(t_data *data, int type, char *line)
 	return (lines.parsed_line);
 }
 
-static void	exit_hd(t_hd *hd, char **line)
+static void	exit_hd(t_hd *hd, char **line, int exit_code)
 {
 	ft_free(*line);
 	ft_free(hd->name);
 	close(hd->fd);
 	close_all(hd->data, false);
 	free_all(hd->data, true);
-	exit(0);
+	exit(exit_code);
 }
 
 static int	write_valid(t_hd *hd)
@@ -62,11 +62,13 @@ int	get_input(t_hd *hd)
 			break;
 		line = get_parsed_line(hd->data, hd->type, line);
 		if (write_valid(hd) <= 0)
-			exit_hd(hd, &line);
+			exit_hd(hd, &line, 0);
 		write(hd->fd, line, ft_strlen(line));
 		ft_free(line);
 		line = readline("> ");
 	}
-	exit_hd(hd, &line);
+	if (!line)
+		exit_hd(hd, &line, 1);
+	exit_hd(hd, &line, 0);
 	return (SUCCESS);
 }
