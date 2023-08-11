@@ -10,7 +10,7 @@ static int	close_files(t_files **files, bool parent)
 		if (ptr->fd > 0)
 		{
 			if (close(ptr->fd) < 0)
-				return (FAILURE);
+				return (print_error("close"), FAILURE);
 			if (parent && ptr->here_doc)
 				if (unlink(ptr->name) < 0)
 					return (FAILURE);

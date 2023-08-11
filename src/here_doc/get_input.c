@@ -29,7 +29,8 @@ static void	exit_hd(t_hd *hd, char **line, int exit_code)
 {
 	ft_free(*line);
 	ft_free(hd->name);
-	close(hd->fd);
+	if (close(hd->fd) < 0)
+		print_error("close");
 	close_all(hd->data, false);
 	free_all(hd->data, true);
 	exit(exit_code);

@@ -34,7 +34,8 @@ static int	next_red(t_data *data, int index, t_red **ptr, t_files *file)
 	}
 	else
 	{
-		close(file->fd);
+		if (close(file->fd))
+			return (print_error("close"), FAILURE);
 		if (file->here_doc)
 			unlink(file->name);
 	}
