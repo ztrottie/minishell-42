@@ -33,7 +33,7 @@ static int	fork_here_doc(t_hd *hd)
 
 	pid = fork();
 	if (pid < 0)
-		return (FAILURE);
+		return (print_error("fork"), FAILURE);
 	else if (pid == 0)
 		get_input(hd);
 	else if (pid > 0)

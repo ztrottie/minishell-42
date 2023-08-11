@@ -59,7 +59,7 @@ int	init_commands(t_data *data, t_tokens **tokens)
 {
 	data->cmds = ft_calloc(data->nb_pipe + 2, sizeof(t_cmds));
 	if (!data->cmds)
-		return (FAILURE);
+		return (print_error("malloc"), FAILURE);
 	if (init_cmds_content(data, tokens) <= 0)
 		return (FAILURE);
 	if (command_separator(data, tokens) <= 0)

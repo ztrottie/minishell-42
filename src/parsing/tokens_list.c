@@ -32,7 +32,7 @@ int	token_add_end(t_tokens **tokens, int type, char *content)
 	{
 		*tokens = ft_calloc(1, sizeof(t_tokens));
 		if (!tokens)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		(*tokens)->content = content;
 		(*tokens)->type = type;
 	}
@@ -43,7 +43,7 @@ int	token_add_end(t_tokens **tokens, int type, char *content)
 			ptr = ptr->next;
 		ptr->next = ft_calloc(1, sizeof(t_tokens));
 		if (!ptr->next)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		ptr->next->content = content;
 		ptr->next->type = type;
 	}

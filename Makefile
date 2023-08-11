@@ -10,6 +10,7 @@ COMMANDS_DIR	=	src/commands/
 HERE_DOC_DIR	=	src/here_doc/
 REDIRECTION_DIR	=	src/redirection/
 EXECUTION_DIR	=	src/execution/
+ERROR_DIR		=	src/error/
 EXPORT_DIR		=	src/built-in/export/
 CD_DIR			=	src/built-in/cd/
 EXIT_DIR		=	src/built-in/exit/
@@ -65,7 +66,10 @@ EXECUTION_SRCS		=	execution.c \
 						child_process.c \
 						get_in_out.c \
 						get_cmd_path.c \
-						cmd_path_error.c
+						cmd_path_error.c \
+						free_child.c
+
+ERROR_SRCS			=	error.c
 
 CD_SRCS				=	cd.c
 
@@ -79,6 +83,8 @@ EXPORT_SRCS			=	export_utils.c \
 UNSET_SRCS			=	unset.c\
 						unset_utils.c
 
+EXIT_SRCS			=
+
 
 PROMPT_OBJS			=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
 ENV_OBJS			=	$(addprefix ${BIN_DIR}, ${ENV_SRCS:.c=.o})
@@ -87,6 +93,7 @@ COMMANDS_OBJS		=	$(addprefix ${BIN_DIR}, ${COMMANDS_SRCS:.c=.o})
 HERE_DOC_OBJS		=	$(addprefix ${BIN_DIR}, ${HERE_DOC_SRCS:.c=.o})
 REDIRECTION_OBJS	=	$(addprefix ${BIN_DIR}, ${REDIRECTION_SRCS:.c=.o})
 EXECUTION_OBJS		=	$(addprefix ${BIN_DIR}, ${EXECUTION_SRCS:.c=.o})
+ERROR_OBJS			=	$(addprefix ${BIN_DIR}, ${ERROR_SRCS:.c=.o})
 EXPORT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXPORT_SRCS:.c=.o})
 CD_OBJS				=	$(addprefix ${BIN_DIR}, ${CD_SRCS:.c=.o})
 EXIT_OBJS			=	$(addprefix ${BIN_DIR}, ${EXIT_SRCS:.c=.o})
@@ -99,6 +106,7 @@ OBJS			=	$(PROMPT_OBJS) \
 					$(REDIRECTION_OBJS) \
 					$(HERE_DOC_OBJS) \
 					$(EXECUTION_OBJS) \
+					$(ERROR_OBJS) \
 					$(EXPORT_OBJS) \
 					$(CD_OBJS) \
 					$(EXIT_OBJS) \
@@ -123,6 +131,9 @@ ${BIN_DIR}%.o: ${HERE_DOC_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${EXECUTION_DIR}%.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+${BIN_DIR}%.o: ${ERROR_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 ${BIN_DIR}%.o: ${EXPORT_DIR}%.c

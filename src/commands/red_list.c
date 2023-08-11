@@ -8,7 +8,7 @@ int	red_add_end(t_red **red_list, int type, char *content, int cont_type)
 	{
 		*red_list = ft_calloc(1, sizeof(t_red));
 		if (!*red_list)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		(*red_list)->type = type;
 		(*red_list)->content = content;
 		(*red_list)->cont_type = cont_type;
@@ -20,7 +20,7 @@ int	red_add_end(t_red **red_list, int type, char *content, int cont_type)
 			ptr = ptr->next;
 		ptr->next = ft_calloc(1, sizeof(t_red));
 		if (!ptr->next)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		ptr->next->type = type;
 		ptr->next->content = content;
 		ptr->cont_type = cont_type;

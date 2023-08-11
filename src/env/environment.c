@@ -7,10 +7,10 @@ int	cpy_env(t_data *data, char **env)
 	i = 0;
 	data->env = ft_calloc(ft_x2strlen(env) + 1, sizeof(char *));
 	if (!data->env)
-		return (FAILURE);
+		return (print_error("malloc"), FAILURE);
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], "OLDPWD=", 7) != 0)
+		if (ft_strncmp(env[i], "OLDPWD=", 8) != 0)
 		{
 			data->env[i] = ft_calloc(ft_strlen(env[i]) + 1, sizeof(char));
 			if (!data->env[i])
@@ -21,8 +21,8 @@ int	cpy_env(t_data *data, char **env)
 		{
 			data->env[i] = ft_calloc(8, sizeof(char));
 			if (!data->env[i])
-				return (FAILURE);
-			data->env[i] = ft_memcpy(data->env[i], "OLDPWD", 7);
+				return (print_error("malloc"), FAILURE);
+			data->env[i] = ft_memcpy(data->env[i], "OLDPWD", 8);
 		}
 		i++;
 	}
