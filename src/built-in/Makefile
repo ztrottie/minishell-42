@@ -5,6 +5,7 @@ all: $(BIN_DIR)
 	@$(MAKE) -sC pwd/
 	@$(MAKE) -sC unset/
 	@$(MAKE) -sC cd/
+	@$(MAKE) -sC exit/
 
 clean:
 	@$(MAKE) -sC echo/ clean
@@ -13,6 +14,7 @@ clean:
 	@$(MAKE) -sC pwd/ clean
 	@$(MAKE) -sC unset/ clean
 	@$(MAKE) -sC cd/ clean
+	@$(MAKE) -sC exit/ clean
 
 fclean:
 	@$(MAKE) -sC echo/ fclean
@@ -21,6 +23,7 @@ fclean:
 	@$(MAKE) -sC pwd/ fclean
 	@$(MAKE) -sC unset/ fclean
 	@$(MAKE) -sC cd/ fclean
+	@$(MAKE) -sC exit/ fclean
 	@rm -fr /tmp/minishell
 
 re: fclean all

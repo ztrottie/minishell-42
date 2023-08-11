@@ -12,6 +12,10 @@ static int	is_builtin(char *name)
 		return (VALID);
 	if (ft_strncmp("cd", name, ft_strlen(name)) == 0)
 		return (VALID);
+	if (ft_strncmp("exit", name, ft_strlen(name)) == 0)
+		return (VALID);
+	if (ft_strncmp("pwd", name, ft_strlen(name)) == 0)
+		return (VALID);
 	return (INVALID);
 }
 

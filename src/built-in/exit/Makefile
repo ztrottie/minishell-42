@@ -23,7 +23,7 @@ all: $(BIN_DIR) $(EXEC_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling exit!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o ../$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)

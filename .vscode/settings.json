@@ -30,6 +30,7 @@
 		"typeinfo": "c",
 		"prompt.h": "c",
 		"built_in.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"system_error": "c"
 	}
 }

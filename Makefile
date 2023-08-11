@@ -83,7 +83,9 @@ EXPORT_SRCS			=	export_utils.c \
 UNSET_SRCS			=	unset.c\
 						unset_utils.c
 
-EXIT_SRCS			=
+EXIT_SRCS			=	exit.c \
+						ft_islonglong.c \
+						ft_atoi_l.c
 
 
 PROMPT_OBJS			=	$(addprefix ${BIN_DIR}, ${PROMPT_SRCS:.c=.o})
