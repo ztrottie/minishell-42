@@ -2,7 +2,6 @@
 
 void	exit_child(t_data *data, int exit_code)
 {
-	ft_printf("ayo");
 	free_all(data, true);
 	exit(exit_code);
 }

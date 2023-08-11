@@ -85,7 +85,7 @@ int	here_doc_main(t_data *data, t_red *red, char **name, bool error)
 	if (fstat(hd.fd, &data->info_last_hd) < 0)
 		return (perror("fstat"), FAILURE);
 	if (close(hd.fd) < 0)
-		return (FAILURE);
+		return (print_error("close"), FAILURE);
 	if (error)
 		return (hd_error_handler(data, &hd));
 	else

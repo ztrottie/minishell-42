@@ -69,6 +69,9 @@ int	child_process(t_data *data, int cmd_nb)
 		ft_x2free((void **)data->env);
 	}
 	else
+	{
+		close_all(data, false);
 		free_all(data, true);
+	}
 	exit(0);
 }

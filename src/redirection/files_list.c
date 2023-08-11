@@ -37,9 +37,6 @@ int	free_files(t_files **files)
 	while (ptr != NULL)
 	{
 		tmp = ptr->next;
-		if (ptr->here_doc)
-			if (unlink(ptr->name) < 0)
-				return (FAILURE);
 		ft_free(ptr->name);
 		ft_free(ptr);
 		ptr = tmp;
