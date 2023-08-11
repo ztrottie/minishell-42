@@ -1,38 +1,29 @@
 #include "env.h"
 
-static char	*var_name(char *content)
+int	check_valid(char *str)
 {
-	int		i;
-	char	*name;
+	int	i;
 
 	i = 0;
-	while (content[i])
+	while (str[i])
 	{
-		if (content[i] == '=')
-		{
-			name = ft_calloc(sizeof(char), i + 1);
-			if (!name)
-				return (NULL);
-			ft_strlcpy(name, content, i + 1);
-			return (name);
-		}
+		if (str[i] == '=')
+			return (VALID);
 		i++;
 	}
-	return (NULL);
+	return (INVALID);
 }
 
 int	print_env(char **env)
 {
-	int		i;
-	char	*var;
+	int	i;
 
 	i = 0;
-	var = var_name(env[i]);
-	if (!var)
+	if (!env)
 		return (FAILURE);
 	while (env[i])
 	{
-		if (var != NULL)
+		if (check_valid(env[i]))
 			ft_printf("%s\n", env[i]);
 		i++;
 	}

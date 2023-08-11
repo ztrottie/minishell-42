@@ -1,6 +1,6 @@
 #include "cd.h"
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	cd(av, &env);

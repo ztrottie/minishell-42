@@ -1,17 +1,24 @@
-NAME		=	$(EXEC_DIR)cd
+NAME		=		$(EXEC_DIR)cd
 
-BIN_DIR		=	bin/
-LIBFT_DIR	=	../../../libft/
-EXEC_DIR	=	/tmp/minishell/
+BIN_DIR		=		bin/
+LIBFT_DIR	=		../../../libft/
+EXEC_DIR	=		/tmp/minishell/
+EXPORT_OBJS_DIR = 	../export/bin/
 
-CC			=	gcc
-CFLAGS		=	-Wextra -Wall -Werror
-LIBFT		=	$(LIBFT_DIR)libft.a
+CC			=		gcc
+CFLAGS		=		-Wextra -Wall -Werror
+LIBFT		=		$(LIBFT_DIR)libft.a
 
-SRCS		=	cd.c \
-				main.c
+SRCS		=		cd.c \
+					main.c
 
-OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
+OBJS		=		$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
+EXPORT_OBJS =		$(EXPORT_OBJS_DIR)create_var.o \
+					$(EXPORT_OBJS_DIR)export_type.o \
+					$(EXPORT_OBJS_DIR)export_utils.o \
+					$(EXPORT_OBJS_DIR)export.o \
+					$(EXPORT_OBJS_DIR)ft_exit.o \
+					$(EXPORT_OBJS_DIR)print_export.o
 
 $(BIN_DIR)%.o: ./%.c
 	@${CC} ${CFLAGS} -c $< -o $@
@@ -21,7 +28,7 @@ all: $(BIN_DIR) $(EXEC_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "compiling cd!"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(EXPORT_OBJS) $(LIBFT) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)

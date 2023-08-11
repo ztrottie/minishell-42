@@ -1,7 +1,7 @@
 #include "export.h"
 
 int	check_type(char *content, int index)
-{	
+{
 	if (content[index] == '=')
 		return (TRUNC);
 	else if (content[index] == '+')

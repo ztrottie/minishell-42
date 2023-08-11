@@ -1,6 +1,6 @@
 #include "unset.h"
 
-char    **cpy_environement(char **cpy_env)
+char	**cpy_environement(char **cpy_env)
 {
 	int		i;
 	char	**env;
@@ -20,10 +20,10 @@ char    **cpy_environement(char **cpy_env)
 	return (env);
 }
 
-static char    **reset(char **env, char *variable, char **env_cpy)
+static char	**reset(char **env, char *variable, char **env_cpy)
 	{
-	int    i;
-	int    j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -56,13 +56,14 @@ static void	unset_var(char **content, char ***env, int i, int j)
 		}
 		j++;
 	}
+	ft_x2free((void **)*env);
 }
 
-int    ft_unset(char **content, char ***env, bool fork)
+int	ft_unset(char **content, char ***env, bool fork)
 {
-	int				i;
-	int				j;
-	int		exit_code;
+	int	i;
+	int	j;
+	int	exit_code;
 
 	i = 1;
 	exit_code = 0;

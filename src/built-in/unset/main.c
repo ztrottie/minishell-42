@@ -1,7 +1,8 @@
 #include "unset.h"
-int main(int ac, char **av)
+
+int	main(int ac, char **av, char **env)
 {
 	(void)ac;
-	(void)av;
+	ft_unset(av, &env, true);
 	return (0);
 }

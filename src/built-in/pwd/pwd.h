@@ -1,8 +1,8 @@
 #ifndef PWD_H
 # define PWD_H
 
-#include "../../../include/minishell.h"
+# include "../../../include/minishell.h"
 
-int	pwd();
+int	pwd(void);
 
 #endif
