@@ -39,5 +39,5 @@ int	echo(char **content)
 	}
 	if (check_if_option(content) == 0)
 		ft_printf("\n");
-	exit (0);
+	return (SUCCESS);
 }

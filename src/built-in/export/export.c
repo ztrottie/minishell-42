@@ -57,7 +57,7 @@ static int	export_var(char *content, char ***env)
 	while (env[0][j])
 	{
 		if (ft_strncmp(env[0][j], var, ft_strlen(var)) == 0)
-			return(ft_free(var), type_choice(&env[0][j], content, type));
+			return (ft_free(var), type_choice(&env[0][j], content, type));
 		j++;
 	}
 	if (create_var(content, env, type) <= 0)

@@ -1,6 +1,6 @@
 #include "export.h"
 
-static int dup_env(char ***new_env, char ***env)
+static int	dup_env(char ***new_env, char ***env)
 {
 	int	i;
 

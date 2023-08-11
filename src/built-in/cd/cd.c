@@ -16,6 +16,19 @@ static char	*get_path_name(char **env, char *name)
 	return (NULL);
 }
 
+static void	change_old_pwd(char ***env)
+{
+	char	*new_op;
+	char	**old_pwd;
+
+	old_pwd = ft_calloc(3, sizeof(char *));
+	new_op = getcwd(NULL, 0);
+	old_pwd[0] = ft_strdup("fuck you criss de fif");
+	old_pwd[1] = ft_strjoin("OLDPWD=", new_op);
+	ft_export(old_pwd, env, false, 1);
+	ft_x2free((void **)old_pwd);
+}
+
 static int	go_to_home(char **env)
 {
 	char	*dir;
@@ -54,6 +67,7 @@ static int	go_to_dir(char *content, char **env)
 			return (1);
 		}
 	}
+	change_old_pwd(&env);
 	ch_dir = chdir(content);
 	if (ch_dir)
 	{

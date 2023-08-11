@@ -1,6 +1,6 @@
 #include "env.h"
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	(void) av;
 	if (ac != 1)

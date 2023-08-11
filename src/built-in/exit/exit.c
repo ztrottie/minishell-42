@@ -1,25 +1,18 @@
-#include "../../../include/built_in.h"
+#include "exit.h"
 
-static void	error_code(char *message, int status, t_data *data)
+int	ft_exit(int ac, char **av, long long exit_code)
 {
-	data->exit_code = 0;
-	ft_printf("%s\n", message);
-	data->exit_code = status;
-}
-
-void	ft_exit(t_data *data, t_cmds *cmds)
-{
-	if (cmds->content[0])
+	if (ac > 2)
+		return (ft_printf_fd("minishell: exit: too many arguments"), 1);
+	if (ac == 2)
 	{
-		if (ft_isint(cmds->content[0]))
+		if (ft_islonglong(av[1]))
 		{
-			if (cmds->content[1])
-				return (error_code("Too many arguments", 2, data));
-			if (data->exit_code > 255 || data->exit_code < 0)
-				data->exit_code = 255;
+			ft_atoi_l(av[1]);
+			exit_code = av[1];
 		}
 		else
 			return (error_code("numeric argument required", 2, data));
 	}
-	exit(data->exit_code);
+	exit((unsigned int8_t)exit_code);
 }
