@@ -5,6 +5,7 @@
 # include "commands.h"
 # include "env.h"
 # include "parsing.h"
+# include "signal.h"
 
 typedef struct s_hd
 {

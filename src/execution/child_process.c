@@ -51,6 +51,7 @@ int	child_process(t_data *data, int cmd_nb)
 	int		type;
 	char	*path;
 
+	sig_handler(SIGCHILD);
 	type = get_cmd_type(data->cmds[cmd_nb].name);
 	if (get_in_out(&data->cmds[cmd_nb]) <= 0)
 		exit_child(data, 1);

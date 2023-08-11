@@ -15,6 +15,7 @@ int	std_exec(t_data *data)
 	pid_t	pid;
 
 	cmd_nb = 0;
+	sig_handler(SIGPARENT);
 	while (cmd_nb < data->nb_pipe + 1)
 	{
 		pid = fork();

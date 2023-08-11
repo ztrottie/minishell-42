@@ -54,6 +54,7 @@ int	get_input(t_hd *hd)
 	char	*line;
 	size_t	len;
 
+	sig_handler(SIGHD);
 	line = readline("> ");
 	len = ft_strlen(hd->limiter);
 	while (!(ft_strlen(line) == len && ft_strncmp(line, hd->limiter, len) == 0))

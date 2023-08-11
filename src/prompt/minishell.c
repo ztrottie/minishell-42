@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **env)
 		return (FAILURE);
 	while (1)
 	{
+		sig_handler(SIGDEFAULT);
 		data.nb_pipe = 0;
 		line = readline("minishell> ");
 		if (!line)
