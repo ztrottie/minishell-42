@@ -7,8 +7,9 @@ void	exit_child(t_data *data, int exit_code)
 	exit(exit_code);
 }
 
-void	path_error(t_data *data, int cmd_nb, int type)
+void	path_error(t_data *data, int cmd_nb, int type, char **splited_path)
 {
+	ft_x2free((void **)splited_path);
 	ft_printf_fd(2, "minishell: ");
 	if (type == EACCES)
 	{

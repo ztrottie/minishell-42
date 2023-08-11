@@ -6,7 +6,7 @@ static int	get_given_path(t_data *data, int cmd_nb, char **path)
 	if (!*path)
 		return (FAILURE);
 	if (access(data->cmds[cmd_nb].name, F_OK | X_OK) < 0)
-		path_error(data, cmd_nb, errno);
+		path_error(data, cmd_nb, errno, NULL);
 	return (SUCCESS);
 }
 
@@ -19,9 +19,9 @@ static int	get_builtin_path(t_data *data, int cmd_nb, char **path)
 	{
 		ft_free(*path);
 		if (errno == EACCES)
-			path_error(data, cmd_nb, errno);
+			path_error(data, cmd_nb, errno, NULL);
 		else
-			path_error(data, cmd_nb, COMMAND_NOT_FOUND);
+			path_error(data, cmd_nb, COMMAND_NOT_FOUND, NULL);
 	}
 	return (SUCCESS);
 }
@@ -59,7 +59,7 @@ static int	get_command_path(t_data *data, int cmd_nb, char **path)
 	int		i;
 
 	if (split_path(data, &splited_path) <= 0)
-		path_error(data, cmd_nb, COMMAND_NOT_FOUND);
+		path_error(data, cmd_nb, COMMAND_NOT_FOUND, NULL);
 	i = 0;
 	while (splited_path[i])
 	{
@@ -70,9 +70,9 @@ static int	get_command_path(t_data *data, int cmd_nb, char **path)
 		i++;
 	}
 	if (!splited_path[i])
-		path_error(data, cmd_nb, COMMAND_NOT_FOUND);
+		path_error(data, cmd_nb, COMMAND_NOT_FOUND, splited_path);
 	if (access(full_path, X_OK) < 0)
-		path_error(data, cmd_nb, errno);
+		path_error(data, cmd_nb, errno, splited_path);
 	*path = full_path;
 	return (SUCCESS);
 }
