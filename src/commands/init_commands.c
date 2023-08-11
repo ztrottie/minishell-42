@@ -1,12 +1,14 @@
 #include "../../include/parsing.h"
 
-static int	operator_type(t_data *data, t_tokens **ptr, bool start, size_t *cmd_nb)
+static int	operator_type(t_data *data, t_tokens **ptr, \
+	bool start, size_t *cmd_nb)
 {
 	if (expected_token(data, *ptr, start) <= 0)
 		return (FAILURE);
 	if ((*ptr)->type > PIPE)
 	{
-		if (red_add_end(&data->cmds[*cmd_nb].red, (*ptr)->type, (*ptr)->next->content, \
+		if (red_add_end(&data->cmds[*cmd_nb].red, \
+			(*ptr)->type, (*ptr)->next->content, \
 		(*ptr)->next->type) <= 0)
 			return (FAILURE);
 		*ptr = (*ptr)->next->next;
@@ -70,5 +72,3 @@ int	init_commands(t_data *data, t_tokens **tokens)
 	free_tokens(tokens, true);
 	return (SUCCESS);
 }
-
-

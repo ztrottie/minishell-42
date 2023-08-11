@@ -36,7 +36,8 @@ int	error_redirection(t_data *data)
 	}
 	if (data->token_error)
 	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_printf_fd(2, \
+		"minishell: syntax error near unexpected token `newline'\n");
 		data->token_error = false;
 		data->exit_code = 258;
 	}

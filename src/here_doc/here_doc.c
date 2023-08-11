@@ -42,6 +42,7 @@ static int	fork_here_doc(t_hd *hd)
 	sig_handler_p(false, false);
 	return (SUCCESS);
 }
+
 static int	init_hd(t_data *data, t_hd *hd, t_red *red)
 {
 	hd->data = data;
@@ -64,8 +65,10 @@ static int	hd_error_handler(t_data *data, t_hd *hd)
 	{
 		if (stat(hd->name, &tmp_info) < 0)
 			return (FAILURE);
-		if (tmp_info.st_mtimespec.tv_sec != data->info_last_hd.st_mtimespec.tv_sec \
-		|| tmp_info.st_mtimespec.tv_nsec != data->info_last_hd.st_mtimespec.tv_nsec)
+		if (tmp_info.st_mtimespec.tv_sec != \
+		data->info_last_hd.st_mtimespec.tv_sec \
+		|| tmp_info.st_mtimespec.tv_nsec != \
+		data->info_last_hd.st_mtimespec.tv_nsec)
 			return (errno = ENOENT, INVALID);
 		else
 			if (unlink(hd->name) < 0)

@@ -8,7 +8,8 @@ static void	red_type(t_tokens **ptr)
 		*ptr = (*ptr)->next->next;
 }
 
-static int	init_content(t_data *data, t_tokens **ptr, size_t *cmd_nb, size_t *content_count)
+static int	init_content(t_data *data, t_tokens **ptr, \
+size_t *cmd_nb, size_t *content_count)
 {
 	data->cmds[*cmd_nb].content = ft_calloc(*content_count + 1, sizeof(char *));
 	if (!data->cmds[*cmd_nb].content)
@@ -43,7 +44,7 @@ int	init_cmds_content(t_data *data, t_tokens **tokens)
 		{
 			if (init_content(data, &ptr, &cmd_nb, &content_count) <= 0)
 				return (FAILURE);
-		}	
+		}
 		else
 			basic_operation(&ptr, &content_count);
 	}

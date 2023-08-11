@@ -2,7 +2,7 @@
 
 int	file_add_end(t_files **files, int fd, char *name, bool here_doc)
 {
-	t_files *ptr;
+	t_files	*ptr;
 
 	if (!*files)
 	{
@@ -30,7 +30,7 @@ int	file_add_end(t_files **files, int fd, char *name, bool here_doc)
 
 int	free_files(t_files **files)
 {
-	t_files *ptr;
+	t_files	*ptr;
 	t_files	*tmp;
 
 	ptr = *files;
