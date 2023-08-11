@@ -12,7 +12,7 @@ static int	get_given_path(t_data *data, int cmd_nb, char **path)
 
 static int	get_builtin_path(t_data *data, int cmd_nb, char **path)
 {
-	*path = ft_strjoin("./src/built-in/bin/", data->cmds[cmd_nb].name);
+	*path = ft_strjoin(BUILTIN_BIN, data->cmds[cmd_nb].name);
 	if (!*path)
 		return (FAILURE);
 	if (access(*path, F_OK | X_OK) < 0)

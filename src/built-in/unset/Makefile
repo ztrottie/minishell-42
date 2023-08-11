@@ -1,7 +1,8 @@
-NAME		=	../bin/unset
+NAME		=	$(EXEC_DIR)unset
 
 BIN_DIR		=	bin/
 LIBFT_DIR	=	../../../libft/
+EXEC_DIR	=	/tmp/minishell/
 
 CC			=	gcc
 CFLAGS		=	-Wextra -Wall -Werror
@@ -16,7 +17,7 @@ OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 $(BIN_DIR)%.o: ./%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
-all: $(BIN_DIR) $(NAME)
+all: $(BIN_DIR) $(EXEC_DIR) $(NAME)
 	@echo "unset compiled!"
 
 $(NAME): $(OBJS)
@@ -25,6 +26,9 @@ $(NAME): $(OBJS)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
+
+$(EXEC_DIR):
+	@mkdir -p $(EXEC_DIR)
 
 clean:
 	@rm -fr $(BIN_DIR)

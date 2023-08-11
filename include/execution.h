@@ -7,6 +7,7 @@
 # include "env.h"
 
 # define COMMAND_NOT_FOUND -30
+# define BUILTIN_BIN "/tmp/minishell/"
 
 enum e_type
 {
