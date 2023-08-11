@@ -8,7 +8,8 @@ int	parse_var(char *var, int *exit_code)
 	if (!ft_isalpha(var[0]) && var[0] != '_')
 	{
 		*exit_code = 1;
-		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
+		ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", \
+		var);
 		return (INVALID);
 	}
 	while (var[i])
@@ -18,7 +19,8 @@ int	parse_var(char *var, int *exit_code)
 		if ((!ft_isalnum(var[i]) && var[i] != '_') || var[i] == ' ')
 		{
 			*exit_code = 1;
-			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", var);
+			ft_printf_fd(2, "minishell: export: `%s : not a valid identifier\n", \
+			var);
 			return (INVALID);
 		}
 		i++;

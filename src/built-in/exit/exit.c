@@ -4,7 +4,8 @@ int	ft_exit(int ac, char **av, long long exit_code)
 {
 	if (ac > 2)
 	{
-		return (ft_printf_fd(2, "exit\nminishell: exit: too many arguments\n"), 1);
+		return (ft_printf_fd(2, "exit\nminishell: exit: too many arguments\n"), \
+		1);
 	}
 	if (ac == 2)
 	{
