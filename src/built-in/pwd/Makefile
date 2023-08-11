@@ -1,6 +1,7 @@
-NAME		=	../bin/pwd
+NAME		=	$(EXEC_DIR)pwd
 
 BIN_DIR		=	bin/
+EXEC_DIR	=	/tmp/minishell/
 LIBFT_DIR	=	../../../libft/
 
 CC			=	gcc
@@ -15,7 +16,7 @@ OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 $(BIN_DIR)%.o: ./%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
-all: $(BIN_DIR) $(NAME)
+all: $(BIN_DIR) $(EXEC_DIR) $(NAME)
 	@echo "pwd compiled!"
 
 $(NAME): $(OBJS)
@@ -24,6 +25,9 @@ $(NAME): $(OBJS)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
+
+$(EXEC_DIR):
+	@mkdir -p $(EXEC_DIR)
 
 clean:
 	@rm -fr $(BIN_DIR)

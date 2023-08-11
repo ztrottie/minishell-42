@@ -1,5 +1,3 @@
-BIN_DIR		=	bin/
-
 all: $(BIN_DIR)
 	@$(MAKE) -sC echo/
 	@$(MAKE) -sC env/
@@ -7,9 +5,6 @@ all: $(BIN_DIR)
 	@$(MAKE) -sC pwd/
 	@$(MAKE) -sC unset/
 	@$(MAKE) -sC cd/
-
-$(BIN_DIR):
-	@mkdir -p $(BIN_DIR)
 
 clean:
 	@$(MAKE) -sC echo/ clean
@@ -26,7 +21,7 @@ fclean:
 	@$(MAKE) -sC pwd/ fclean
 	@$(MAKE) -sC unset/ fclean
 	@$(MAKE) -sC cd/ fclean
-	@rm -fr $(BIN_DIR)
+	@rm -fr /tmp/minishell
 
 re: fclean all
 
