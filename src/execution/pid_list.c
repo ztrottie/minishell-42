@@ -8,7 +8,7 @@ int	pid_add_end(t_pid_list **pid_list, pid_t pid)
 	{
 		*pid_list = ft_calloc(1, sizeof(t_pid_list));
 		if (!*pid_list)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		(*pid_list)->pid = pid;
 	}
 	else
@@ -18,7 +18,7 @@ int	pid_add_end(t_pid_list **pid_list, pid_t pid)
 			ptr = ptr->next;
 		ptr->next = ft_calloc(1, sizeof(t_pid_list));
 		if (!ptr->next)
-			return (FAILURE);
+			return (print_error("malloc"), FAILURE);
 		ptr->next->pid = pid;
 	}
 	return (SUCCESS);

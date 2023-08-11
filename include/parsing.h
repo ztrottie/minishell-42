@@ -7,11 +7,11 @@
 
 # define LIMITCHAR " <>|"
 
-#define TOKERROR 258
+# define TOKERROR 258
 
 typedef struct s_line
 {
-	char 	*line;
+	char	*line;
 	size_t	i_line;
 }	t_line;
 

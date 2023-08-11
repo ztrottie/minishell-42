@@ -6,15 +6,14 @@
 # include "env.h"
 # include "parsing.h"
 
-typedef struct	s_hd
+typedef struct s_hd
 {
 	t_data		*data;
 	int			fd;
 	char		*limiter;
 	int			type;
-	char 		*name;
-} t_hd;
-
+	char		*name;
+}	t_hd;
 
 int		here_doc_main(t_data *data, t_red *red, char **name, bool error);
 int		get_input(t_hd *hd);

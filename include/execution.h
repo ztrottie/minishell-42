@@ -5,6 +5,7 @@
 # include "built_in.h"
 # include "redirection.h"
 # include "env.h"
+# include "error.h"
 
 # define COMMAND_NOT_FOUND -30
 # define BUILTIN_BIN "/tmp/minishell/"
@@ -27,5 +28,7 @@ int		std_exec(t_data *data);
 int		get_in_out(t_cmds *cmds);
 int		get_cmd_path(t_data *data, int cmd_nb, int type, char **path);
 void	path_error(t_data *data, int cmd_nb, int type);
+void	free_child(t_data *data, size_t cmd_nb);
+void	exit_child(t_data *data, int exit_code);
 
 #endif
