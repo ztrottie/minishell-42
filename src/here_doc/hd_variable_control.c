@@ -2,8 +2,8 @@
 
 static int	env_varaible_control(t_data *data, t_lines *lines)
 {
-	char 	*name;
-	char 	*var_content;
+	char	*name;
+	char	*var_content;
 	size_t	i;
 
 	name = variable_name(lines->line + lines->i_line);
@@ -58,5 +58,3 @@ int	hd_variable_control(t_data *data, t_lines *lines)
 		env_varaible_control(data, lines);
 	return (SUCCESS);
 }
-
-

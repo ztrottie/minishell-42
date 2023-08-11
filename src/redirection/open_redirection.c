@@ -1,6 +1,6 @@
 #include "../../include/redirection.h"
 
-static int redirection_choice(t_data *data, t_red *red, t_files *file)
+static int	redirection_choice(t_data *data, t_red *red, t_files *file)
 {
 	if (red->type == HERE_DOC || red->type == RED_IN)
 		return (input_redirection_choice(data, red, file));

@@ -1,4 +1,4 @@
-# include "../../include/here_doc.h"
+#include "../../include/here_doc.h"
 
 int	init_parsed_line(t_data *data, t_lines *lines, int type)
 {
@@ -14,7 +14,7 @@ int	init_parsed_line(t_data *data, t_lines *lines, int type)
 
 static char	*get_parsed_line(t_data *data, int type, char *line)
 {
-	t_lines lines;
+	t_lines	lines;
 
 	lines.line = line;
 	lines.i_line = 0;
@@ -61,7 +61,7 @@ int	get_input(t_hd *hd)
 	while (!(ft_strlen(line) == len && ft_strncmp(line, hd->limiter, len) == 0))
 	{
 		if (!line)
-			break;
+			break ;
 		line = get_parsed_line(hd->data, hd->type, line);
 		if (write_valid(hd) <= 0)
 			exit_hd(hd, &line, 0);

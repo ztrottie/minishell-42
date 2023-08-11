@@ -2,7 +2,7 @@
 
 static int	close_files(t_files **files, bool parent)
 {
-	t_files *ptr;
+	t_files	*ptr;
 
 	ptr = *files;
 	while (ptr != NULL)

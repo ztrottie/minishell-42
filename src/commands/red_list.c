@@ -30,7 +30,7 @@ int	red_add_end(t_red **red_list, int type, char *content, int cont_type)
 
 int	find_next_red(bool input, t_red *red)
 {
-	t_red *ptr;
+	t_red	*ptr;
 
 	ptr = red;
 	while (ptr != NULL)

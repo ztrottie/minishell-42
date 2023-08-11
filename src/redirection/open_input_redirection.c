@@ -18,8 +18,10 @@ static int	check_exit_code(t_data *data, t_files *file)
 		{
 			if (stat(file->name, &info) < 0)
 				return (FAILURE);
-			if (info.st_mtimespec.tv_nsec != data->info_last_hd.st_mtimespec.tv_nsec \
-			|| info.st_mtimespec.tv_sec != data->info_last_hd.st_mtimespec.tv_sec)
+			if (info.st_mtimespec.tv_nsec != \
+			data->info_last_hd.st_mtimespec.tv_nsec \
+			|| info.st_mtimespec.tv_sec != \
+			data->info_last_hd.st_mtimespec.tv_sec)
 				return (invalid_fd(file));
 		}
 	}
@@ -28,6 +30,7 @@ static int	check_exit_code(t_data *data, t_files *file)
 		return (perror(file->name), INVALID);
 	return (SUCCESS);
 }
+
 int	input_redirection_choice(t_data *data, t_red *red, t_files *file)
 {
 	file->input = true;

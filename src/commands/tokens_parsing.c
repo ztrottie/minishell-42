@@ -2,14 +2,15 @@
 
 static void	put_error(t_data *data, t_tokens *tokens)
 {
-	char *error;
+	char	*error;
 
 	data->token_error = true;
 	if (tokens)
 	{
 		data->token_error = false;
 		error = tokens->content;
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `%s'\n", error);
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `%s'\n", \
+		error);
 	}
 	data->exit_code = 258;
 }
