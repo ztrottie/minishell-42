@@ -67,7 +67,6 @@ int	get_input(t_hd *hd)
 		ft_free(line);
 		line = readline("> ");
 	}
-	ft_printf("ayo");
 	exit_hd(hd, &line);
 	return (SUCCESS);
 }
