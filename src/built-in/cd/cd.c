@@ -13,7 +13,7 @@ static char	*get_path_name(char **env, char *name)
 			return (env[i] + len);
 		i++;
 	}
-	return (name);
+	return (NULL);
 }
 
 static int	go_to_home(char **env)
