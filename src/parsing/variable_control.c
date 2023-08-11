@@ -2,8 +2,8 @@
 
 static int	env_varaible_control(t_data *data, t_lines *lines)
 {
-	char 	*name;
-	char 	*var_content;
+	char	*name;
+	char	*var_content;
 	size_t	i;
 
 	name = variable_name(lines->line + lines->i_line);
@@ -45,8 +45,9 @@ static int	exit_variable_control(t_data *data, t_lines *lines)
 
 int	variable_control(t_data *data, t_lines *lines, int quote)
 {
-	if ((lines->line[lines->i_line + 1] && lines->line[lines->i_line + 1] == ' ') \
-	|| (quote && is_quote(lines->line[lines->i_line + 1]) == quote)
+	if ((lines->line[lines->i_line + 1] && \
+	lines->line[lines->i_line + 1] == ' ') \
+	|| (quote && is_quote(lines->line[lines->i_line + 1]) == quote) \
 	|| !lines->line[lines->i_line + 1])
 		return (basic_control(lines), SUCCESS);
 	else

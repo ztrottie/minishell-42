@@ -8,8 +8,6 @@
 void	sig_handler_p(bool mute, bool is_interactive);
 void	sig_handler_c(bool is_heredoc);
 
-
-
 enum e_sig_type
 {
 	SIGHD = 1,

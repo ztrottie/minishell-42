@@ -52,8 +52,7 @@ size_t	variable_content_len(t_data *data, char *line_read)
 	return (ft_free(var_name), len);
 }
 
-
-char *env_variable(t_data *data, char *name)
+char	*env_variable(t_data *data, char *name)
 {
 	size_t	i;
 	char	*variable;

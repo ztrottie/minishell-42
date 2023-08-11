@@ -7,7 +7,8 @@ void	basic_control(t_lines *lines)
 	lines->i_line++;
 }
 
-static int	operator_control(t_data *data, t_tokens **tokens, t_lines *lines, int len)
+static int	operator_control(t_data *data, t_tokens **tokens, \
+t_lines *lines, int len)
 {
 	char	*content;
 	int		type;
@@ -27,7 +28,7 @@ static int	operator_control(t_data *data, t_tokens **tokens, t_lines *lines, int
 
 int	token_split(t_data *data, t_tokens **tokens, t_lines *lines)
 {
-	int operator;
+	int	operator;
 
 	while (lines->line[lines->i_line])
 	{

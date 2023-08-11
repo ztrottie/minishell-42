@@ -3,7 +3,8 @@
 static int	quote_control(t_data *data, t_lines *lines, int quote)
 {
 	lines->i_line++;
-	while (lines->line[lines->i_line] && is_quote(lines->line[lines->i_line]) != quote)
+	while (lines->line[lines->i_line] && is_quote(lines->line[lines->i_line]) \
+	!= quote)
 	{
 		if (quote == DOUBLE_QUOTE && lines->line[lines->i_line] == '$' \
 		&& lines->prev_type != HERE_DOC)
@@ -62,7 +63,8 @@ int	string_control(t_data *data, t_tokens **tokens, t_lines *lines)
 	if (!init_content(data, lines))
 		return (FAILURE);
 	type = 0;
-	while (lines->line[lines->i_line] && !is_limitchar(lines->line[lines->i_line]))
+	while (lines->line[lines->i_line] && \
+	!is_limitchar(lines->line[lines->i_line]))
 	{
 		quote = is_quote(lines->line[lines->i_line]);
 		if (quote)
