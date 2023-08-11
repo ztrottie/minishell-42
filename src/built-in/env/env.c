@@ -27,5 +27,5 @@ int	print_env(char **env)
 			ft_printf("%s\n", env[i]);
 		i++;
 	}
-	return (ft_free(var), SUCCESS);
+	return (SUCCESS);
 }
