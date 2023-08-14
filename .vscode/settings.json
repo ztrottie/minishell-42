@@ -33,6 +33,7 @@
 		"minishell.h": "c",
 		"system_error": "c",
 		"signal.h": "c",
-		"exit.h": "c"
+		"exit.h": "c",
+		"pwd.h": "c"
 	}
 }

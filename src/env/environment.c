@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:19:29 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:19:30 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:53:01 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	cpy_env(t_data *data, char **env)
 	int	i;
 
 	i = 0;
-	data->env = ft_calloc(ft_x2strlen(env) + 2, sizeof(char *));
+	data->env = ft_calloc(ft_x2strlen(env) + 1, sizeof(char *));
 	if (!data->env)
 		return (print_error("malloc"), FAILURE);
 	while (env[i])

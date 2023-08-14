@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:18:35 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:18:36 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:00:10 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	cpy_env = cpy_envi(env);
-	exit_code = ft_export(argv, &env, 1);
+	exit_code = ft_export(argv, &cpy_env, 1);
 	ft_x2free((void **)cpy_env);
 	return (exit_code);
 }

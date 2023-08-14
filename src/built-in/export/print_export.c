@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:21:30 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:21:31 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:56:59 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	**ft_sort_params(int nbr_param, char **tabexport)
 	char	*temp;
 
 	i = 0;
-	while (i < nbr_param)
+	while (tabexport[i])
 	{
 		j = i + 1;
 		while (j < nbr_param)
