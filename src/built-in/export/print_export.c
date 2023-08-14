@@ -33,19 +33,22 @@ void	export_env(char **env, int fd)
 	char	*name;
 
 	i = 0;
-	env_sorted = ft_sort_params(ft_x2strlen(env), env);
-	while (env_sorted[i])
+	if (fd > 0)
 	{
-		len = 0;
-		while (env[i][len] && env[i][len] != '=')
-			len++;
-		name = ft_substr(env[i], 0, len);
-		if (env[i][len] == '=')
-			ft_printf_fd(fd, "declare -x %s=\"%s\"\n", \
-				name, env_sorted[i] + len + 1);
-		else
-			ft_printf_fd(fd, "declare -x %s\n", name);
-		ft_free(name);
-		i++;
+		env_sorted = ft_sort_params(ft_x2strlen(env), env);
+		while (env_sorted[i])
+		{
+			len = 0;
+			while (env[i][len] && env[i][len] != '=')
+				len++;
+			name = ft_substr(env[i], 0, len);
+			if (env[i][len] == '=')
+				ft_printf_fd(fd, "declare -x %s=\"%s\"\n", \
+					name, env_sorted[i] + len + 1);
+			else
+				ft_printf_fd(fd, "declare -x %s\n", name);
+			ft_free(name);
+			i++;
+		}
 	}
 }
