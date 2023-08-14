@@ -56,10 +56,9 @@ static void	unset_var(char **content, char ***env, int i, int j)
 		}
 		j++;
 	}
-	ft_x2free((void **)*env);
 }
 
-int	ft_unset(char **content, char ***env, bool fork)
+int	ft_unset(char **content, char ***env)
 {
 	int	i;
 	int	j;
@@ -76,5 +75,5 @@ int	ft_unset(char **content, char ***env, bool fork)
 			i++;
 		}
 	}
-	return (exit_or_reset(fork, exit_code));
+	return (exit_code);
 }
