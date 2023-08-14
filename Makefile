@@ -22,7 +22,7 @@ READLINE		=	readline/libreadline.a
 HISTORY			=	readline/libhistory.a
 
 CC				=	gcc
-CFLAGS			=	-Wextra -Wall -Werror -g
+CFLAGS			=	-Wextra -Wall -Werror
 LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS			=	minishell.c

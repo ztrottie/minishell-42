@@ -5,7 +5,7 @@ LIBFT_DIR	=	../../../libft/
 EXEC_DIR	=	/tmp/minishell/
 
 CC			=	gcc
-CFLAGS		=	-Wextra -Wall -Werror -g
+CFLAGS		=	-Wextra -Wall -Werror
 LIBFT		=	$(LIBFT_DIR)libft.a
 
 SRCS		=	export.c \
