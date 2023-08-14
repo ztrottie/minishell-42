@@ -195,6 +195,6 @@ fclean: clean
 re: fclean all
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.txt ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=$(PWD)/supp.txt ./minishell
 
 .PHONY:	all clean fclean re libft
