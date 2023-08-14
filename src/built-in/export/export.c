@@ -62,6 +62,7 @@ static int	export_var(char *content, char ***env)
 			return (ft_free(var), type_choice(&env[0][j], content, type));
 		j++;
 	}
+	ft_printf("ayo");
 	if (create_var(content, env, type) <= 0)
 		return (ft_free(var), FAILURE);
 	return (ft_free(var), SUCCESS);
