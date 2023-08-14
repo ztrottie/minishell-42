@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   open_redirection.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:20:56 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/08/14 17:20:57 by ztrottie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/redirection.h"
 
 static int	redirection_choice(t_data *data, t_red *red, t_files *file)

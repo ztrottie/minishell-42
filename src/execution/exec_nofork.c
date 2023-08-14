@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_nofork.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:19:42 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/08/14 17:19:43 by ztrottie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/execution.h"
 
-static int call_exit(t_data *data)
+static int	call_exit(t_data *data)
 {
 	int		tmp;
 	char	**content;

@@ -22,7 +22,7 @@ READLINE		=	readline/libreadline.a
 HISTORY			=	readline/libhistory.a
 
 CC				=	gcc
-CFLAGS			=	-Wextra -Wall -Werror
+CFLAGS			=	-Wextra -Wall -Werror -g
 LIBFT			=	$(LIBFT_DIR)libft.a
 
 PROMPT_SRCS			=	minishell.c
@@ -169,13 +169,6 @@ $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
 
 libft:
-	@if [ ! -d "$(LIBFT_DIR)" ]; then \
-        echo "libft directory does not exist, cloning..."; \
-        git clone -q git@github.com:ztrottie/libft.git $(LIBFT_DIR); \
-    else \
-        echo "libft directory already exists, pulling latest version..."; \
-        cd $(LIBFT_DIR) && git pull; \
-	fi
 	@$(MAKE) -sC $(LIBFT_DIR)
 
 built-in:
@@ -194,6 +187,6 @@ fclean: clean
 re: fclean all
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=$(PWD)/supp.txt ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.txt ./minishell
 
 .PHONY:	all clean fclean re libft

@@ -1,24 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   len_control.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:16:53 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/08/14 17:16:54 by ztrottie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/parsing.h"
+
+static size_t	valid_name(t_data *data, char *name)
+{
+	char	*content;
+	size_t	len;
+
+	content = env_variable(data, name);
+	len = ft_strlen(content);
+	ft_free(content);
+	return (len);
+}
 
 static size_t	variable_len_control(t_data *data, t_line *line)
 {
 	char	*name;
-	char	*content;
 	char	*exit_code;
 	size_t	len;
 
 	line->i_line++;
 	name = variable_name(line->line + line->i_line);
-	content = NULL;
 	exit_code = NULL;
 	len = 1;
 	if (line->line[line->i_line] && line->line[line->i_line] != ' ')
 	{
 		if (name)
-		{
-			content = env_variable(data, name);
-			len = ft_strlen(content);
-		}
+			len = valid_name(data, name);
 		else if (line->line[line->i_line] == '?')
 		{
 			exit_code = ft_itoa(data->exit_code);
@@ -29,7 +47,7 @@ static size_t	variable_len_control(t_data *data, t_line *line)
 		}
 	}
 	line->i_line += ft_strlen(name);
-	return (ft_free(name), ft_free(content), len);
+	return (ft_free(name), len);
 }
 
 static size_t	quote_len_control(t_data *data, t_line *line, int quote)

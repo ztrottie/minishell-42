@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_cmd_path.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 17:19:50 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/08/14 17:19:51 by ztrottie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/execution.h"
 
 static int	get_given_path(t_data *data, int cmd_nb, char **path)
 {
 	struct stat	info;
-	
+
 	*path = ft_strdup(data->cmds[cmd_nb].name);
 	if (!*path)
 		return (FAILURE);
