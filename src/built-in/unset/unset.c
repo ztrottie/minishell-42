@@ -61,7 +61,6 @@ static void	unset_var(char **content, char ***env, int i, int j)
 int	ft_unset(char **content, char ***env)
 {
 	int	i;
-	int	j;
 	int	exit_code;
 
 	i = 1;
@@ -69,11 +68,8 @@ int	ft_unset(char **content, char ***env)
 	while (content[i])
 	{
 		if (parse_var(content[i], &exit_code))
-		{
-			j = 0;
-			unset_var(content, env, i, j);
-			i++;
-		}
+			unset_var(content, env, i, 0);
+		i++;
 	}
 	return (exit_code);
 }
