@@ -16,29 +16,33 @@ static char	*get_path_name(char **env, char *name)
 	return (NULL);
 }
 
-static int	go_to_home(char **env)
+static int	go_to_home(char ***env)
 {
 	char	*dir;
 	int		ch_dir;
+	char	*tmp_pwd;
 
 	dir = NULL;
 	if (*env)
-		dir = get_path_name(env, "HOME=");
+		dir = get_path_name(*env, "HOME=");
 	if (!dir || !*dir)
 	{
 		ft_printf_fd(2, "minishell: cd: HOME not set\n");
 		return (1);
 	}
+	tmp_pwd = getcwd(NULL, 0);
 	ch_dir = chdir(dir);
 	if (ch_dir)
 	{
 		ft_printf_fd(2, "minishell: cd: %s is not a directory\n", dir);
 		return (1);
 	}
+	change_old_pwd(env, tmp_pwd);
+	change_pwd(env);
 	return (ch_dir);
 }
 
-static int	go_to_dir(char *content, char **env)
+static int	go_to_dir(char *content, char ***env)
 {
 	int		ch_dir;
 	char	*temp;
@@ -46,7 +50,7 @@ static int	go_to_dir(char *content, char **env)
 
 	if (ft_strncmp(content, "-", 2) == 0)
 	{
-		temp = get_path_name(env, "OLDPWD=");
+		temp = get_path_name(*env, "OLDPWD=");
 		if (temp)
 			content = temp;
 		else
@@ -62,8 +66,8 @@ static int	go_to_dir(char *content, char **env)
 		ft_printf_fd(2, "minishell: cd: %s is not a directory\n", content);
 		return (1);
 	}
-	change_old_pwd(&env, tmp_pwd);
-	change_pwd(&env);
+	change_old_pwd(env, tmp_pwd);
+	change_pwd(env);
 	return (ch_dir);
 }
 
@@ -73,6 +77,6 @@ int	cd(char **av, char ***env)
 
 	len = ft_x2strlen(av);
 	if (len == 1)
-		return (go_to_home(*env));
-	return (go_to_dir(av[1], *env));
+		return (go_to_home(env));
+	return (go_to_dir(av[1], env));
 }

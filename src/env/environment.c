@@ -5,7 +5,7 @@ int	cpy_env(t_data *data, char **env)
 	int	i;
 
 	i = 0;
-	data->env = ft_calloc(ft_x2strlen(env) + 1, sizeof(char *));
+	data->env = ft_calloc(ft_x2strlen(env) + 2, sizeof(char *));
 	if (!data->env)
 		return (print_error("malloc"), FAILURE);
 	while (env[i])
