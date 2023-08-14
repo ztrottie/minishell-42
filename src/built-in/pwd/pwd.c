@@ -2,8 +2,15 @@
 
 int	pwd(void)
 {
-	if (getcwd(NULL, 0) == NULL)
-		return (FAILURE);
-	ft_printf("%s\n", getcwd(NULL, 0));
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		perror("minishell:");
+		return (1);
+	}
+	ft_printf("%s\n", pwd);
+	ft_free(pwd);
 	return (SUCCESS);
 }
