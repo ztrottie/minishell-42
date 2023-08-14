@@ -25,7 +25,7 @@ int	exec_nofork(t_data *data)
 		fd = 1;
 	sig_handler_c(false);
 	if (ft_strcmp(data->cmds->name, "export") == 0)
-		data->exit_code = ft_export(data->cmds->content, &data->env, false, fd);
+		data->exit_code = ft_export(data->cmds->content, &data->env, fd);
 	if (ft_strcmp(data->cmds->name, "unset") == 0)
 		data->exit_code = ft_unset(data->cmds->content, &data->env);
 	if (ft_strcmp(data->cmds->name, "cd") == 0)

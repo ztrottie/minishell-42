@@ -67,7 +67,7 @@ static int	export_var(char *content, char ***env)
 	return (ft_free(var), SUCCESS);
 }
 
-int	ft_export(char **argv, char ***env, bool fork, int fd)
+int	ft_export(char **argv, char ***env, int fd)
 {
 	int	i;
 	int	exit_code;
@@ -85,5 +85,5 @@ int	ft_export(char **argv, char ***env, bool fork, int fd)
 			i++;
 		}
 	}
-	return (exit_or_return(fork, exit_code));
+	return (exit_code);
 }
