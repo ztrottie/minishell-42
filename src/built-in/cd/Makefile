@@ -10,7 +10,8 @@ CFLAGS		=		-Wextra -Wall -Werror
 LIBFT		=		$(LIBFT_DIR)libft.a
 
 SRCS		=		cd.c \
-					main.c
+					main.c \
+					cd_utils.c
 
 OBJS		=		$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 EXPORT_OBJS =		$(EXPORT_OBJS_DIR)create_var.o \
