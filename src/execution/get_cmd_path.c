@@ -6,7 +6,10 @@ static int	get_given_path(t_data *data, int cmd_nb, char **path)
 	if (!*path)
 		return (FAILURE);
 	if (access(data->cmds[cmd_nb].name, F_OK | X_OK) < 0)
+	{
+		ft_free(*path);
 		path_error(data, cmd_nb, errno, NULL);
+	}
 	return (SUCCESS);
 }
 

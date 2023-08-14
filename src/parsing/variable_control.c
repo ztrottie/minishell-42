@@ -21,7 +21,7 @@ static int	env_varaible_control(t_data *data, t_lines *lines)
 		}
 	}
 	lines->i_line += ft_strlen(name);
-	return (ft_free(name), SUCCESS);
+	return (ft_free(var_content), ft_free(name), SUCCESS);
 }
 
 static int	exit_variable_control(t_data *data, t_lines *lines)
@@ -40,7 +40,7 @@ static int	exit_variable_control(t_data *data, t_lines *lines)
 		i++;
 	}
 	lines->i_line++;
-	return (SUCCESS);
+	return (ft_free(exit_code), SUCCESS);
 }
 
 int	variable_control(t_data *data, t_lines *lines, int quote)

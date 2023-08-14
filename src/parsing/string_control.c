@@ -28,6 +28,7 @@ static int	init_content(t_data *data, t_lines *lines)
 	if (!lines->parsed_line)
 		return (print_error("malloc"), FAILURE);
 	lines->i_parsed_line = 0;
+	lines->prev_type = 0;
 	return (SUCCESS);
 }
 

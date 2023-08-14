@@ -5,7 +5,7 @@ int	init_parsed_line(t_data *data, t_lines *lines, int type)
 	size_t	len;
 
 	len = parsed_line_len(data, lines, type);
-	lines->parsed_line = ft_calloc(len + 1, sizeof(char));
+	lines->parsed_line = ft_calloc(len + 2, sizeof(char));
 	if (!lines->parsed_line)
 		return (print_error("malloc"), FAILURE);
 	lines->i_parsed_line = 0;

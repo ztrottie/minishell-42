@@ -18,7 +18,7 @@ int	std_exec(t_data *data)
 	sig_handler_p(true, false);
 	while (cmd_nb < data->nb_pipe + 1)
 	{
-		if (data->cmds[cmd_nb].name[0])
+		if (data->cmds[cmd_nb].name && data->cmds[cmd_nb].name[0])
 		{
 			pid = fork();
 			if (pid < 0)

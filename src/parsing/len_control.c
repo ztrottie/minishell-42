@@ -3,27 +3,33 @@
 static size_t	variable_len_control(t_data *data, t_line *line)
 {
 	char	*name;
+	char	*content;
 	char	*exit_code;
 	size_t	len;
 
 	line->i_line++;
-	name = NULL;
+	name = variable_name(line->line + line->i_line);
+	content = NULL;
+	exit_code = NULL;
 	len = 1;
 	if (line->line[line->i_line] && line->line[line->i_line] != ' ')
 	{
-		name = variable_name(line->line + line->i_line);
 		if (name)
-			len = ft_strlen(env_variable(data, name));
+		{
+			content = env_variable(data, name);
+			len = ft_strlen(content);
+		}
 		else if (line->line[line->i_line] == '?')
 		{
 			exit_code = ft_itoa(data->exit_code);
 			if (!exit_code)
-				return (0);
+				return (ft_free(name), 0);
 			len = ft_strlen(exit_code);
+			ft_free(exit_code);
 		}
 	}
 	line->i_line += ft_strlen(name);
-	return (ft_free(name), len);
+	return (ft_free(name), ft_free(content), len);
 }
 
 static size_t	quote_len_control(t_data *data, t_line *line, int quote)
