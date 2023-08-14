@@ -1,6 +1,6 @@
 #include "exit.h"
 
-int	ft_exit(int ac, char **av, long long exit_code)
+int	ft_exit(int ac, char **av, long long exit_code, bool fork)
 {
 	if (ac > 2)
 	{
@@ -18,6 +18,7 @@ int	ft_exit(int ac, char **av, long long exit_code)
 		}
 	}
 	exit_code = (unsigned)(int8_t)exit_code;
-	ft_printf("exit\n");
+	if (fork)
+		ft_x2free((void **)av);
 	exit(exit_code);
 }

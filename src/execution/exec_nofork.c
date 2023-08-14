@@ -1,5 +1,28 @@
 #include "../../include/execution.h"
 
+static int call_exit(t_data *data)
+{
+	int		tmp;
+	char	**content;
+	size_t	len;
+	int		i;
+
+	len = ft_x2strlen(data->cmds->content);
+	tmp = data->exit_code;
+	content = ft_calloc(len + 1, sizeof(char *));
+	if (!content)
+		return (print_error("malloc"), FAILURE);
+	i = 0;
+	while (data->cmds->content[i])
+	{
+		content[i] = ft_strdup(data->cmds->content[i]);
+		i++;
+	}
+	free_all(data, true);
+	ft_exit(len, content, tmp, true);
+	return (SUCCESS);
+}
+
 int	check_builtin_nofork(t_data *data)
 {
 	if (ft_strcmp(data->cmds->name, "export") == 0)
@@ -31,7 +54,6 @@ int	exec_nofork(t_data *data)
 	if (ft_strcmp(data->cmds->name, "cd") == 0)
 		data->exit_code = cd(data->cmds->content, &data->env);
 	if (ft_strcmp(data->cmds->name, "exit") == 0)
-		data->exit_code = ft_exit(ft_x2strlen(data->cmds->content), \
-		data->cmds->content, data->exit_code);
+		call_exit(data);
 	return (SUCCESS);
 }
