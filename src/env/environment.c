@@ -10,7 +10,7 @@ int	cpy_env(t_data *data, char **env)
 		return (print_error("malloc"), FAILURE);
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], "OLDPWD=", 7) != 0)
+		if (ft_strncmp(env[i], "OLDPWD=", 8) != 0)
 		{
 			data->env[i] = ft_calloc(ft_strlen(env[i]) + 1, sizeof(char));
 			if (!data->env[i])
