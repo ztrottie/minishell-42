@@ -25,7 +25,7 @@ static void	change_old_pwd(char ***env)
 	new_op = getcwd(NULL, 0);
 	old_pwd[0] = ft_strdup("fuck you criss de fif");
 	old_pwd[1] = ft_strjoin("OLDPWD=", new_op);
-	ft_export(old_pwd, env, false, 1);
+	ft_export(old_pwd, env, false, 0);
 	ft_x2free((void **)old_pwd);
 }
 

@@ -18,14 +18,17 @@ int	std_exec(t_data *data)
 	sig_handler_p(true, false);
 	while (cmd_nb < data->nb_pipe + 1)
 	{
-		pid = fork();
-		if (pid < 0)
-			return (print_error("fork"), FAILURE);
-		else if (pid == 0)
-			child_process(data, cmd_nb);
-		else
-			if (pid_add_end(&data->pid_list, pid) <= 0)
-				break ;
+		if (data->cmds[cmd_nb].name[0])
+		{
+			pid = fork();
+			if (pid < 0)
+				return (print_error("fork"), FAILURE);
+			else if (pid == 0)
+				child_process(data, cmd_nb);
+			else
+				if (pid_add_end(&data->pid_list, pid) <= 0)
+					break ;
+		}
 		cmd_nb++;
 	}
 	if (parent_process(data) <= 0)

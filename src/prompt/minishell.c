@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 		if (ft_strlen(line) > 0)
 		{
 			if (parsing(line, &data) == SUCCESS)
-				if (redirection_main(&data, STD))
+				if (redirection_main(&data, STD) == SUCCESS)
 					exec_main(&data);
 		}
 		add_history(line);
