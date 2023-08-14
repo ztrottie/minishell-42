@@ -32,6 +32,7 @@
 		"built_in.h": "c",
 		"minishell.h": "c",
 		"system_error": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"exit.h": "c"
 	}
 }
