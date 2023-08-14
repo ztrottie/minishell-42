@@ -124,5 +124,6 @@ Temporary Items
 #Others
 bin/
 minishell
+.vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,c,macos,visualstudiocode
