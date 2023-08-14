@@ -2,9 +2,18 @@
 
 static int	get_given_path(t_data *data, int cmd_nb, char **path)
 {
+	struct stat	info;
+	
 	*path = ft_strdup(data->cmds[cmd_nb].name);
 	if (!*path)
 		return (FAILURE);
+	if (stat(data->cmds[cmd_nb].name, &info) < 0)
+		return (FAILURE);
+	if (S_ISDIR(info.st_mode))
+	{
+		ft_free(*path);
+		path_error(data, cmd_nb, EISDIR, NULL);
+	}
 	if (access(data->cmds[cmd_nb].name, F_OK | X_OK) < 0)
 	{
 		ft_free(*path);

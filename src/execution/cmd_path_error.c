@@ -15,6 +15,12 @@ void	path_error(t_data *data, int cmd_nb, int type, char **splited_path)
 		perror(data->cmds[cmd_nb].name);
 		exit_child(data, 126);
 	}
+	else if (type == EISDIR)
+	{
+		errno = EISDIR;
+		perror(data->cmds[cmd_nb].name);
+		exit_child(data, 126);
+	}
 	else
 	{
 		if (type == COMMAND_NOT_FOUND)
