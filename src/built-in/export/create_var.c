@@ -70,7 +70,7 @@ int	create_var(char *content, char ***env, int type)
 		return (FAILURE);
 	if (init_var(content, &new_env, len, type) <= 0)
 		return (FAILURE);
-	ft_x2free((void **)env[0]);
 	env[0] = new_env;
+	ft_x2free((void **)new_env);
 	return (SUCCESS);
 }
