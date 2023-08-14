@@ -14,7 +14,7 @@ static void	default_sig(int sig)
 	(void)sig;
 	ft_printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 1);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

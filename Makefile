@@ -74,7 +74,8 @@ ERROR_SRCS			=	error.c
 
 SIGNAL_SRCS			=	sig_handler.c
 
-CD_SRCS				=	cd.c
+CD_SRCS				=	cd.c \
+						cd_utils.c
 
 EXPORT_SRCS			=	export_utils.c \
 						export.c \

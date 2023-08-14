@@ -52,7 +52,7 @@ int	wait_pid_list(t_data *data)
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			data->exit_code = WTERMSIG(status);
+			data->exit_code = WTERMSIG(status) + 128;
 		ptr = ptr->next;
 	}
 	return (SUCCESS);
