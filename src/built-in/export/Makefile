@@ -5,7 +5,7 @@ LIBFT_DIR	=	../../../libft/
 EXEC_DIR	=	/tmp/minishell/
 
 CC			=	gcc
-CFLAGS		=	-Wextra -Wall -Werror
+CFLAGS		=	-Wextra -Wall -Werror -g
 LIBFT		=	$(LIBFT_DIR)libft.a
 
 SRCS		=	export.c \
@@ -13,7 +13,6 @@ SRCS		=	export.c \
 				main.c \
 				create_var.c \
 				export_type.c \
-				ft_exit.c \
 				print_export.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})

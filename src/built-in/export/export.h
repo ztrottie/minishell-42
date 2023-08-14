@@ -8,7 +8,7 @@
 # define ADD 10
 # define TRUNC 11
 
-int		ft_export(char **argv, char ***env, bool fork, int fd);
+int		ft_export(char **argv, char ***env, int fd);
 int		exit_or_return(bool fork, int exit_code);
 void	export_env(char **env, int fd);
 char	**cpy_environement(char **cpy_env);

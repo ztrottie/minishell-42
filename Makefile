@@ -79,7 +79,6 @@ CD_SRCS				=	cd.c \
 
 EXPORT_SRCS			=	export_utils.c \
 						export.c \
-						ft_exit.c \
 						print_export.c \
 						create_var.c \
 						export_type.c

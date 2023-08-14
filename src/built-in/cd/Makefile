@@ -18,7 +18,6 @@ EXPORT_OBJS =		$(EXPORT_OBJS_DIR)create_var.o \
 					$(EXPORT_OBJS_DIR)export_type.o \
 					$(EXPORT_OBJS_DIR)export_utils.o \
 					$(EXPORT_OBJS_DIR)export.o \
-					$(EXPORT_OBJS_DIR)ft_exit.o \
 					$(EXPORT_OBJS_DIR)print_export.o
 
 $(BIN_DIR)%.o: ./%.c
