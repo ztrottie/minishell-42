@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:55 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:17:56 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:42:05 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_if_option(char **content)
 
 	i = 1;
 	count = 0;
-	while (content[i])
+	while (content[i] && content[i][0] == '-')
 	{
 		j = 1;
 		if (ft_strncmp("-n", content[i], 2) == 0)
