@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:20:37 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/15 12:33:06 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:31:49 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,42 @@ static int	init_data(int argc, char **argv, char **env, t_data *data)
 	return (SUCCESS);
 }
 
-int	main(int argc, char **argv, char **env)
+static int	run_minishell(t_data *data)
 {
 	char	*line;
+
+	data->nb_pipe = 0;
+	sig_handler_p(false, true);
+	line = readline("minishell> ");
+	if (g_exit_code > 0)
+	{
+		data->exit_code = 1;
+		g_exit_code = 0;
+	}
+	sig_handler_p(false, false);
+	if (!line)
+		return (INVALID);
+	if (ft_strlen(line) > 0)
+	{
+		if (parsing(line, data) == SUCCESS)
+			if (redirection_main(data, STD) == SUCCESS)
+				exec_main(data);
+	}
+	add_history(line);
+	free_all(data, false);
+	return (VALID);
+}
+
+int	main(int argc, char **argv, char **env)
+{
 	t_data	data;
 
 	if (init_data(argc, argv, env, &data) <= 0)
 		return (FAILURE);
 	while (1)
 	{
-		data.nb_pipe = 0;
-		sig_handler_p(false, true);
-		line = readline("minishell> ");
-		if (g_exit_code > 0)
-		{
-			data.exit_code = 1;
-			g_exit_code = 0;
-		}
-		sig_handler_p(false, false);
-		if (!line)
+		if (run_minishell(&data) == INVALID)
 			break ;
-		if (ft_strlen(line) > 0)
-		{
-			if (parsing(line, &data) == SUCCESS)
-				if (redirection_main(&data, STD) == SUCCESS)
-					exec_main(&data);
-		}
-		add_history(line);
-		free_all(&data, false);
 	}
 	free_all(&data, true);
 	ft_printf("exit\n");

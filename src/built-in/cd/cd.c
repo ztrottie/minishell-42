@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:46 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/15 12:14:06 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:34:42 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,37 @@ static int	go_to_home(char ***env, t_data *data)
 	return (ch_dir);
 }
 
-static int	go_to_dir(char *content, char ***env, t_data *data)
+static int	go_to_oldpwd(char **content, char **env)
 {
-	int		ch_dir;
 	char	*temp;
-	char	*tmp_pwd;
 
-	if (ft_strncmp(content, "-", 2) == 0)
+	temp = get_path_name(env, "OLDPWD=");
+	if (temp)
 	{
-		temp = get_path_name(*env, "OLDPWD=");
-		if (temp)
+		*content = temp;
+		if (access(*content, F_OK) < 0)
 		{
-			content = temp;
-			if (access(content, F_OK) < 0)
-			{
-				ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n", content);
-				return (1);
-			}
-		}
-		else
-		{
-			ft_printf_fd(2, "minishell: cd: OLDPWD not set\n");
+			ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n", \
+			*content);
 			return (1);
 		}
 	}
+	else
+	{
+		ft_printf_fd(2, "minishell: cd: OLDPWD not set\n");
+		return (1);
+	}
+	return (0);
+}
+
+static int	go_to_dir(char *content, char ***env, t_data *data)
+{
+	int		ch_dir;
+	char	*tmp_pwd;
+
+	if (ft_strncmp(content, "-", 2) == 0)
+		if (go_to_oldpwd(&content, *env) > 0)
+			return (1);
 	tmp_pwd = getcwd(NULL, 0);
 	ch_dir = chdir(content);
 	if (ch_dir)

@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:44 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/15 12:16:27 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:33:03 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ void	change_pwd(char ***env, t_data *data)
 	pwd = ft_calloc(3, sizeof(char *));
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
-		ft_printf_fd(2, "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+	{
+		ft_printf_fd(2, "cd: error retrieving current directory: ");
+		ft_printf_fd(2, "getcwd: cannot access parent ");
+		ft_printf_fd(2, "directories: No such file or directory\n");
+	}
 	if (data != NULL && new_pwd != NULL)
 	{
 		ft_free(data->pwd[1]);
