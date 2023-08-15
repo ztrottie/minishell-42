@@ -6,23 +6,14 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:50:35 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:50:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:29:00 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pwd.h"
 
-int	pwd(void)
+int	pwd(char **argv)
 {
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-	{
-		perror("minishell:");
-		return (1);
-	}
-	ft_printf("%s\n", pwd);
-	ft_free(pwd);
+	ft_printf("%s\n", argv[1]);
 	return (SUCCESS);
 }

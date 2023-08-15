@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:18:43 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:51:14 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 10:48:30 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "../../../include/minishell.h"
 
-int	pwd(void);
+int	pwd(char **argv);
 
 #endif

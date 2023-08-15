@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:46 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:17:47 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:14:06 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*get_path_name(char **env, char *name)
 	return (NULL);
 }
 
-static int	go_to_home(char ***env)
+static int	go_to_home(char ***env, t_data *data)
 {
 	char	*dir;
 	int		ch_dir;
@@ -50,11 +50,11 @@ static int	go_to_home(char ***env)
 		return (1);
 	}
 	change_old_pwd(env, tmp_pwd);
-	change_pwd(env);
+	change_pwd(env, data);
 	return (ch_dir);
 }
 
-static int	go_to_dir(char *content, char ***env)
+static int	go_to_dir(char *content, char ***env, t_data *data)
 {
 	int		ch_dir;
 	char	*temp;
@@ -64,7 +64,14 @@ static int	go_to_dir(char *content, char ***env)
 	{
 		temp = get_path_name(*env, "OLDPWD=");
 		if (temp)
+		{
 			content = temp;
+			if (access(content, F_OK) < 0)
+			{
+				ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n", content);
+				return (1);
+			}
+		}
 		else
 		{
 			ft_printf_fd(2, "minishell: cd: OLDPWD not set\n");
@@ -79,16 +86,16 @@ static int	go_to_dir(char *content, char ***env)
 		return (1);
 	}
 	change_old_pwd(env, tmp_pwd);
-	change_pwd(env);
+	change_pwd(env, data);
 	return (ch_dir);
 }
 
-int	cd(char **av, char ***env)
+int	cd(char **av, char ***env, t_data *data)
 {
 	int		len;
 
 	len = ft_x2strlen(av);
 	if (len == 1)
-		return (go_to_home(env));
-	return (go_to_dir(av[1], env));
+		return (go_to_home(env, data));
+	return (go_to_dir(av[1], env, data));
 }

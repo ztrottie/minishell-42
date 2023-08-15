@@ -6,11 +6,13 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:21:01 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:21:02 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:30:12 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/signal.h"
+
+int	g_exit_code = 0;
 
 static void	sig_hd(int sig)
 {
@@ -28,6 +30,7 @@ static void	default_sig(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_exit_code = 1;
 }
 
 static void	back_slash(int sig)

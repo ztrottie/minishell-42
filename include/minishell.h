@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:28 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:17:29 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:00:37 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ typedef struct s_data
 	t_cmds		*cmds;
 	bool		token_error;
 	char		**env;
+	char		**pwd;
 	size_t		nb_pipe;
 	int			exit_code;
 	struct stat	info_last_hd;
 	t_pid_list	*pid_list;
-	t_export	*export;
 }	t_data;
 
 #endif

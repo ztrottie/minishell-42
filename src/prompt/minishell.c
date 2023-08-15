@@ -6,11 +6,13 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:20:37 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:20:38 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:33:06 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/prompt.h"
+
+extern int	g_exit_code;
 
 static int	init_data(int argc, char **argv, char **env, t_data *data)
 {
@@ -19,6 +21,11 @@ static int	init_data(int argc, char **argv, char **env, t_data *data)
 	ft_bzero(data, sizeof(t_data));
 	if (cpy_env(data, env) <= 0)
 		return (FAILURE);
+	data->pwd = ft_calloc(3, sizeof(char *));
+	if (!data->pwd)
+		return (FAILURE);
+	data->pwd[0] = ft_strdup("pwd");
+	data->pwd[1] = getcwd(NULL, 0);
 	return (SUCCESS);
 }
 
@@ -34,6 +41,11 @@ int	main(int argc, char **argv, char **env)
 		data.nb_pipe = 0;
 		sig_handler_p(false, true);
 		line = readline("minishell> ");
+		if (g_exit_code > 0)
+		{
+			data.exit_code = 1;
+			g_exit_code = 0;
+		}
 		sig_handler_p(false, false);
 		if (!line)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:19:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:19:43 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:08:52 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	exec_nofork(t_data *data)
 	if (ft_strcmp(data->cmds->name, "unset") == 0)
 		data->exit_code = ft_unset(data->cmds->content, &data->env);
 	if (ft_strcmp(data->cmds->name, "cd") == 0)
-		data->exit_code = cd(data->cmds->content, &data->env);
+		data->exit_code = cd(data->cmds->content, &data->env, data);
 	if (ft_strcmp(data->cmds->name, "exit") == 0)
 		call_exit(data);
 	return (SUCCESS);

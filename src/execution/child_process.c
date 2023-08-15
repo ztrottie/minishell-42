@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:19:37 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:19:38 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:28:55 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ static int	get_cmd_type(char *cmd_name)
 		return (GIVEN);
 }
 
+static void	exec_command(t_data *data, int cmd_nb, int type, char *path)
+{
+	if (type == BUILTIN && ft_strncmp(data->cmds[cmd_nb].name, "pwd", 3) == 0)
+	{
+		if (execve(path, data->pwd, data->env) < 0)
+			perror("EXECVE");
+	}
+	else
+	{
+		if (execve(path, data->cmds[cmd_nb].content, data->env) < 0)
+			perror("EXECVE");
+	}
+}
+
 int	child_process(t_data *data, int cmd_nb)
 {
 	int		type;
@@ -72,8 +86,7 @@ int	child_process(t_data *data, int cmd_nb)
 		if (get_cmd_path(data, cmd_nb, type, &path) <= 0)
 			exit_child(data, 1);
 		free_child(data, cmd_nb);
-		if (execve(path, data->cmds[cmd_nb].content, data->env) < 0)
-			perror("EXECVE");
+		exec_command(data, cmd_nb, type, path);
 		ft_free(path);
 		ft_x2free((void **)data->cmds[cmd_nb].content);
 		ft_x2free((void **)data->env);

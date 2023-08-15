@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:20:48 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:20:49 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:32:46 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ void	free_all(t_data *data, bool all)
 		free_cmds(data);
 	free_pid_list(data);
 	if (all)
+	{
+		ft_x2free((void **)data->pwd);
 		ft_x2free((void **)data->env);
+	}
 }

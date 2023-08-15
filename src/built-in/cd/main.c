@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:17:51 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/14 17:17:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/15 10:43:13 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	cpy_env = cpy_envi(env);
-	cd(av, &cpy_env);
+	cd(av, &cpy_env, NULL);
 	ft_x2free((void **)cpy_env);
 	return (0);
 }
