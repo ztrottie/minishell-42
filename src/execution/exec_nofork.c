@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:19:42 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/15 11:08:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:31:46 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,20 @@
 
 static int	call_exit(t_data *data)
 {
-	int		tmp;
-	char	**content;
-	size_t	len;
-	int		i;
+	long long	tmp;
+	size_t		len;
+	int			i;
 
 	len = ft_x2strlen(data->cmds->content);
 	tmp = data->exit_code;
-	content = ft_calloc(len + 1, sizeof(char *));
-	if (!content)
-		return (print_error("malloc"), FAILURE);
 	i = 0;
-	while (data->cmds->content[i])
+	if (ft_exit(len, data->cmds->content, &tmp) <= 0)
+		data->exit_code = 1;
+	else
 	{
-		content[i] = ft_strdup(data->cmds->content[i]);
-		i++;
+		free_all(data, true);
+		exit(tmp);
 	}
-	free_all(data, true);
-	ft_exit(len, content, tmp, true);
 	return (SUCCESS);
 }
 
