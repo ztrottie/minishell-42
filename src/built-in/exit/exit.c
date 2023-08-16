@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:18:11 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/08/16 10:32:01 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:37:14 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int	ft_exit(int ac, char **av, long long *exit_code)
 		}
 	}
 	*exit_code = (unsigned)(int8_t)*exit_code;
-	return(SUCCESS);
+	return (SUCCESS);
 }
